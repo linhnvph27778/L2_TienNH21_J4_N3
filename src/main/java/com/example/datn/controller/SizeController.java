@@ -17,7 +17,6 @@ public class SizeController {
         size.setSoSize(41);
         size.setMa("size1");
         sizeRepo.save(size);
-        System.out.print("NhanPham");
         model.addAttribute("list",sizeRepo.findAll());
         System.out.print("asb");
         System.out.print("asb");
