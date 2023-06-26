@@ -24,6 +24,7 @@ public class SizeController {
         System.out.print("NhanPham");
         System.out.print("NhanPham");
         System.out.print("NhanPham");
+        System.out.print("NhanPham");
         return "index";
     }
 }
