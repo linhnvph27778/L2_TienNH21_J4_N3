@@ -20,7 +20,6 @@ public class SizeController {
         sizeRepo.save(size);
         model.addAttribute("list",sizeRepo.findAll());
         System.out.print("asb");
-        System.out.print("asb");
         return "index";
     }
 }
