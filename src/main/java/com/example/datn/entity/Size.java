@@ -36,4 +36,39 @@ public class Size {
 
     @Column(name = "TrangThai")
     private int trangThai;
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public String getMa() {
+		return ma;
+	}
+
+	public void setMa(String ma) {
+		this.ma = ma;
+	}
+
+	public int getSoSize() {
+		return soSize;
+	}
+
+	public void setSoSize(int soSize) {
+		this.soSize = soSize;
+	}
+
+	public int getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(int trangThai) {
+		this.trangThai = trangThai;
+	}
+    
+    
+    
 }
