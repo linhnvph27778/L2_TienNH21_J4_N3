@@ -21,6 +21,7 @@ public class SizeController {
         System.out.print("asb");
         System.out.print("asb");
         System.out.print("NhanPham");
+        System.out.print("NhanPham");
         return "index";
     }
 }
