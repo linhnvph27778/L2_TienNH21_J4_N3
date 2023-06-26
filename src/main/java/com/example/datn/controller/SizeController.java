@@ -2,7 +2,6 @@ package com.example.datn.controller;
 
 import com.example.datn.entity.Size;
 import com.example.datn.repository.SizeRepo;
-import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +19,10 @@ public class SizeController {
         sizeRepo.save(size);
         model.addAttribute("list",sizeRepo.findAll());
         System.out.print("asb");
+        System.out.print("asb");
+        System.out.print("NhanPham");
+        System.out.print("NhanPham");
+        System.out.print("NhanPham");
         return "index";
     }
 }
