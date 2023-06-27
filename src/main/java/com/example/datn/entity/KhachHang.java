@@ -1,5 +1,6 @@
 package com.example.datn.entity;
 
+import com.example.datn.viewModel.KhachHangViewModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -60,4 +61,17 @@ public class KhachHang {
     @ManyToOne
     @JoinColumn(name = "idDiaChi")
     private DiaChi diaChi;
+
+    public void loadFormViewModel(KhachHangViewModel KhachHangViewModel){
+        this.setMa(KhachHangViewModel.getMa());
+        this.setHoTen(KhachHangViewModel.getHoTen());
+        this.setNgaySinh(KhachHangViewModel.getNgaySinh());
+        this.setSdt(KhachHangViewModel.getSdt());
+        this.setTrangThai(KhachHangViewModel.getTrangThai());
+        this.setEmail(KhachHangViewModel.getEmail());
+        this.setPass(KhachHangViewModel.getPass());
+        this.setSoLanMua(KhachHangViewModel.getSoLanMua());
+        this.setLoaiKhachHang(KhachHangViewModel.getLoaiKhachHang());
+//        this.setDiaChi(KhachHangViewModel.getDiaChi());
+    }
 }
