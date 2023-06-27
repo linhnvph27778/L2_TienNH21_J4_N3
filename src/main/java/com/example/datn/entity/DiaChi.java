@@ -36,7 +36,7 @@ public class DiaChi {
     private String thanhPho;
 
     @Column(name = "QuacGia")
-    private String quacGia;
+    private String quocGia;
 
     @Column(name = "GhiChu")
     private String ghiChu;
