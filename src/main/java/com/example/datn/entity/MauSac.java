@@ -1,5 +1,6 @@
 package com.example.datn.entity;
 
+import com.example.datn.viewModel.MauSacVM;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,4 +35,13 @@ public class MauSac {
 
     @Column(name = "TrangThai")
     private int trangThai;
+
+    public void loadFromVM(MauSacVM e){
+        this.setMa(e.getMa());
+        this.setTen(e.getTen());
+        this.setTrangThai(e.getTrangThai());
+
+    }
+
+
 }
