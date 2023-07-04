@@ -1,5 +1,6 @@
 package com.example.datn.entity;
 
+import com.example.datn.viewModel.LoaiKhachHangViewModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class LoaiKhachHang {
     @Column(name = "Id")
     private UUID id;
 
-    @Column(name = "Ma")
+    @Column(name = "Ma",unique = true)
     private String ma;
 
     @Column(name = "Ten")
@@ -34,4 +35,10 @@ public class LoaiKhachHang {
 
     @Column(name = "SoDiem")
     private int soDiem;
+
+    public void loadFromVM(LoaiKhachHangViewModel LoaiKhachHangViewModel){
+        this.setMa(LoaiKhachHangViewModel.getMa());
+        this.setTen(LoaiKhachHangViewModel.getTen());
+        this.setSoDiem(LoaiKhachHangViewModel.getSoDiem());
+    }
 }
