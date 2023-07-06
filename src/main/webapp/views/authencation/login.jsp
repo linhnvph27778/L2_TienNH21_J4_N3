@@ -14,13 +14,10 @@
         background-position: center center;
         background-attachment: fixed;
     }
-
-
-
     .form {
-        background-color: #dcd5d1;
+        background-color: whitesmoke;
         display: block;
-        margin-left: 61% ;
+        margin-left: 63% ;
         margin-top: 13.5%;
         padding: 1rem;
         width: 70%;
@@ -104,49 +101,8 @@
 
     .signup-link a,
     .link_design a,
-    .forgotPassword,
-    .link_language,
-    .link_language2  {
+    .forgotPassword {
         text-decoration: underline;
-    }
-
-    .link_design {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        margin-bottom: 3%;
-        margin-right: 1%;
-        color: #000000;
-        font-size: 0.93rem;
-        line-height: 1.25rem;
-        text-align: center;
-
-    }
-
-    .link_language {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        margin-bottom: 5%;
-        margin-right: 1%;
-        color: #000000;
-        font-size: 0.93rem;
-        line-height: 1.25rem;
-        text-align: center;
-
-    }
-
-    .link_language2 {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        margin-bottom: 5%;
-        margin-right: 3%;
-        color: #000000;
-        font-size: 0.93rem;
-        line-height: 1.25rem;
-        text-align: center;
-
     }
 
     .forgotPassword {
@@ -179,14 +135,14 @@
 <body>
 
 <form action="@{/authencation/login}" class="form" method="post">
-    <p class="form-title">Login</p>
+    <p class="form-title">Login in to your account</p>
 
     <div class="input-container">
-        <input placeholder="Username" name="username" type="text">
+        <input placeholder="Username or Email" name="username" type="text">
     </div>
 
     <div class="input-container">
-        <input placeholder="" name="password" type="password" class="form-control">
+        <input name="password" type="password" class="form-control">
     </div>
 
 
@@ -194,12 +150,13 @@
         Login
     </button>
 
-    <a class="forgotPassword" href="@{/forgotPass/forgotPassword}">fogot pass</a>
+    <a class="forgotPassword" href="@{/forgotPass/forgotPassword}">Forggot Password ?</a>
 
     <p class="signup-link">
-        no Account
+        No Account ?
         <a href="@{/register}">Sign up</a>
     </p>
 </form>
+
 </body>
 </html>
