@@ -36,6 +36,15 @@ public class LoginController {
             return "index";
         }
 
+        System.out.println("Linh an cut");System.out.println("Linh an cut");
+        System.out.println("Linh an cut");System.out.println("Linh an cut");System.out.println("Linh an cut");
+        System.out.println("Linh an cut");
+
+
+
+
+
+
         return "login";
     }
 
