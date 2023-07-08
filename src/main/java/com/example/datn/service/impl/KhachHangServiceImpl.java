@@ -49,9 +49,20 @@ public class KhachHangServiceImpl implements KhachHangService {
     }
 
     @Override
-    public KhachHang checkLogin(String ma, String pass) {
-        return khachHangRepository.findByMaAndPass(ma, pass);
+    public KhachHang checkLogin(String email, String pass) {
+        return khachHangRepository.findByEmailAndPass(email, pass);
     }
+
+    @Override
+    public KhachHang checkEmail(String email) {
+        return khachHangRepository.findByEmail(email);
+    }
+
+    @Override
+    public void addNewKhachHang(KhachHang kh) {
+        khachHangRepository.save(kh);
+    }
+
 
 //    @Override
 //    public Page<KhachHang> search(String keyword, String loaiKH, int pageNo, int size) {
