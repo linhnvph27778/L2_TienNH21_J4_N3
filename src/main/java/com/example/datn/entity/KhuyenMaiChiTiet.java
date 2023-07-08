@@ -1,5 +1,6 @@
 package com.example.datn.entity;
 
+import com.example.datn.viewModel.KhuyenMaiChiTietVM;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,4 +38,9 @@ public class KhuyenMaiChiTiet {
     @ManyToOne
     @JoinColumn(name = "idChiTietGiay")
     private ChiTietGiay chiTietGiay;
+
+    public void loadFromVM(KhuyenMaiChiTietVM e){
+        this.setTrangThai(e.getTrangThai());
+
+    }
 }

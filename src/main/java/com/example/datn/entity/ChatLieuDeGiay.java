@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +29,11 @@ public class ChatLieuDeGiay {
     private UUID id;
 
     @Column(name = "Ma")
+    @NotBlank(message = "Vui lòng nhập mã")
     private String ma;
 
     @Column(name = "Ten")
+    @NotBlank(message = "Vui lòng nhập tên")
     private String ten;
 
     @Column(name = "TrangThai")

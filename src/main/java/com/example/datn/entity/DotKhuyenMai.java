@@ -1,5 +1,6 @@
 package com.example.datn.entity;
 
+import com.example.datn.viewModel.DotKhuyenMaiVM;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
 @Entity
@@ -62,4 +63,18 @@ public class DotKhuyenMai {
 
     @Column(name = "MoTa")
     private String moTa;
+
+    public void loadFromVM(DotKhuyenMaiVM e){
+        this.setMaKhuyenMai(e.getMaKhuyenMai());
+        this.setTenKhuyenMai(e.getTenKhuyenMai());
+        this.setNgayBatDau(e.getNgayBatDau());
+        this.setNgayKetThuc(e.getNgayKetThuc());
+        this.setTrangThai(e.getTrangThai());
+        this.setSoLuong(e.getSoLuong());
+        this.setPhanTram(e.getPhanTram());
+        this.setGiaTienGiam(e.getGiaTienGiam());
+        this.setLoaiKhuyenMai(e.getLoaiKhuyenMai());
+        this.setMoTa(e.getMoTa());
+
+    }
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,46 +30,48 @@ public class Size {
     private UUID id;
 
     @Column(name = "Ma")
+	@NotBlank(message = "Vui lòng nhập Mã")
     private String ma;
 
+    //
     @Column(name = "soSize")
     private int soSize;
 
     @Column(name = "TrangThai")
     private int trangThai;
 
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public String getMa() {
-		return ma;
-	}
-
-	public void setMa(String ma) {
-		this.ma = ma;
-	}
-
-	public int getSoSize() {
-		return soSize;
-	}
-
-	public void setSoSize(int soSize) {
-		this.soSize = soSize;
-	}
-
-	public int getTrangThai() {
-		return trangThai;
-	}
-
-	public void setTrangThai(int trangThai) {
-		this.trangThai = trangThai;
-	}
-    
-    
+//	public UUID getId() {
+//		return id;
+//	}
+//
+//	public void setId(UUID id) {
+//		this.id = id;
+//	}
+//
+//	public String getMa() {
+//		return ma;
+//	}
+//
+//	public void setMa(String ma) {
+//		this.ma = ma;
+//	}
+//
+//	public int getSoSize() {
+//		return soSize;
+//	}
+//
+//	public void setSoSize(int soSize) {
+//		this.soSize = soSize;
+//	}
+//
+//	public int getTrangThai() {
+//		return trangThai;
+//	}
+//
+//	public void setTrangThai(int trangThai) {
+//		this.trangThai = trangThai;
+//	}
+//
+//
     
 }
