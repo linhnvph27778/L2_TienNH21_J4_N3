@@ -21,31 +21,5 @@ public class LoginController {
     @Autowired
     KhachHangRepository KHRepo;
 
-    @GetMapping("/login")
-    private String getLoginForm(){
-        return "/authencation/login";
-    }
-
-    @PostMapping("/authencation/login")
-    private String checkLogin(Model model){
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        KhachHang khachHang = KHRepo.findByMaAndPass(username, password);
-        if (khachHang != null){
-            return "index";
-        }
-
-        System.out.println("Linh an cut");System.out.println("Linh an cut");
-        System.out.println("Linh an cut");System.out.println("Linh an cut");System.out.println("Linh an cut");
-        System.out.println("Linh an cut");
-
-
-
-
-
-
-        return "login";
-    }
 
 }

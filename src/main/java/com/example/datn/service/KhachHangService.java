@@ -20,7 +20,11 @@ public interface KhachHangService {
 
     KhachHang checkMa(String ma);
 
-    KhachHang checkLogin(String ma, String pass);
+    KhachHang checkLogin(String email, String pass);
+
+    KhachHang checkEmail(String email);
+
+    void addNewKhachHang(KhachHang kh);
 
     //Page<KhachHang> search(String keyword, String loaiKH, int pageNo,int size);
 }
