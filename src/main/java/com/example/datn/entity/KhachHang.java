@@ -46,13 +46,13 @@ public class KhachHang {
     private String sdt;
 
     @Column(name = "TrangThai")
-    private int trangThai;
+    private int trangThai = 0;
 
     @Column(name = "Pass")
     private String pass;
 
     @Column(name = "SoLanMua")
-    private int soLanMua;
+    private int soLanMua = 0;
 
     @ManyToOne
     @JoinColumn(name = "idLoaiKhachHang")

@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>SNEAKER SHOP</title>
 </head>
 
 <style>
@@ -134,17 +134,23 @@
 </style>
 <body>
 
-<form action="@{/authencation/login}" class="form" method="post">
+<form action="/viewsUsers/authencation/usersLogin" class="form" method="post">
+
     <p class="form-title">Login in to your account</p>
 
     <div class="input-container">
         <input placeholder="Username or Email" name="username" type="text">
+        <span  style="color: red;">
+            <small>${messageEmailErr}</small>
+        </span>
     </div>
 
     <div class="input-container">
-        <input name="password" type="password" class="form-control">
+        <input placeholder="Password" name="password" type="password" class="form-control">
+        <span  style="color: red;">
+            <small>${messagePassErr}</small>
+        </span>
     </div>
-
 
     <button class="submit" type="submit">
         Login
@@ -154,7 +160,7 @@
 
     <p class="signup-link">
         No Account ?
-        <a href="@{/register}">Sign up</a>
+        <a href="/viewsUsers/authencation/usersRegister">Sign up</a>
     </p>
 </form>
 
