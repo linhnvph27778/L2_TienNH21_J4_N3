@@ -60,8 +60,8 @@ public class HinhAnhController {
     public String update(@PathVariable UUID id, @ModelAttribute("hinhanh") HinhAnh hinhanh) {
         HinhAnh hinhAnhDb = service.getByIdHinhAnh(id);
         if (hinhAnhDb != null) {
-            hinhAnhDb.setTen(hinhanh.getTen());
-            hinhAnhDb.setDuongDan(hinhanh.getDuongDan());
+            hinhAnhDb.setTrangThai(hinhanh.getTrangThai());
+            hinhAnhDb.setUrlImg0(hinhanh.getUrlImg0());
             hinhAnhDb.setTrangThai(hinhanh.getTrangThai());
             service.save(hinhAnhDb);
         }
