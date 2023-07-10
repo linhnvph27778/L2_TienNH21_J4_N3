@@ -4,6 +4,7 @@ import com.example.datn.entity.KhachHang;
 import com.example.datn.repository.KhachHangRepository;
 import com.example.datn.service.KhachHangService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +32,8 @@ public class UsersLoginController {
 
     @PostMapping("/usersLogin")
     private String userLogin(Model model,
-                             RedirectAttributes attributes){
+                             RedirectAttributes attributes,
+                             HttpSession session){
         String userName = req.getParameter("username");
         String passWord = req.getParameter("password");
 
@@ -54,11 +56,14 @@ public class UsersLoginController {
 
         if (khachHang != null){
             String fullName = khachHang.getHoTen();
-            model.addAttribute("fullname", fullName);
-            System.out.println(fullName);
-            attributes.addFlashAttribute("fullname", fullName);
+            session.setAttribute("UserLogged", khachHang);
+            attributes.addFlashAttribute("fullnameLogin", fullName);
+            model.addAttribute("ifFullnameLogin", true);
+            model.addAttribute("messageLoginOrSignin", false);
+            model.addAttribute("fullnameLogin", fullName);
             return "redirect:/viewsUsers/homeUser";
         }
+        model.addAttribute("messageLogin", "Gmail or Password incorrect !");
         return "/viewsUsers/authencation/usersLogin";
     }
 

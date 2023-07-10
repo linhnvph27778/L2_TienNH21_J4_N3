@@ -138,6 +138,7 @@
 
     <p class="form-title">Login in to your account</p>
 
+    <span  style="color: red;">${messageLogin}</span>
     <div class="input-container">
         <input placeholder="Username or Email" name="username" type="text">
         <span  style="color: red;">
@@ -156,7 +157,7 @@
         Login
     </button>
 
-    <a class="forgotPassword" href="@{/forgotPass/forgotPassword}">Forggot Password ?</a>
+    <a class="forgotPassword" href="/viewsUsers/authencation/usersFoggotPass">Forggot Password ?</a>
 
     <p class="signup-link">
         No Account ?
