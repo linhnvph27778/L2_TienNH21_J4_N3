@@ -54,7 +54,7 @@ public class CartController {
         Item item = new Item(
                 chiTietGiay.get().getId(),
                 chiTietGiay.get().getGiay().getTen(),
-                chiTietGiay.get().getHinhAnh().getDuongDan(),
+                chiTietGiay.get().getHinhAnh().getUrlImg0(),
                 chiTietGiay.get().getMauSac().getTen(),
                 chiTietGiay.get().getSize().getSoSize(),
                 chiTietGiay.get().getHang().getTen(),
