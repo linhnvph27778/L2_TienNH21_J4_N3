@@ -156,7 +156,7 @@
         Login
     </button>
 
-    <a class="forgotPassword" href="@{/forgotPass/forgotPassword}">Forggot Password ?</a>
+    <a class="forgotPassword" href="/viewsUsers/authencation/usersFoggotPass">Forggot Password ?</a>
 
     <p class="signup-link">
         No Account ?
