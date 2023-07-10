@@ -34,7 +34,7 @@ public class KhachHangController {
 //        model.addAttribute("list", khachHangService.getAll());
         model.addAttribute("listLKH", loaiKhachHangService.getAll());
         model.addAttribute("list", khachHangService.phanTrang(page,2));
-        return "khachhang/index";
+        return "viewManage/khachhang/index";
     }
 
     @GetMapping("/viewAdd")
@@ -43,14 +43,14 @@ public class KhachHangController {
         model.addAttribute("khachHang", khachHangViewModel);
         model.addAttribute("action", "/khach-hang/add");
         model.addAttribute("listLKH", loaiKhachHangService.getAll());
-        return "khachhang/add";
+        return "viewManage/khachhang/add";
     }
 
     @PostMapping("/add")
     public String add(@Valid @ModelAttribute("khachHang") KhachHangViewModel khachHangViewModel, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("listLKH", loaiKhachHangService.getAll());
-            return "khachhang/add";
+            return "viewManage/khachhang/add";
         } else {
             KhachHang khachHang = new KhachHang();
 //                    loaiKhachHangService.checkMa(loaiKhachHangViewModel.getMa());
@@ -86,7 +86,7 @@ public class KhachHangController {
     public String update(@Valid @ModelAttribute("khachHang") KhachHang khachHang, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("listLKH", loaiKhachHangService.getAll());
-            return "khachhang/add";
+            return "viewManage/khachhang/add";
         } else {
             khachHangService.add(khachHang);
             session.setAttribute("message", "Cập nhật thành công");
