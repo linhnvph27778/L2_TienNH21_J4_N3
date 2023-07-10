@@ -53,7 +53,7 @@ public class CartController {
         // tạo ra giỏ hàng chi tiết
         Item item = new Item(
                 chiTietGiay.get().getId(),
-                chiTietGiay.get().getTen(),
+                chiTietGiay.get().getGiay().getTen(),
                 chiTietGiay.get().getHinhAnh().getDuongDan(),
                 chiTietGiay.get().getMauSac().getTen(),
                 chiTietGiay.get().getSize().getSoSize(),

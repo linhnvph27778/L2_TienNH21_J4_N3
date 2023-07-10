@@ -65,8 +65,8 @@
         <tbdoy>
             <c:forEach items="${list}" var="kh" >
                 <tr>
-                    <td>${kh.ma}</td>
-                    <td>${kh.ten}</td>
+<%--                    <td>${kh.ma}</td>--%>
+<%--                    <td>${kh.ten}</td>--%>
                     <td>${kh.namBaoHanh}</td>
                     <td>${kh.namSanXuat}</td>
                     <td>${kh.trongLuong}</td>
