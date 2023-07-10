@@ -28,12 +28,6 @@ public class ChiTietGiay {
     @Column(name = "Id")
     private UUID id;
 
-    @Column(name = "Ma")
-    private String ma;
-
-    @Column(name = "Ten")
-    private String ten;
-
     @Column(name = "NamBaoHanh")
     private int namBaoHanh;
 
@@ -81,4 +75,8 @@ public class ChiTietGiay {
     @ManyToOne
     @JoinColumn(name = "idSize")
     private Size size;
+
+    @ManyToOne
+    @JoinColumn(name = "idGiay")
+    private Giay giay;
 }
