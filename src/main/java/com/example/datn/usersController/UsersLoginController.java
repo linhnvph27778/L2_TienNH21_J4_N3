@@ -58,6 +58,7 @@ public class UsersLoginController {
             String fullName = khachHang.getHoTen();
             session.setAttribute("UserLogged", khachHang);
             attributes.addFlashAttribute("fullnameLogin", fullName);
+            model.addAttribute("ifFullnameLogin", true);
             model.addAttribute("messageLoginOrSignin", false);
             model.addAttribute("fullnameLogin", fullName);
             return "redirect:/viewsUsers/homeUser";

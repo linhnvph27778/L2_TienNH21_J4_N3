@@ -45,11 +45,14 @@
                 <div class="col-lg-6 col-md-5">
                     <div class="header__top__right">
                         <div class="header__top__hover">
+                            <% boolean ifFullnameLogin = (Boolean) request.getAttribute("ifFullnameLogin"); %>
+                            <% if ( ifFullnameLogin) { %>
                             <span>${fullnameLogin}<i class="arrow_carrot-down"></i></span>
                             <ul>
                                 <li><a href="/settingAccount" >Setting</a></li>
-                                <li><a href="/logout}">Log out</a></li>
+                                <li><a href="/viewsUsers/usersLogout">Log out</a></li>
                             </ul>
+                            <% } %>
                         </div>
                         <div class="header__top__links"  >
                             <% boolean messageLoginOrSignin = (Boolean) request.getAttribute("messageLoginOrSignin"); %>
@@ -75,7 +78,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="header__logo">
-                    <a href="/home" ><img src="img/logo.png" alt=""></a>
+                    <a href="/home" ><img src="/img/logo.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -99,7 +102,7 @@
                     <a href="#"><img src="img/icon/heart.png" alt=""></a>
 
                     <a href="/shopping-cart" style="position: relative; display: inline-block; ">
-                        <img src="img/icon/cart.png" alt="">
+                        <img src="/img/icon/cart.png" alt="">
                         <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductCart}</span>
                     </a>
                 </div>
@@ -143,7 +146,7 @@
                             <h2>Fall - Winter Collections 2030</h2>
                             <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
                                 commitment to exceptional quality.</p>
-                            <a th:href="@{'/shop'}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                            <a th="/shop" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                             <div class="hero__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
