@@ -4,8 +4,7 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <title>COFFEE SOUL</title>
-    <link rel="icon" href="img/logo-favicon.png" type="image/x-icon">
+    <title>Register</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,11 +15,14 @@
             background-attachment: fixed;
         }
 
-        .form {
-            background-color: whitesmoke;
+
+
+        .form,
+        .form-changePass {
+            background-color: #dcd5d1;
             display: block;
-            margin-left: 63% ;
-            margin-top: 13.5%;
+            margin-left: 59% ;
+            margin-top: 15%;
             padding: 1rem;
             width: 70%;
             max-width: 350px;
@@ -136,12 +138,11 @@
             flex-direction: column;
             justify-content: space-around;
             width: 300px;
-            background-color: whitesmoke;
+            background-color: #d8cec9;
             border-radius: 12px;
             padding: 20px;
-            margin-top: 13.5%;
-            margin-left: 63%;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-top: 12%;
+            margin-left: 60%;
         }
 
 
@@ -202,6 +203,8 @@
 
         }
 
+
+
         .resend a {
             color: black;
             text-decoration: none;
@@ -219,6 +222,7 @@
             margin-bottom: 4%;
         }
 
+
         .countdown {
             font-size: 15px;
             font-weight: bold;
@@ -235,42 +239,28 @@
             color: rgb(0, 0, 0);
         }
     </style>
+    </style>
 
 </head>
 <body>
 
-<% boolean register = (Boolean) request.getAttribute("register"); %>
-<% if (register) { %>
-<form action="/viewsUsers/authencation/usersRegister"  class="form" method="post" onsubmit="return validatePassword()" >
-    <p class="form-title">Register to your account</p>
-    <span style="color: red;"> ${error_OTP}</span>
+<% boolean emailFoggot = (Boolean) request.getAttribute("emailFoggot"); %>
+<% if (emailFoggot) { %>
+<form action="/viewsUsers/authencation/usersFoggotPass" class="form" method="post" onsubmit="return validatePassword()" >
+    <p class="form-title">Change Password</p>
+
     <div class="input-container">
-        <input value="${fullName}"  placeholder="Full name" name="fullname" type="text">
-        <span  style="color: red;">
-                <small>${messageFullNameErr}</small>
-        </span>
-    </div>
-    <div class="input-container">
-        <input value="${email}"  placeholder=" Email" name="email" type="email">
+        <input value="${messageEmail}"  placeholder=" Email" name="email" type="email">
         <span style="color: red;">
 			 	<small>${messageEmailErr}</small>
 			 </span>
     </div>
-    <div class="input-container">
-        <input placeholder=" Password" type="password" class="form-control" name="password" id="password">
-        <span style="color: red;">
-				<small>${messagePassErr}</small>
-			</span>
-    </div>
-    <div class="input-container">
-        <input name="confirmPass"  placeholder=" Confirm Password" type="password" class="form-control"  id="passwordConfirm">
-        <span style="color: red;">
-            <small>${messageCofirmPassErr}</small>
-        </span>
-    </div>
+
     <button class="submit" type="submit">
-        Register
+        Get OTP
     </button>
+
+
     <p class="signup-link">
         <a href="/viewsUsers/authencation/usersLogin">Login</a>
     </p>
@@ -278,34 +268,62 @@
 
 <% } %>
 
-<% boolean otpVerificationRequired = (Boolean) request.getAttribute("otpVerificationRequired"); %>
-<% if (otpVerificationRequired) { %>
-    <form method="post" action="/viewsUsers/authencation/verify-otp" class="form-otp">
-        <div class="title">OTP</div>
-        <div class="title">Verification Code</div>
-        <p class="message">We have sent a verification code to your email number</p>
 
-        <span style="color: red;">${messageOTP}</span>
-        <br>
-        <div class="form-card-input-wrapper">
-            <input type="tel" maxlength="4" placeholder="____" class="form-card-input" name="OTPRegister">
-            <div class="form-card-input-bg"></div>
-        </div>
+<% boolean otpVerificationForgotPassword = (Boolean) request.getAttribute("otpVerificationForgotPassword"); %>
+<% if (otpVerificationForgotPassword) { %>
+<form method="post" action="/viewsUsers/authencation/verify-pass-otp" class="form-otp">
+    <div class="title">OTP</div>
+    <div class="title">Verification Code</div>
+    <p class="message">We have sent a verification code to your email number</p>
+    <span style="color: red;" >${messageOTPChangePass}</span>
+    <br>
+    <div class="form-card-input-wrapper">
+        <input type="tel" maxlength="4" placeholder="____" class="form-card-input" name="OTPChangePass">
+        <div class="form-card-input-bg"></div>
+    </div>
 
-        <button  id="myButton"  class="action">Verify me</button>
+    <button class="action">Verify me</button>
 
-        <div class="resend">
-            <a id="countdown-link">Resend</a>
-        </div>
+    <div class="resend">
+        <a id="countdown-link" href="#">Resend</a>
+    </div>
 
-        <br>
-        <div class="link-container">
-            <a href="">Not get OTP ?</a>
-        </div>
+    <br>
+    <div class="link-container">
+        <a href="">Not get OTP ?</a>
+    </div>
 
-    </form>
-
+</form>
 <% } %>
+
+
+<% boolean changePassword = (Boolean) request.getAttribute("changePassword"); %>
+<% if (changePassword) { %>
+<form action="/viewsUsers/authencation/changePassword" class="form-changePass" method="post" onsubmit="return validatePassword()" >
+    <p class="form-title">Change Password</p>
+
+    <div class="input-container">
+        <input placeholder="New Password" type="password" class="form-control" name="password" id="password">
+        <span style="color: red;">
+            <small>${messagePassword}</small>
+        </span>
+    </div>
+
+    <div class="input-container">
+        <input name="password"  placeholder=" Confirm Password" type="password" class="form-control"  id="passwordConfirm">
+        <span style="color: red;">
+            <small>${messagePassword}</small>
+        </span>
+    </div>
+
+    <button class="submit" type="submit">  Change </button>
+
+    <p class="signup-link">
+        <a href="/viewsUsers/authencation/usersLogin">Login</a>
+    </p>
+</form>
+<% } %>
+
 
 
 <script>
@@ -322,60 +340,21 @@
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var countdownElement = document.getElementById("countdown-link");
-        var countdown = 60;
-        var countdownInterval;
+    var countdownElement = document.getElementById("countdown-link");
+    var countdown = 60;
+    var countdownInterval = setInterval(updateCountdown, 1000);
 
-        function updateCountdown() {
-            countdown--;
-            countdownElement.textContent = countdown + "s";
+    function updateCountdown() {
+        countdown--;
+        countdownElement.textContent = countdown + "s";
 
-            if (countdown === 0) {
-                clearInterval(countdownInterval);
-                countdownElement.href = "/viewsUsers/authencation/resened-otp";
-                countdownElement.textContent = "Resend";
-            }
+        if (countdown === 0) {
+            clearInterval(countdownInterval);
+            countdownElement.href = "https://www.youtube.com/watch?v=y_6aSG2yfe8";
+            countdownElement.textContent = "Resend";
         }
-
-        countdownInterval = setInterval(updateCountdown, 1000);
-
-        countdownElement.addEventListener("click", function() {
-            if (countdown === 0) {
-                countdown = 60;
-                countdownElement.textContent = countdown + "s";
-                countdownElement.href = "/viewsUsers/authencation/resened-otp";
-                countdownInterval = setInterval(updateCountdown, 1000);
-            }
-        });
-    });
+    }
 </script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var button = document.getElementById("myButton");
-        var clicked = false;
-        var disableTimeout;
 
-        function disableButton() {
-            button.disabled = true;
-        }
-
-        function resetDisableTimeout() {
-            clearTimeout(disableTimeout);
-            disableTimeout = setTimeout(disableButton, 30000);
-        }
-
-        resetDisableTimeout();
-
-        button.addEventListener("click", function() {
-            if (!clicked) {
-                clicked = true;
-            }
-        });
-
-        document.addEventListener("mousemove", resetDisableTimeout);
-        document.addEventListener("keydown", resetDisableTimeout);
-    });
-</script>
 </body>
 </html>
