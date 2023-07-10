@@ -33,6 +33,7 @@ public class Size {
 	@NotBlank(message = "Vui lòng nhập Mã")
     private String ma;
 
+    //
     @Column(name = "soSize")
     private int soSize;
 
