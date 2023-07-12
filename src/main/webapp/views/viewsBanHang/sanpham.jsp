@@ -29,8 +29,8 @@
                 <c:forEach items="${list}" var="kh" >
                     <tr>
                         <td><img src="/images/imgChiTietGiay/${kh.hinhAnh.duongDan}" alt="" height="40" width="80"></td>
-                        <td>${kh.ma}</td>
-                        <td>${kh.ten}</td>
+                        <td>${kh.giay.ma}</td>
+                        <td>${kh.giay.ten}</td>
                         <td>${kh.giaBan}</td>
                         <td>
                             <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}" class="btn btn-secondary">Thêm giỏ hàng</a>
