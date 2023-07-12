@@ -1,6 +1,7 @@
 package com.example.datn.controller;
 
 import com.example.datn.entity.ChiTietGiay;
+import com.example.datn.entity.Giay;
 import com.example.datn.entity.KhachHang;
 import com.example.datn.repository.CLDeGiayRep;
 import com.example.datn.repository.CLThanGiayRep;
@@ -8,6 +9,7 @@ import com.example.datn.repository.HangRepo;
 import com.example.datn.repository.HinhAnhRepo;
 import com.example.datn.repository.MauSacRepo;
 import com.example.datn.service.ChiTietGiayService;
+import com.example.datn.service.GiayService;
 import com.example.datn.service.HangService;
 import com.example.datn.service.HinhAnhService;
 import com.example.datn.service.SizeService;
@@ -40,6 +42,9 @@ public class ChiTietGiayController {
     private MauSacRepo mauSacRepo;
 
     @Autowired
+    private GiayService giayService;
+
+    @Autowired
     private HangRepo hangRepo;
 
     @Autowired
@@ -63,6 +68,7 @@ public class ChiTietGiayController {
         ChiTietGiay chiTietGiay = new ChiTietGiay();
         model.addAttribute("chiTietGiay", chiTietGiay);
         model.addAttribute("hinhAnh", hinhAnhRepo.findAll());
+        model.addAttribute("giay", giayService.getAll());
         model.addAttribute("size",sizeService.getAll());
         model.addAttribute("mauSac",mauSacRepo.findAll());
         model.addAttribute("hang",hangRepo.findAll());
@@ -81,6 +87,7 @@ public class ChiTietGiayController {
             model.addAttribute("hang",hangRepo.findAll());
             model.addAttribute("chatLieuDeGiay",clDeGiayRep.findAll());
             model.addAttribute("chatLieuThanGiay",clThanGiayRep.findAll());
+            model.addAttribute("giay", giayService.getAll());
             return "viewsManage/chitietgiay/add";
         } else {
             chiTietGiayService.add(chiTietGiay);

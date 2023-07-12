@@ -14,17 +14,6 @@
             <div class="row">
                 <div class="col-6 mt-3">
                     <div class="mt-3">
-                        <label>Mã Giày</label>
-                        <sf:input path="ma" cssClass="form-control"/>
-                        <sf:errors cssClass="text-danger" path="ma" element="span"/>
-                            <%--                <span class="text-danger">${maTrung}</span>--%>
-                    </div>
-                    <div class="mt-3">
-                        <label>Tên</label>
-                        <sf:input path="ten" cssClass="form-control"/>
-                        <sf:errors cssClass="text-danger" path="ten" element="span"/>
-                    </div>
-                    <div class="mt-3">
                         <label>Năm Bảo hành</label>
                         <sf:input path="namBaoHanh" cssClass="form-control"/>
                         <sf:errors cssClass="text-danger" path="namBaoHanh" element="span"/>
@@ -69,57 +58,66 @@
                         <sf:errors cssClass="text-danger" path="trangThai" element="span"/>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="mt-3">
-                        <label>Hình ảnh</label>
-                        <sf:select path="hinhAnh.id" cssClass="form-select">
-                            <c:forEach items="${hinhAnh}" var="kh">
-                                <sf:option value="${kh.id}">${kh.ten}</sf:option>
-                            </c:forEach>
-                        </sf:select>
-                    </div>
-                    <div class="mt-3">
-                        <label>Chất liệu đế giày</label>
-                        <sf:select path="chatLieuDeGiay.id" cssClass="form-select">
-                            <c:forEach items="${chatLieuDeGiay}" var="kh">
-                                <sf:option value="${kh.id}">${kh.ten}</sf:option>
-                            </c:forEach>
-                        </sf:select>
-                    </div>
-                    <div class="mt-3">
-                        <label>Chất liệu thân giày</label>
-                        <sf:select path="chatLieuThanGiay.id" cssClass="form-select">
-                            <c:forEach items="${chatLieuThanGiay}" var="kh">
-                                <sf:option value="${kh.id}">${kh.ten}</sf:option>
-                            </c:forEach>
-                        </sf:select>
-                    </div>
-                    <div class="mt-3">
-                        <label>Hãng</label>
-                        <sf:select path="hang.id" cssClass="form-select">
-                            <c:forEach items="${hang}" var="kh">
-                                <sf:option value="${kh.id}">${kh.ten}</sf:option>
-                            </c:forEach>
-                        </sf:select>
-                    </div>
-                    <div class="mt-3">
-                        <label>Màu sắc</label>
-                        <sf:select path="mauSac.id" cssClass="form-select">
-                            <c:forEach items="${mauSac}" var="kh">
-                                <sf:option value="${kh.id}">${kh.ten}</sf:option>
-                            </c:forEach>
-                        </sf:select>
-                    </div>
-                    <div class="mt-3">
-                        <label>Size</label>
-                        <sf:select path="size.id" cssClass="form-select">
-                            <c:forEach items="${size}" var="kh">
-                                <sf:option value="${kh.id}">${kh.soSize}</sf:option>
-                            </c:forEach>
-                        </sf:select>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="mt-3">
+                    <label>Giày</label>
+                    <sf:select path="giay.id" cssClass="form-select">
+                        <c:forEach items="${giay}" var="kh">
+                            <sf:option value="${kh.id}">${kh.ten}</sf:option>
+                        </c:forEach>
+                    </sf:select>
+                </div>
+                <div class="mt-3">
+                    <label>Hình ảnh</label>
+                    <sf:select path="hinhAnh.id" cssClass="form-select">
+                        <c:forEach items="${hinhAnh}" var="kh">
+                            <sf:option value="${kh.id}">${kh.ten}</sf:option>
+                        </c:forEach>
+                    </sf:select>
+                </div>
+                <div class="mt-3">
+                    <label>Chất liệu đế giày</label>
+                    <sf:select path="chatLieuDeGiay.id" cssClass="form-select">
+                        <c:forEach items="${chatLieuDeGiay}" var="kh">
+                            <sf:option value="${kh.id}">${kh.ten}</sf:option>
+                        </c:forEach>
+                    </sf:select>
+                </div>
+                <div class="mt-3">
+                    <label>Chất liệu thân giày</label>
+                    <sf:select path="chatLieuThanGiay.id" cssClass="form-select">
+                        <c:forEach items="${chatLieuThanGiay}" var="kh">
+                            <sf:option value="${kh.id}">${kh.ten}</sf:option>
+                        </c:forEach>
+                    </sf:select>
+                </div>
+                <div class="mt-3">
+                    <label>Hãng</label>
+                    <sf:select path="hang.id" cssClass="form-select">
+                        <c:forEach items="${hang}" var="kh">
+                            <sf:option value="${kh.id}">${kh.ten}</sf:option>
+                        </c:forEach>
+                    </sf:select>
+                </div>
+                <div class="mt-3">
+                    <label>Màu sắc</label>
+                    <sf:select path="mauSac.id" cssClass="form-select">
+                        <c:forEach items="${mauSac}" var="kh">
+                            <sf:option value="${kh.id}">${kh.ten}</sf:option>
+                        </c:forEach>
+                    </sf:select>
+                </div>
+                <div class="mt-3">
+                    <label>Size</label>
+                    <sf:select path="size.id" cssClass="form-select">
+                        <c:forEach items="${size}" var="kh">
+                            <sf:option value="${kh.id}">${kh.soSize}</sf:option>
+                        </c:forEach>
+                    </sf:select>
                 </div>
             </div>
+
             <div class="mt-3 offset-4">
                 <button type="submit" class="btn btn-success">Add</button>
             </div>
