@@ -51,7 +51,7 @@ public class CartController {
                 chiTietGiay.get().getId(),
                 chiTietGiay.get().getGiay().getMa(),
                 chiTietGiay.get().getGiay().getTen(),
-                chiTietGiay.get().getHinhAnh().getDuongDan(),
+                chiTietGiay.get().getHinhAnh().getUrlImg0(),
                 chiTietGiay.get().getMauSac().getTen(),
                 chiTietGiay.get().getSize().getSoSize(),
                 chiTietGiay.get().getHang().getTen(),
