@@ -43,8 +43,8 @@
     <table class="table table-bordered bordered-dark mt-3 text-center">
         <thead class="bg-info">
         <tr>
-            <td>Mã</td>
-            <td>Tên</td>
+<%--            <td>Mã giày</td>--%>
+            <td>Tên giày</td>
             <td>Năm Bảo hành</td>
             <td>NSX</td>
             <td>Trọng lượng</td>
@@ -65,8 +65,7 @@
         <tbdoy>
             <c:forEach items="${list}" var="kh" >
                 <tr>
-<%--                    <td>${kh.ma}</td>--%>
-<%--                    <td>${kh.ten}</td>--%>
+                    <td>${kh.giay.ten}</td>
                     <td>${kh.namBaoHanh}</td>
                     <td>${kh.namSanXuat}</td>
                     <td>${kh.trongLuong}</td>
