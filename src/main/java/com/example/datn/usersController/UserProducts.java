@@ -1,10 +1,9 @@
 package com.example.datn.usersController;
 
-import com.example.datn.entity.Hang;
-import com.example.datn.entity.KhachHang;
-import com.example.datn.entity.MauSac;
-import com.example.datn.entity.Size;
+import com.example.datn.entity.*;
+import com.example.datn.repository.ChiTietGiayRepo;
 import com.example.datn.repository.HangRepo;
+import com.example.datn.service.ChiTietGiayService;
 import com.example.datn.service.ColorService;
 import com.example.datn.service.HangService;
 import com.example.datn.service.SizeService;
@@ -19,13 +18,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("viewsUsers/authencation")
+@RequestMapping("viewsUsers")
 
 public class UserProducts {
 
     private List<Hang> listBrand = new ArrayList<>();
     private List<Size> listSizes = new ArrayList<>();
     private List<MauSac> listColors = new ArrayList<>();
+    private List<ChiTietGiay> listProducts = new ArrayList<>();
+    private List<Giay> listGiay = new ArrayList<>();
+
+    @Autowired
+    private ChiTietGiayService chiTietGiayService;
 
     @Autowired
     private HttpSession session;
@@ -51,6 +55,9 @@ public class UserProducts {
         listColors=colorService.findMauSacActive();
         model.addAttribute("listColor", listColors);
 
+        listProducts = chiTietGiayService.findproductActive();
+        model.addAttribute("listProducts", listProducts);
+
         KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
 
         if (khachHang != null){
@@ -61,6 +68,6 @@ public class UserProducts {
             model.addAttribute("messageLoginOrSignin", true);
         }
 
-        return "/viewsUsers/authencation/usersShop";
+        return "/viewsUsers/usersShop";
     }
 }
