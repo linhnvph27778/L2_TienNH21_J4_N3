@@ -40,4 +40,9 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     public Page<ChiTietGiay> phanTrang(int pageNo, int size) {
         return null;
     }
+
+    @Override
+    public List<ChiTietGiay> findproductActive() {
+        return chiTietGiayRepo.findByTrangThai(1);
+    }
 }

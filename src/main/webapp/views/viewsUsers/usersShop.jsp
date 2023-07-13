@@ -85,7 +85,7 @@
                 <nav class="header__menu mobile-menu">
                     <ul>
                         <li><a href="/viewsUsers/usersHome" >Home</a></li>
-                        <li class="active"><a href="/viewsUsers/authencation/usersShop" >Shop</a></li>
+                        <li class="active"><a href="/viewsUsers/usersShop" >Shop</a></li>
                         <li><a href="/viewsUsers/authencation/usersAbout">About Us</a></li>
                         <li><a href="/viewsUsers/authencation/usersBlog">Blog</a>
                             <ul class="dropdown">
@@ -121,7 +121,7 @@
                 <div class="breadcrumb__text">
                     <h4>Shop</h4>
                     <div class="breadcrumb__links">
-                        <a th:href="@{'/home'}" >Home</a>
+                        <a href="/viewsUsers/usersHome" >Home</a>
                         <span>Shop</span>
                     </div>
                 </div>
@@ -275,21 +275,21 @@
 
                 <div class="row product__filter">
 
-                    <%--<th:block th:each="product : ${list}">
-                        <div class="col-lg-4 col-md-6 col-sm-6 mix" th:class="'col-lg-4 col-md-6 col-sm-6  mix ' + ${product.category_Product.ma_Category} ">
+                    <c:forEach  items="${listProducts}" var="product">
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix ${product.hang.ten}">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'img/product/' + ${product.images_Product.image_Product_1} + '.jpg'}">
+                                <div class="product__item__pic set-bg" style="border-radius: 10px;"  data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg0}">
                                     <ul class="product__hover">
-                                        <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                        <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
+                                        <li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
+                                        <li><a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a>
                                         </li>
-                                        <li><a th:href="@{'/shop-details/' + ${product.id} }"><img src="img/icon/search.png" alt=""></a></li>
+                                        <li><a href="/viewsUsers/usersShop/shop-details/' + ${product.id}"><img src="/img/icon/search.png" alt=""></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6 th:text="${product.name_product}"></h6>
-                                    <a href="#" class="add-cart">[(#{lable.shop.addToCard})]</a>
-                                    <h5 th:text="${product.price_product}"></h5>
+                                    <h6>${product.giay.ten}</h6>
+                                    <a href="#" class="add-cart">+ Add To Cart</a>
+                                    <h5>${product.giaBan}</h5>
                                     <div class="product__color__select">
                                         <label for="pc-4">
                                             <input type="radio" id="pc-4">
@@ -304,7 +304,7 @@
                                 </div>
                             </div>
                         </div>
-                    </th:block>--%>
+                    </c:forEach>
 
                 </div>
 
