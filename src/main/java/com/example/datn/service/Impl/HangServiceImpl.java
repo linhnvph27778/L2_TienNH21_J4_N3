@@ -6,6 +6,7 @@ import com.example.datn.service.HangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,5 +27,10 @@ public class HangServiceImpl implements HangService {
     @Override
     public void save(Hang hang) {
         repo.save(hang);
+    }
+
+    @Override
+    public List<Hang> findBrandActive() {
+        return repo.findByTrangThai(1);
     }
 }

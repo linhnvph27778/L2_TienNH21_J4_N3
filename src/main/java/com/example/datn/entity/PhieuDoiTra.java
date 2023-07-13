@@ -25,7 +25,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PhieuDoiTra {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private UUID id;
 
