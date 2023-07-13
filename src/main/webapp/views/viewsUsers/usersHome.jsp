@@ -84,15 +84,15 @@
             <div class="col-lg-6 col-md-6">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li class="active"><a href="/index2" >Home</a></li>
-                        <li><a href="/shop" >Shop</a></li>
-                        <li><a href="/about">About Us</a></li>
-                        <li><a href="/blog">Blog</a>
+                        <li class="active"><a href="/viewsUsers/usersHome" >Home</a></li>
+                        <li><a href="/viewsUsers/authencation/usersShop" >Shop</a></li>
+                        <li><a href="/viewsUsers/authencation/usersAbout">About Us</a></li>
+                        <li><a href="/viewsUsers/authencation/usersBlog">Blog</a>
                             <ul class="dropdown">
-                                <li><a href="/blog-details">Blog Details</a></li>
+                                <li><a href="/viewsUsers/authencation/usersBlog-details">Blog Details</a></li>
                             </ul>
                         </li>
-                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/viewsUsers/authencation/usersContact">Contact</a></li>
                     </ul>
                 </nav>
             </div>
