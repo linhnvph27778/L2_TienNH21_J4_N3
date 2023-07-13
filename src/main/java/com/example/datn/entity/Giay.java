@@ -21,7 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Giay {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private UUID id;
 
@@ -33,4 +33,7 @@ public class Giay {
 
     @Column(name = "TrangThai")
     private int trangThai;
+
+    @Column(name = "MoTa")
+    private String moTa;
 }

@@ -16,4 +16,6 @@ public interface SizeService {
     void delete(Size size);
 
     Optional<Size> getOne(UUID ma);
+
+    List<Size> findSizeActive();
 }
