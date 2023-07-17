@@ -20,5 +20,6 @@ public interface ChiTietGiayService {
 
     Page<ChiTietGiay> phanTrang(int pageNo, int size);
 
-    List<ChiTietGiay> findproductActive();
+    List<ChiTietGiay> findByIdGiay(UUID idGiay);
+
 }
