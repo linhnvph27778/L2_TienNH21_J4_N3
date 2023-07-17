@@ -20,4 +20,5 @@ public interface GiayService {
     Page<Giay> phanTrang(int pageNo, int size);
 
     Giay checkMa(String ma);
+
 }

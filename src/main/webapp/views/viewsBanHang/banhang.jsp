@@ -15,8 +15,8 @@
 <div class="container">
     <div class="col-10 offset-1 mt-3">
 
-        <%--        <a class="btn btn-primary">Tạo hóa đơn</a>--%>
-<%--        Modal chọn san pham--%>
+                <a class="btn btn-primary" href="/mua-hang/cart">Tạo hóa đơn</a>
+        <%--        Modal chọn san pham--%>
         <div class="modal fade" id="chonSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -35,8 +35,9 @@
                             <tbdoy>
                                 <c:forEach items="${list}" var="kh">
                                     <tr>
-                                        <td><img src="/images/imgChiTietGiay/${kh.hinhAnh.duongDan}" alt="" height="40"
-                                                 width="80"></td>
+                                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="90"
+                                                 width="100">>
+                                        </td>
                                         <td>${kh.giay.ma}</td>
                                         <td>${kh.giay.ten}</td>
                                         <td>${kh.giaBan}</td>
@@ -53,11 +54,11 @@
                 </div>
             </div>
         </div>
-<%--       END Modal chọn san pham--%>
+        <%--       END Modal chọn san pham--%>
 
-            <div class="col-8 offset-2" style="background-color: #e5e5e5; border: #007bff 10px">
+        <div class="col-8 offset-2" style="background-color: #e5e5e5; border: #007bff 10px">
             <div>
-                <button type="button" class="btn btn-primary d-flex" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal"
                         data-bs-target="#chonSanPham">
                     Thêm sản phẩm
                 </button>
@@ -72,15 +73,19 @@
                 </tr>
                 </thead>
                 <tbdoy>
+                    <c:if test="${not empty sessionScope.error}">
+                        <div class="error-message text-center text-dark">${sessionScope.error}</div>
+                        <c:remove var="error" scope="session"/>
+                    </c:if>
                     <c:forEach items="${gioHangChiTiet}" var="gh">
                         <tr>
                             <td>
                                 <div class="row p-0">
                                     <div class="col-6">
-                                        <img src="/images/imgChiTietGiay/${gh.hinhAnh}" alt="" height="80" width="100">
+                                        <img src="/img/imgsProducts/${gh.hinhAnh}" alt="" height="120" width="200">
                                     </div>
                                     <div class="col-6">
-                                        <div class="fs-2 fw-bold">${gh.tenGiay}</div>
+                                        <div class="fs-2 fw-bolder">${gh.tenGiay}</div>
                                         <div class="text-danger text-">${gh.giaBan} đ</div>
                                         <div class="">Size ${gh.size}</div>
                                     </div>
@@ -89,7 +94,7 @@
                             <td>${gh.soLuong}</td>
                             <td>${gh.soLuong * gh.giaBan}</td>
                             <td>
-                                <a class="btn btn-danger" href="/hien-thi">Xóa khỏi giỏ</a>
+                                <a class="btn btn-danger" href="/">Xóa khỏi giỏ</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -101,18 +106,20 @@
 
         <div class="col-8 offset-2 mt-5" style="background-color: #e5e5e5 ">
             <div>
-                <button type="button" class="btn btn-primary d-flex" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal"
                         data-bs-target="#chonTaiKhoan">
                     Chọn tài khoan
                 </button>
             </div>
-            <div class="row">
-                <div class="text-dark">Tên Khách hang: ${hoTen}</div>
-                <div>SDT: ${sdt}</div>
-                <div>Email: ${email}</div>
+
+            <div class="row m-3">
+                <div class="">Tên Khách hang: ${hoTen}</div>
+                <div class="">SDT: ${sdt}</div>
+                <div class="">Email: ${email}</div>
             </div>
-<%--            modal chọn khách hàng--%>
-            <div class="modal fade" id="chonTaiKhoan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <%--            modal chọn khách hàng--%>
+            <div class="modal fade" id="chonTaiKhoan" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -121,11 +128,11 @@
                                 <tr>
                                     <th>Mã</th>
                                     <th>Họ tên</th>
-<%--                                    <th>Ngày sinh</th>--%>
-<%--                                    <th>Email</th>--%>
+                                    <%--                                    <th>Ngày sinh</th>--%>
+                                    <%--                                    <th>Email</th>--%>
                                     <th>SDT</th>
                                     <th>Trạng thái</th>
-<%--                                    <th>Loại khách hàng</th>--%>
+                                    <%--                                    <th>Loại khách hàng</th>--%>
                                     <th colspan="2">Action</th>
                                 </tr>
                                 </thead>
@@ -134,13 +141,14 @@
                                         <tr>
                                             <td>${kh.ma}</td>
                                             <td>${kh.hoTen}</td>
-<%--                                            <td><f:formatDate value="${kh.ngaySinh}" pattern="dd-MM-yyyy"/></td>--%>
-<%--                                            <td>${kh.email}</td>--%>
+                                                <%--                                            <td><f:formatDate value="${kh.ngaySinh}" pattern="dd-MM-yyyy"/></td>--%>
+                                                <%--                                            <td>${kh.email}</td>--%>
                                             <td>${kh.sdt}</td>
                                             <td>${kh.trangThai==1 ? "Đang hoạt động" : "Ngừng hoạt động"}</td>
-<%--                                            <td>${kh.loaiKhachHang.ten}</td>--%>
+                                                <%--                                            <td>${kh.loaiKhachHang.ten}</td>--%>
                                             <td>
-                                                <a href="/mua-hang/chon-tai-khoan/${kh.id}" class="btn btn-primary">Chọn</a>
+                                                <a href="/mua-hang/chon-tai-khoan/${kh.id}"
+                                                   class="btn btn-primary">Chọn</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -150,7 +158,7 @@
                     </div>
                 </div>
             </div>
-<%--            END Moddal chọn kh--%>
+            <%--            END Moddal chọn kh--%>
         </div>
 
     </div>
