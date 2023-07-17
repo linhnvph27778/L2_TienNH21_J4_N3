@@ -17,11 +17,12 @@ import java.util.UUID;
 
 public class Item {
     private UUID idChiTietGiay;
+    private String maGiay;
     private String tenGiay;
     private String hinhAnh;
     private String mauSac;
     private int size;
     private String hang;
     private int soLuong;
-    private BigDecimal giaBan;
+    private double giaBan;
 }

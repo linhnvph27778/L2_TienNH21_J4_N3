@@ -24,7 +24,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class KhuyenMaiChiTiet {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private UUID id;
 
