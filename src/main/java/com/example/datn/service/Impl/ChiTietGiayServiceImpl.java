@@ -42,7 +42,8 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     }
 
     @Override
-    public List<ChiTietGiay> findproductActive() {
-        return chiTietGiayRepo.findByTrangThai(1);
+    public List<ChiTietGiay> findByIdGiay(UUID idGiay) {
+        return chiTietGiayRepo.findByGiayId(idGiay);
     }
+
 }
