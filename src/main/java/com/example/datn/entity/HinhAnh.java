@@ -23,15 +23,21 @@ import java.util.UUID;
 
 public class HinhAnh {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private UUID id;
 
-    @Column(name = "Ten")
-    private String ten;
+    @Column(name = "URLImg0")
+    private String urlImg0;
 
-    @Column(name = "DuongDan")
-    private String duongDan;
+    @Column(name = "URLImg1")
+    private String urlImg1;
+
+    @Column(name = "URLImg2")
+    private String urlImg2;
+
+    @Column(name = "URLImg3")
+    private String urlImg3;
 
     @Column(name = "TrangThai")
     private int trangThai;

@@ -24,7 +24,7 @@ public class ChatLieuThanGiay {
 
     @Id
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "Ma")
