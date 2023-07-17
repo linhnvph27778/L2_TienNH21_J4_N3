@@ -40,4 +40,10 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     public Page<ChiTietGiay> phanTrang(int pageNo, int size) {
         return null;
     }
+
+    @Override
+    public List<ChiTietGiay> findByIdGiay(UUID idGiay) {
+        return chiTietGiayRepo.findByGiayId(idGiay);
+    }
+
 }

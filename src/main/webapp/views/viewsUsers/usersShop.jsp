@@ -85,7 +85,7 @@
                 <nav class="header__menu mobile-menu">
                     <ul>
                         <li><a href="/viewsUsers/usersHome" >Home</a></li>
-                        <li class="active"><a href="/viewsUsers/authencation/usersShop" >Shop</a></li>
+                        <li class="active"><a href="/viewsUsers/usersShop" >Shop</a></li>
                         <li><a href="/viewsUsers/authencation/usersAbout">About Us</a></li>
                         <li><a href="/viewsUsers/authencation/usersBlog">Blog</a>
                             <ul class="dropdown">
@@ -121,7 +121,7 @@
                 <div class="breadcrumb__text">
                     <h4>Shop</h4>
                     <div class="breadcrumb__links">
-                        <a th:href="@{'/home'}" >Home</a>
+                        <a href="/viewsUsers/usersHome" >Home</a>
                         <span>Shop</span>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__categories">
                                             <ul class="nice-scroll">
-                                                <li class="active" data-filter="*"><a >All Product</a></li>
+                                                <li class="active"><a >All Product</a></li>
                                                <%-- <th:block th:each="category : ${listCategory}">
                                                     <br>
                                                     <li th:data-filter="|.${category.ma_Category}|"><a th:text="${category.name_Category}" ></a></li>
@@ -172,7 +172,7 @@
                                         <div class="shop__sidebar__brand">
                                             <ul>
                                                 <c:forEach items="${listBrand}" var="br" >
-                                                    <li><a href="/ + ${a}}" >${br.ten}</a></li>
+                                                    <li><a href="/branding/ + ${br.ten}}" >${br.ten}</a></li>
                                                 </c:forEach>
                                             </ul>
                                         </div>
@@ -208,7 +208,7 @@
 
                                             <c:forEach items="${listSize}" var="size" >
                                                 <label>
-                                                    <li><a href="/ + ${size}}" >${size.soSize}</a></li>
+                                                    <li><a href="/ + ${size}" >${size.soSize}</a></li>
                                                 </label>
                                             </c:forEach>
                                         </div>
@@ -263,10 +263,10 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="shop__product__option__right">
-                                <p>Sort Price</p>
+                                <p>Sort by Price:</p>
                                 <select>
-                                   <%-- <option th:value="@{'/register'}">[(#{lable.shop.lth})]</option>
-                                    <option th:value="@{'/register'}">[(#{lable.shop.htl})]</option>--%>
+                                    <option value="">Low To High</option>
+                                    <option value="">High To Low</option>
                                 </select>
                             </div>
                         </div>
@@ -275,47 +275,36 @@
 
                 <div class="row product__filter">
 
-                    <%--<th:block th:each="product : ${list}">
-                        <div class="col-lg-4 col-md-6 col-sm-6 mix" th:class="'col-lg-4 col-md-6 col-sm-6  mix ' + ${product.category_Product.ma_Category} ">
+                    <c:forEach  items="${listProducts}" var="product">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'img/product/' + ${product.images_Product.image_Product_1} + '.jpg'}">
+                                <div class="product__item__pic set-bg" style="border-radius: 10px;"  data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg0}">
                                     <ul class="product__hover">
-                                        <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                        <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
+                                        <li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
+                                        <li><a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a>
                                         </li>
-                                        <li><a th:href="@{'/shop-details/' + ${product.id} }"><img src="img/icon/search.png" alt=""></a></li>
+                                        <li><a href="/viewsUsers/shop-details/${product.giay.id}"><img src="/img/icon/search.png" alt=""></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6 th:text="${product.name_product}"></h6>
-                                    <a href="#" class="add-cart">[(#{lable.shop.addToCard})]</a>
-                                    <h5 th:text="${product.price_product}"></h5>
-                                    <div class="product__color__select">
-                                        <label for="pc-4">
-                                            <input type="radio" id="pc-4">
-                                        </label>
-                                        <label class="active black" for="pc-5">
-                                            <input type="radio" id="pc-5">
-                                        </label>
-                                        <label class="grey" for="pc-6">
-                                            <input type="radio" id="pc-6">
-                                        </label>
-                                    </div>
+                                    <h6>${product.giay.ten}</h6>
+                                    <a href="#" class="add-cart">+ Add To Cart</a>
+                                    <h5>${product.minPrice}</h5>
+                                    <h6 style="text-align: right">${product.remindProducts} sold</h6>
                                 </div>
                             </div>
                         </div>
-                    </th:block>--%>
+                    </c:forEach>
 
                 </div>
 
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="product__pagination">
-                            <a class="active" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <span>...</span>
-                            <a href="#">21</a>
+
+                            <c:forEach var="i" begin="1" end="${totalPage}">
+                                <a class="active" href="/viewsUsers/usersShop?pageNum=${i}">${i}</a>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

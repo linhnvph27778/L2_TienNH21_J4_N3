@@ -1,26 +1,24 @@
 package com.example.datn.usersController;
 
+
 import com.example.datn.entity.*;
 import com.example.datn.repository.GiayDistinctRepository;
 import com.example.datn.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("viewsUsers")
-
-public class UserProducts {
+public class UserDetailProduct {
 
     private List<Hang> listBrand = new ArrayList<>();
     private List<Size> listSizes = new ArrayList<>();
@@ -41,33 +39,14 @@ public class UserProducts {
     private SizeService sizeService;
 
     @Autowired
-    private GiayDistinctRepository giayDistinctRepository;
+    private ChiTietGiayService chiTietGiayService;
 
     @Autowired
     private GiayDistinctService giayDistinctService;
 
-    @GetMapping("/usersShop")
-    private String getUsersProductForm(Model model,
-                                       @RequestParam(name = "pageSize", defaultValue = "6") Integer pageSize,
-                                       @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum){
-
-        listBrand = hangService.findBrandActive();
-        model.addAttribute("listBrand", listBrand);
-
-        listSizes = sizeService.findSizeActive();
-        model.addAttribute("listSize", listSizes);
-
-        listColors=colorService.findMauSacActive();
-        model.addAttribute("listColor", listColors);
-
-//        listGiayDistince = giayDistinctService.getAllGiayDistince();
-//        model.addAttribute("listProducts", listGiayDistince);
-
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page<GiayDistinct> page = giayDistinctRepository.findAll(pageable);
-
-        model.addAttribute("totalPage", page.getTotalPages());
-        model.addAttribute("listProducts", page.getContent());
+    @GetMapping("/shop-details/{id}")
+    private String getDetailProduct(Model model,
+                                    @PathVariable(name ="id") UUID idProduct){
 
         KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
 
@@ -79,6 +58,14 @@ public class UserProducts {
             model.addAttribute("messageLoginOrSignin", true);
         }
 
-        return "/viewsUsers/usersShop";
+        listProducts = chiTietGiayService.findByIdGiay(idProduct);
+        model.addAttribute("listProducts", listProducts);
+
+        for (ChiTietGiay x:listProducts
+             ) {
+            System.out.println(x.getMauSac().getTen());
+        }
+        return  "viewsUsers/shop-details";
+
     }
 }
