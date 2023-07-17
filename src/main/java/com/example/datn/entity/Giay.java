@@ -34,6 +34,6 @@ public class Giay {
     @Column(name = "TrangThai")
     private int trangThai;
 
-    @Column(name = "MoTa")
+    @Column(columnDefinition = "varchar(MAX)")
     private String moTa;
 }
