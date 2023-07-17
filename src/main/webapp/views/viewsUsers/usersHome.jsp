@@ -85,7 +85,7 @@
                 <nav class="header__menu mobile-menu">
                     <ul>
                         <li class="active"><a href="/viewsUsers/usersHome" >Home</a></li>
-                        <li><a href="/viewsUsers/authencation/usersShop" >Shop</a></li>
+                        <li><a href="/viewsUsers/usersShop" >Shop</a></li>
                         <li><a href="/viewsUsers/authencation/usersAbout">About Us</a></li>
                         <li><a href="/viewsUsers/authencation/usersBlog">Blog</a>
                             <ul class="dropdown">
