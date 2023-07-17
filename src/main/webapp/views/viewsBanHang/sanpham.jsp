@@ -28,7 +28,7 @@
             <tbdoy>
                 <c:forEach items="${list}" var="kh" >
                     <tr>
-                        <td><img src="/images/imgChiTietGiay/${kh.hinhAnh.duongDan}" alt="" height="40" width="80"></td>
+                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="80" width="120"></td>
                         <td>${kh.giay.ma}</td>
                         <td>${kh.giay.ten}</td>
                         <td>${kh.giaBan}</td>
