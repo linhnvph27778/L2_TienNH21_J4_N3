@@ -72,7 +72,7 @@
                     <label>Hình ảnh</label>
                     <sf:select path="hinhAnh.id" cssClass="form-select">
                         <c:forEach items="${hinhAnh}" var="kh">
-                            <sf:option value="${kh.id}">${kh.ten}</sf:option>
+                            <sf:option value="${kh.id}">${kh.urlImg0}</sf:option>
                         </c:forEach>
                     </sf:select>
                 </div>

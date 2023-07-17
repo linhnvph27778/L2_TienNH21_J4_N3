@@ -74,7 +74,7 @@
                     <td>${kh.soLuongTon}</td>
                     <td>${kh.moTa}</td>
                     <td>${kh.trangThai}</td>
-                    <td>${kh.hinhAnh.ten}</td>
+                    <td>${kh.hinhAnh.urlImg0}</td>
                     <td>${kh.chatLieuDeGiay.ten}</td>
                     <td>${kh.chatLieuThanGiay.ten}</td>
                     <td>${kh.hang.ten}</td>
