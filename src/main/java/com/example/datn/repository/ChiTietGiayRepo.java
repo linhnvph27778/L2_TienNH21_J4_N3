@@ -12,4 +12,7 @@ import java.util.UUID;
 public interface ChiTietGiayRepo extends JpaRepository<ChiTietGiay, UUID> {
 
     List<ChiTietGiay> findByGiayId(UUID idGiay);
+
+    @Query(value = "select * from ChiTietGiay where IdGiay == 'idGiay'",nativeQuery = true)
+    List<ChiTietGiay> findBySize(UUID idGiay);
 }
