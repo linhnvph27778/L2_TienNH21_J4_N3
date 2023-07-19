@@ -47,11 +47,6 @@
                         <sf:errors cssClass="text-danger" path="soLuongTon" element="span"/>
                     </div>
                     <div class="mt-3">
-                        <label>Mô tả</label>
-                        <sf:input path="moTa" cssClass="form-control"/>
-                        <sf:errors cssClass="text-danger" path="moTa" element="span"/>
-                    </div>
-                    <div class="mt-3">
                         <label>Trạng thái</label>
                         <sf:radiobutton path="trangThai" value="1" cssClass="form-check-input"/>Đang bán
                         <sf:radiobutton path="trangThai" value="0" cssClass="form-check-input"/>Ngừng bán

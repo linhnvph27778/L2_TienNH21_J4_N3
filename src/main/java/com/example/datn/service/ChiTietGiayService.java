@@ -22,4 +22,5 @@ public interface ChiTietGiayService {
 
     List<ChiTietGiay> findByIdGiay(UUID idGiay);
 
+    List<ChiTietGiay> findBySize(UUID idGiay);
 }

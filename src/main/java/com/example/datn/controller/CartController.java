@@ -2,14 +2,18 @@ package com.example.datn.controller;
 
 import com.example.datn.entity.Cart;
 import com.example.datn.entity.ChiTietGiay;
+import com.example.datn.entity.GiayDistinct;
 import com.example.datn.entity.HoaDon;
 import com.example.datn.entity.Item;
 import com.example.datn.entity.KhachHang;
 import com.example.datn.service.ChiTietGiayService;
+import com.example.datn.service.GiayDistinctService;
 import com.example.datn.service.HoaDonService;
 import com.example.datn.service.KhachHangService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +39,9 @@ public class CartController {
     private ChiTietGiayService chiTietGiayService;
 
     @Autowired
+    private GiayDistinctService giayDistinctService;
+
+    @Autowired
     private KhachHangService khachHangService;
 
 //    @Autowired
@@ -57,6 +64,7 @@ public class CartController {
 
     @GetMapping("/cart/add")
     public String addToCart(@RequestParam("idChiTietGiay") UUID idChiTietGiay, Model model) {
+
         // lấy ctsp từ repo
         Optional<ChiTietGiay> chiTietGiay = chiTietGiayService.getOne(idChiTietGiay);
         double tongTien = 0;
@@ -112,17 +120,19 @@ public class CartController {
     @GetMapping("/chon-tai-khoan/{id}")
     public String chonTaiKhoan(@PathVariable("id") UUID id,Model model){
         Optional<KhachHang> khachHang = khachHangService.getOne(id);
-
         session.setAttribute("hoTen",khachHang.get().getHoTen());
         session.setAttribute("sdt",khachHang.get().getSdt());
         session.setAttribute("email",khachHang.get().getEmail());
-
         return "redirect:/mua-hang/cart/view";
     }
     @GetMapping("/cart/view")
     public String hienThi(Model model) {
         Cart cart = (Cart) httpSession.getAttribute("cart");
-        model.addAttribute("list",chiTietGiayService.getAll());
+        //chon sp
+        model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
+//        //chọn size giày
+        UUID idGiay = UUID.fromString("F5D7A5F0-BE44-4470-BEBD-09CB0AC07EA9");
+        model.addAttribute("listSize",chiTietGiayService.findByIdGiay(idGiay));
         if (cart == null){
             session.setAttribute("error","Bạn chưa có sản phẩm trong giỏ hàng");
             session.setAttribute("tongTien",0);
@@ -135,12 +145,17 @@ public class CartController {
             return "viewsBanHang/banhang";
         }
         model.addAttribute("gioHangChiTiet", list);
-
-
         //chọn khách hàng
         model.addAttribute("listkh",khachHangService.getAll());
 
         return "viewsBanHang/banhang";
+    }
+
+    @GetMapping("/cart/view/chonSize/{idGiay}")
+    public String chonSize(@RequestParam("idGiay")UUID idGiay,Model model){
+        model.addAttribute("listChonSize",chiTietGiayService.findByIdGiay(idGiay));
+        System.out.println(" dã vào đây"+idGiay);
+        return"redirect:/mua-hang/cart/view";
     }
 
 
