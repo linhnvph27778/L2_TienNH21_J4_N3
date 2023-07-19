@@ -18,4 +18,6 @@ public interface SizeService {
     Optional<Size> getOne(UUID ma);
 
     List<Size> findSizeActive();
+
+    Size findByID(UUID id);
 }
