@@ -63,6 +63,7 @@ public class CartController {
     @GetMapping("/cart/add")
     public String addToCart(@RequestParam("idChiTietGiay") UUID idChiTietGiay, Model model) {
 
+        model.addAttribute("modalSize", false);
         // lấy ctsp từ repo
         Optional<ChiTietGiay> chiTietGiay = chiTietGiayService.getOne(idChiTietGiay);
         double tongTien = 0;
@@ -117,6 +118,7 @@ public class CartController {
 
     @GetMapping("/chon-tai-khoan/{id}")
     public String chonTaiKhoan(@PathVariable("id") UUID id,Model model){
+        model.addAttribute("modalSize", false);
         Optional<KhachHang> khachHang = khachHangService.getOne(id);
         session.setAttribute("hoTen",khachHang.get().getHoTen());
         session.setAttribute("sdt",khachHang.get().getSdt());
@@ -166,12 +168,6 @@ public class CartController {
         //chon sp
         model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
 
-    @GetMapping("/cart/view/chonSize/{idGiay}")
-    public String chonSize(@RequestParam("idGiay")UUID idGiay,Model model){
-        model.addAttribute("listChonSize",chiTietGiayService.findByIdGiay(idGiay));
-        System.out.println(" dã vào đây"+idGiay);
-        return"redirect:/mua-hang/cart/view";
-    }
 
 
         List<ChiTietGiay> listSize = chiTietGiayService.findByIdGiay(idGiay);

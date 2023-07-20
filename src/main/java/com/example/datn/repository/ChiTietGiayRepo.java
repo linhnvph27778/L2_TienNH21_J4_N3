@@ -34,7 +34,4 @@ public interface ChiTietGiayRepo extends JpaRepository<ChiTietGiay, UUID> {
 
 
 
-    @Query(value = "select * from ChiTietGiay where IdGiay == 'idGiay'",nativeQuery = true)
-    List<ChiTietGiay> findBySize(UUID idGiay);
-
 }
