@@ -32,77 +32,25 @@
                                 <td></td>
                                 <td>Tên</td>
                                 <td>Tổng kho</td>
-                                <td>Giá</td>
+                                <td>Giá thấp nhất</td>
                                 <td colspan="2">Action</td>
                             </tr>
                             </thead>
-
                             <tbody>
-                                <c:forEach items="${list}" var="kh">
+                                <c:forEach items="${listChonSanPham}" var="kh">
                                     <tr>
                                         <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="90"
                                                  width="100"><td>
                                         <td>${kh.giay.ten}</td>
-                                        <td>${kh.giaBan}</td>
+                                        <td>${kh.remindProducts}</td>
+                                        <td>${kh.minPrice}</td>
                                          <td>
                                              <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}" class="btn btn-primary m-3">
                                             Chọn</a>
+                                             </c:forEach>
 
-                            <tbdoy>
-                                <c:forEach items="${listChonSanPham}" var="kh">
-                                    <tr>
-                                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"
-                                                 width="120">
-                                        </td>
-                                        <td>${kh.giay.ma}</td>
-                                        <td>${kh.giay.ten}</td>
-                                        <td>${kh.remindProducts}</td>
-                                        <td>${kh.minPrice}</td>
-                                        <td>
-                                            <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}"
-                                               class="btn btn-primary m-3" data-bs-toggle="modal"
-                                               data-bs-target="#chonSize">
-                                                Chọn
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbdoy>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <%--       END Modal chọn san pham--%>
-
-        <%--        Modal chọn size--%>
-        <div class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <table class="table mt-3 text-center">
-                            <thead class="">
-                            <tr>
-                                <td>San phẩm</td>
-                                <td></td>
-                            </tr>
-                            </thead>
-                            <tbdoy>
-                                <c:forEach items="${listSize}" var="kh">
-                                    <tr>
-                                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"
-                                                 width="120">
-                                        </td>
-                                        <td>${kh.size.soSize}</td>
-                                        <td>${kh.giay.ten}</td>
-                                        <td>
-                                            <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"
-                                               class="btn btn-secondary">Thêm giỏ hàng</a>
-
-                                        </td>
-                                    </tr>
-                                </c:forEach>
                             </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -152,10 +100,6 @@
             </div>
         </div>
 
-
-        <%--       END Modal chọn san pham--%>
-
-        <%--       END Modal chọn size--%>
 
         <% } %>
         <%--       END Modal chọn size--%>
