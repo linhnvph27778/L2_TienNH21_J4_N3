@@ -50,7 +50,7 @@ public class KhachHangServiceImpl implements KhachHangService {
 
     @Override
     public KhachHang checkLogin(String email, String pass) {
-        return khachHangRepository.findByEmailAndPass(email, pass);
+        return khachHangRepository.findByEmailAndPassAndTrangThai(email, pass, 1);
     }
 
     @Override

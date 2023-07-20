@@ -10,41 +10,60 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <div class="container">
     <div class="col-10 offset-1 mt-3">
 
-                <a class="btn btn-primary" href="/mua-hang/cart">Tạo hóa đơn</a>
+        <a class="btn btn-primary" href="/mua-hang/cart">Tạo hóa đơn</a>
         <%--        Modal chọn san pham--%>
         <div class="modal fade" id="chonSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
                         <table class="table mt-3 text-center">
                             <thead class="">
                             <tr>
                                 <td>Ảnh</td>
-                                <td>Mã</td>
+                                <td></td>
                                 <td>Tên</td>
-                                <td>Đơn giá</td>
-
+                                <td>Tổng kho</td>
+                                <td>Giá</td>
                                 <td colspan="2">Action</td>
                             </tr>
                             </thead>
-                            <tbdoy>
+
+                            <tbody>
                                 <c:forEach items="${list}" var="kh">
                                     <tr>
                                         <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="90"
-                                                 width="100">>
+                                                 width="100"><td>
+                                        <td>${kh.giay.ten}</td>
+                                        <td>${kh.giaBan}</td>
+                                         <td>
+                                             <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}" class="btn btn-primary m-3">
+                                            Chọn</a>
+
+                            <tbdoy>
+                                <c:forEach items="${listChonSanPham}" var="kh">
+                                    <tr>
+                                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"
+                                                 width="120">
                                         </td>
                                         <td>${kh.giay.ma}</td>
                                         <td>${kh.giay.ten}</td>
-                                        <td>${kh.giaBan}</td>
+                                        <td>${kh.remindProducts}</td>
+                                        <td>${kh.minPrice}</td>
                                         <td>
-
-                                            <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"
-                                               class="btn btn-secondary">Thêm giỏ hàng</a>
+                                            <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}"
+                                               class="btn btn-primary m-3" data-bs-toggle="modal"
+                                               data-bs-target="#chonSize">
+                                                Chọn
+                                            </a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -55,6 +74,92 @@
             </div>
         </div>
         <%--       END Modal chọn san pham--%>
+
+        <%--        Modal chọn size--%>
+        <div class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <table class="table mt-3 text-center">
+                            <thead class="">
+                            <tr>
+                                <td>San phẩm</td>
+                                <td></td>
+                            </tr>
+                            </thead>
+                            <tbdoy>
+                                <c:forEach items="${listSize}" var="kh">
+                                    <tr>
+                                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"
+                                                 width="120">
+                                        </td>
+                                        <td>${kh.size.soSize}</td>
+                                        <td>${kh.giay.ten}</td>
+                                        <td>
+                                            <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"
+                                               class="btn btn-secondary">Thêm giỏ hàng</a>
+
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--       END Modal chọn san pham--%>
+
+        <%--        Modal chọn size--%>
+        <% boolean modalSize = (Boolean) request.getAttribute("modalSize"); %>
+        <% if (modalSize) { %>
+        <div class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Danh sách sản phẩm</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table mt-3 text-center">
+                            <thead class="">
+                            <tr>
+                                <td>Sản phẩm</td>
+                                <td>Size</td>
+                                <td>Tên</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${listSize}" var="kh">
+                                <tr>
+                                    <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"
+                                             width="100"></td>
+                                    <td>${kh.size.soSize}</td>
+                                    <td>${kh.giay.ten}</td>
+                                    <td>
+                                        <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"
+                                           class="btn btn-secondary">Thêm giỏ hàng</a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <%--       END Modal chọn san pham--%>
+
+        <%--       END Modal chọn size--%>
+
+        <% } %>
+        <%--       END Modal chọn size--%>
+
 
         <div class="col-8 offset-2" style="background-color: #e5e5e5; border: #007bff 10px">
             <div>
@@ -82,7 +187,7 @@
                             <td>
                                 <div class="row p-0">
                                     <div class="col-6">
-                                        <img src="/img/imgsProducts/${gh.hinhAnh}" alt="" height="120" width="200">
+                                        <img src="/img/imgsProducts/${gh.hinhAnh}" alt="" height="150" width="150">
                                     </div>
                                     <div class="col-6">
                                         <div class="fs-2 fw-bolder">${gh.tenGiay}</div>
@@ -117,7 +222,8 @@
                 <div class="">SDT: ${sdt}</div>
                 <div class="">Email: ${email}</div>
             </div>
-            <%--            modal chọn khách hàng--%>
+
+            <%--modal chọn khách hàng--%>
             <div class="modal fade" id="chonTaiKhoan" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
@@ -128,11 +234,8 @@
                                 <tr>
                                     <th>Mã</th>
                                     <th>Họ tên</th>
-                                    <%--                                    <th>Ngày sinh</th>--%>
-                                    <%--                                    <th>Email</th>--%>
                                     <th>SDT</th>
                                     <th>Trạng thái</th>
-                                    <%--                                    <th>Loại khách hàng</th>--%>
                                     <th colspan="2">Action</th>
                                 </tr>
                                 </thead>
@@ -141,11 +244,8 @@
                                         <tr>
                                             <td>${kh.ma}</td>
                                             <td>${kh.hoTen}</td>
-                                                <%--                                            <td><f:formatDate value="${kh.ngaySinh}" pattern="dd-MM-yyyy"/></td>--%>
-                                                <%--                                            <td>${kh.email}</td>--%>
                                             <td>${kh.sdt}</td>
                                             <td>${kh.trangThai==1 ? "Đang hoạt động" : "Ngừng hoạt động"}</td>
-                                                <%--                                            <td>${kh.loaiKhachHang.ten}</td>--%>
                                             <td>
                                                 <a href="/mua-hang/chon-tai-khoan/${kh.id}"
                                                    class="btn btn-primary">Chọn</a>
@@ -163,6 +263,8 @@
 
     </div>
 </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
@@ -172,5 +274,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
         integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
         crossorigin="anonymous"></script>
+<script>
+    // Kích hoạt modal khi trang được tải
+    $(document).ready(function() {
+        $('#chonSize').modal('show');
+    });
+</script>
 </body>
 </html>

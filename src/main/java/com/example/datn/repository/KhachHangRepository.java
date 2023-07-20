@@ -14,7 +14,7 @@ public interface KhachHangRepository extends JpaRepository<KhachHang , UUID> {
 //            " or hoTen like %:keyword% and idLoaiKhachHang like :loaiKH",nativeQuery = true)
 //    Page<KhachHang> search(String keyword, String loaiKH, Pageable pageable);
 
-    KhachHang findByEmailAndPass(String email, String pass);
+    KhachHang findByEmailAndPassAndTrangThai(String email, String pass, Integer trangThai);
 
     KhachHang findByEmail(String email);
 }

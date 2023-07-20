@@ -86,8 +86,8 @@
                     <ul>
                         <li><a href="/viewsUsers/usersHome" >Home</a></li>
                         <li class="active"><a href="/viewsUsers/usersShop" >Shop</a></li>
-                        <li><a href="/viewsUsers/authencation/usersAbout">About Us</a></li>
-                        <li><a href="/viewsUsers/authencation/usersBlog">Blog</a>
+                        <li><a href="/viewsUsers/usersAbout">About Us</a></li>
+                        <li><a href="/viewsUsers/usersBlog">Blog</a>
                             <ul class="dropdown">
                                 <li><a href="/viewsUsers/authencation/usersBlog-details">Blog Details</a></li>
                             </ul>
@@ -101,7 +101,7 @@
                     <a href="#" class="search-switch"><img src="/img/icon/search.png" alt=""></a>
                     <a href="#"><img src="/img/icon/heart.png" alt=""></a>
 
-                    <a href="/viewsUsers/authencation/usersShopping-cart" style="position: relative; display: inline-block; ">
+                    <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
                         <img src="/img/icon/cart.png" alt="">
                         <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductCart}"></span>
                     </a>
@@ -147,17 +147,17 @@
                         <div class="accordion" id="accordionExample">
                             <div class="card">
                                 <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseOne">Category</a>
+                                    <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
                                 </div>
                                 <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="shop__sidebar__categories">
-                                            <ul class="nice-scroll">
-                                                <li class="active"><a >All Product</a></li>
-                                               <%-- <th:block th:each="category : ${listCategory}">
-                                                    <br>
-                                                    <li th:data-filter="|.${category.ma_Category}|"><a th:text="${category.name_Category}" ></a></li>
-                                                </th:block>--%>
+                                            <ul class="nice-scroll" style="height: 20%">
+                                                <li data-filter="*"><a href="#">All Product(20)</a></li>
+                                                <li><a href="#">Best Seller (20)</a></li>
+                                                <li><a href="#">New Arrivals (20)</a></li>
+                                                <li><a href="#">Collections (20)</a></li>
+                                                <li><a href="#">Sale off 20%  (20)</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -171,8 +171,9 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__brand">
                                             <ul>
+                                                <li class="active" data-filter="*"><a >All Branding</a></li>
                                                 <c:forEach items="${listBrand}" var="br" >
-                                                    <li><a href="/branding/ + ${br.ten}}" >${br.ten}</a></li>
+                                                    <li data-filter=".${br.ten}" ><a>${br.ten}</a></li>
                                                 </c:forEach>
                                             </ul>
                                         </div>
@@ -258,15 +259,16 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="shop__product__option__left">
-                                <p text="'Showing 1–' + ${sumProduct} + ' of ' + ${sumProduct} + ' Results'"></p>
+                                <p> Showing 1 – 9 of ${sumProduct} Results</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="shop__product__option__right">
                                 <p>Sort by Price:</p>
-                                <select>
-                                    <option value="">Low To High</option>
-                                    <option value="">High To Low</option>
+                                <select onchange="window.location.href = this.value;">
+                                    <option>${ChooseAnOption}</option>
+                                    <option value="/viewsUsers/usersShop/LowToHigh">Low To High</option>
+                                    <option value="/viewsUsers/usersShop/HighToLow">High To Low</option>
                                 </select>
                             </div>
                         </div>
@@ -276,14 +278,14 @@
                 <div class="row product__filter">
 
                     <c:forEach  items="${listProducts}" var="product">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix ${product.nameBrand}">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" style="border-radius: 10px;"  data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg0}">
                                     <ul class="product__hover">
                                         <li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
                                         <li><a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a>
                                         </li>
-                                        <li><a href="/viewsUsers/shop-details/${product.giay.id}"><img src="/img/icon/search.png" alt=""></a></li>
+                                        <li><a href="/viewsUsers/shop-details/${product.distinct}"><img src="/img/icon/search.png" alt=""></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -301,7 +303,6 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="product__pagination">
-
                             <c:forEach var="i" begin="1" end="${totalPage}">
                                 <a class="active" href="/viewsUsers/usersShop?pageNum=${i}">${i}</a>
                             </c:forEach>

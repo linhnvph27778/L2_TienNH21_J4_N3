@@ -51,7 +51,6 @@
             <td>Giá nhập</td>
             <td>Giá Bán</td>
             <td>Số lượng tồn</td>
-            <td>Mo tả</td>
             <td>Trạng thai</td>
             <td>Hình ảnh</td>
             <td>Chất liệu đế</td>
@@ -72,7 +71,6 @@
                     <td>${kh.giaNhap}</td>
                     <td>${kh.giaBan}</td>
                     <td>${kh.soLuongTon}</td>
-                    <td>${kh.moTa}</td>
                     <td>${kh.trangThai}</td>
                     <td>${kh.hinhAnh.urlImg0}</td>
                     <td>${kh.chatLieuDeGiay.ten}</td>
