@@ -50,4 +50,9 @@ public class GiayServiceImpl implements GiayService {
     public Giay checkMa(String ma) {
         return null;
     }
+
+    @Override
+    public Giay findByID(UUID idGiay) {
+        return giayRepository.findById(idGiay).orElse(null);
+    }
 }
