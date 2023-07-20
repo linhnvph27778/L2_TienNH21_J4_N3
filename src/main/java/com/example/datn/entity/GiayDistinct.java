@@ -24,6 +24,10 @@ public class GiayDistinct {
 
     private Double minPrice;
 
+    private Double maxPrice;
+
+    private String nameBrand;
+
     private Integer remindProducts;
 
     @OneToOne

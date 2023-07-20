@@ -21,4 +21,6 @@ public interface GiayService {
 
     Giay checkMa(String ma);
 
+    Giay findByID(UUID idGiay);
+
 }

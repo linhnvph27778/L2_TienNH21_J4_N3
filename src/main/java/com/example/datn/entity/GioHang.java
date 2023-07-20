@@ -15,6 +15,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.UUID;
+import java.util.Date;
 
 @Entity
 @Table(name = "GioHang")
@@ -40,6 +41,10 @@ public class GioHang {
 
     @Column(name = "TrangThai")
     private int trangThai;
+
+    @Column(name = "ngayTao")
+    private Date ngayTao;
+
 
     @ManyToOne
     @JoinColumn(name = "idKhachHang")
