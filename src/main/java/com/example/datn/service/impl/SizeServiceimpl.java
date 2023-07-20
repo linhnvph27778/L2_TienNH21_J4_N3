@@ -44,4 +44,9 @@ public class SizeServiceimpl implements SizeService {
     public List<Size> findSizeActive() {
         return sizeRepo.findByTrangThaiOrderBySoSize(1);
     }
+
+    @Override
+    public Size findByID(UUID id) {
+        return sizeRepo.findById(id).orElse(null);
+    }
 }

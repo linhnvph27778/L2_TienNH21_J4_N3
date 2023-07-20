@@ -6,6 +6,7 @@ import com.example.datn.entity.GiayDistinct;
 import com.example.datn.entity.HoaDon;
 import com.example.datn.entity.Item;
 import com.example.datn.entity.KhachHang;
+import com.example.datn.entity.*;
 import com.example.datn.service.ChiTietGiayService;
 import com.example.datn.service.GiayDistinctService;
 import com.example.datn.service.HoaDonService;
@@ -21,10 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/mua-hang")
@@ -125,14 +123,25 @@ public class CartController {
         session.setAttribute("email",khachHang.get().getEmail());
         return "redirect:/mua-hang/cart/view";
     }
+
     @GetMapping("/cart/view")
     public String hienThi(Model model) {
+        model.addAttribute("modalSize", false);
         Cart cart = (Cart) httpSession.getAttribute("cart");
+
+        model.addAttribute("list",chiTietGiayService.getAll());
+        //chon sp
+        model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
+//        //chọn size giày
+//        UUID idGiay = UUID.fromString("267d399f-39ea-4c71-830b-9a2cd340efed");
+//        model.addAttribute("listSize",chiTietGiayService.findByIdGiay(idGiay));
+
         //chon sp
         model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
 //        //chọn size giày
         UUID idGiay = UUID.fromString("F5D7A5F0-BE44-4470-BEBD-09CB0AC07EA9");
         model.addAttribute("listSize",chiTietGiayService.findByIdGiay(idGiay));
+
         if (cart == null){
             session.setAttribute("error","Bạn chưa có sản phẩm trong giỏ hàng");
             session.setAttribute("tongTien",0);
@@ -150,6 +159,12 @@ public class CartController {
 
         return "viewsBanHang/banhang";
     }
+    @GetMapping("/cart/view/chonSize/{id}")
+    public String chonSize(@PathVariable("id") UUID idGiay, Model model) {
+        Cart cart = (Cart) httpSession.getAttribute("cart");
+        model.addAttribute("modalSize", true);
+        //chon sp
+        model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
 
     @GetMapping("/cart/view/chonSize/{idGiay}")
     public String chonSize(@RequestParam("idGiay")UUID idGiay,Model model){
@@ -158,5 +173,11 @@ public class CartController {
         return"redirect:/mua-hang/cart/view";
     }
 
+
+        List<ChiTietGiay> listSize = chiTietGiayService.findByIdGiay(idGiay);
+        model.addAttribute("listSize", listSize);
+        model.addAttribute("showModal", true);
+        return "viewsBanHang/banhang";
+    }
 
 }

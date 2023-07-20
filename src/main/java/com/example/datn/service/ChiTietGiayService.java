@@ -1,7 +1,6 @@
 package com.example.datn.service;
 
-import com.example.datn.entity.ChiTietGiay;
-import com.example.datn.entity.KhachHang;
+import com.example.datn.entity.*;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -22,5 +21,19 @@ public interface ChiTietGiayService {
 
     List<ChiTietGiay> findByIdGiay(UUID idGiay);
 
+
+    List<MauSac> findMauSacByIDGiay(UUID idGiay);
+
+    List<MauSac> findDistinctMauSacBySizeAndGiay(UUID idGiay, UUID idSize);
+
+    List<Size> findSizeByIDGiay(UUID idGiay);
+
+    List<ChatLieuDeGiay> findCLDGIDGiay(UUID idGiay);
+
+    List<ChatLieuThanGiay> findCLTGByIDGiay(UUID idGiay);
+
+    List<ChiTietGiay> findByIDGiayAndIDSize(Giay giay, Size size);
+
     List<ChiTietGiay> findBySize(UUID idGiay);
+
 }

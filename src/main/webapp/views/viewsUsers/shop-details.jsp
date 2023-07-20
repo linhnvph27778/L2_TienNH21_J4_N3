@@ -102,7 +102,7 @@
                     <a href="#" class="search-switch"><img src="/img/icon/search.png" alt=""></a>
                     <a href="#"><img src="/img/icon/heart.png" alt=""></a>
 
-                    <a href="/viewsUsers/authencation/usersShopping-cart" style="position: relative; display: inline-block; ">
+                    <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
                         <img src="/img/icon/cart.png" alt="">
                         <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductCart}"></span>
                     </a>
@@ -130,27 +130,25 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-3">
-
-
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
-                                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${image}"></div>
+                                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg0}"></div>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
-                                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${image}"></div>
+                                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg1}"></div>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">
-                                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${image}"></div>
+                                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg2}"></div>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">
-                                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${image}"></div>
+                                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg3}"></div>
                                 </a>
                             </li>
                         </ul>
@@ -159,22 +157,22 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__pic__item">
-                                    <img style="border-radius:20px;" src=/img/imgsProducts/${image}"/>
+                                    <img src="/img/imgsProducts/${product.hinhAnh.urlImg0}"/>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <div class="product__details__pic__item">
-                                    <img style="border-radius:20px;" src=/img/imgsProducts/${image}"/>
+                                    <img src="/img/imgsProducts/${product.hinhAnh.urlImg1}"/>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__pic__item">
-                                    <img style="border-radius:20px;" src=/img/imgsProducts/${image}"/>
+                                    <img src="/img/imgsProducts/${product.hinhAnh.urlImg2}"/>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-4" role="tabpanel">
                                 <div class="product__details__pic__item">
-                                    <img style="border-radius:20px;" src=/img/imgsProducts/${image}"/>
+                                    <img src="/img/imgsProducts/${product.hinhAnh.urlImg3}"/>
                                 </div>
                             </div>
                         </div>
@@ -187,39 +185,51 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
                         <div class="product__details__text">
-                            <h4>${product.name_product}"</h4>
-                            <h3>${product.price_product}</h3>
-                            <h3>${product.price_product} - ${product.price_product}</h3>
-                            <p>${product.desciption_product}</p>
+                            <h4>${product.giay.ten}</h4>
+                            <h3>${money} ${product.minPrice} ${space} ${money}${product.maxPrice}</h3>
+                            <h3>${price_product}</h3>
+                            <p>${product.giay.moTa}</p>
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
-                                    <span>Size:</span>
-                                    <c:forEach items="${listProducts}" var="product" >
+                                    <span>Size :</span>
+                                    <c:forEach items="${listSize}" var="size" >
                                         <label>
-                                            <li><a href="${product.size.id}" >${product.size.soSize}</a></li>
+                                            <a href="${product.giay.id}/${size.id}" >${size.soSize}</a>
                                         </label>
                                     </c:forEach>
                                 </div>
-
-
-
                                 <div class="product__details__option__color">
                                     <span>Color :</span>
-
-                                    <c:forEach items="${listProducts}" var="product" >
-                                        <label style="background-color: ${product.mauSac.ten};" >
-                                            <input type="radio" >
-                                        </label>
+                                    <c:forEach items="${listColor}" var="color" >
+                                        <a href="${product.giay.id}/${color.id}">
+                                            <label style="background-color: ${color.ten};" ></label>
+                                        </a>
                                     </c:forEach>
-
-                                    <span>${product.remaining_product}</span>
+                                    <span>${product.remindProducts}</span>
                                     <span>Pieces avaiable</span>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="product__details__option__size" style=" display: flex;padding-left: 30% ">
+                                    <select style="margin-right: 100px" onchange="window.location.href = this.value;">
+                                        <option value="#">Sole Material</option>
+                                        <c:forEach items="${listCLDG}" var="dg" >
+                                            <option value="#">${dg.ten}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <span></span>
+                                    <select style="margin-left: 100px" onchange="window.location.href = this.value;">
+                                        <option>Body Material</option>
+                                        <c:forEach items="${listCLTG}" var="tg" >
+                                            <option value="#">${tg.ten}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                             </div>
                             <div class="product__details__cart__option">
                                 <div class="quantity">
                                     <div class="pro-qty">
-                                        <input data-max-quantity="${product.remaining_product}" id="quantityInput" type="text" value="1">
+                                        <input data-max-quantity="${product.remindProducts}" id="quantityInput" type="text" value="1">
                                     </div>
                                 </div>
                                 <button  class="primary-btn">buy now</button>

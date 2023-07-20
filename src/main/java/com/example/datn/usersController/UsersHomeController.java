@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("viewsUsers")
-public class UserHomeController {
+public class UsersHomeController {
 
     @Autowired
     private HttpServletRequest req;
@@ -25,6 +25,7 @@ public class UserHomeController {
         KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
 
         if (khachHang != null){
+            model.addAttribute("fullnameLogin", khachHang.getHoTen());
             model.addAttribute("ifFullnameLogin", true);
             model.addAttribute("messageLoginOrSignin", false);
         }else{

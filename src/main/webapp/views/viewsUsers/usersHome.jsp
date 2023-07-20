@@ -98,10 +98,10 @@
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option">
-                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                    <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                    <a href="#" class="search-switch"><img src="/img/icon/search.png" alt=""></a>
+                    <a href="#"><img src="/img/icon/heart.png" alt=""></a>
 
-                    <a href="/shopping-cart" style="position: relative; display: inline-block; ">
+                    <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
                         <img src="/img/icon/cart.png" alt="">
                         <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductCart}</span>
                     </a>
@@ -125,7 +125,7 @@
                             <h2>Fall - Winter Collections 2030</h2>
                             <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
                                 commitment to exceptional quality.</p>
-                            <a th:href="@{'/shop'}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                            <a th:href="@{'/shop'}" class="primary-btn" style="color : white">Shop now <span class="arrow_right"></span></a>
                             <div class="hero__social">
                                 <a href="https://www.facebook.com/Nhanday.19092003"><i class="fa fa-facebook"></i></a>
                                 <a th:href="https://www.instagram.com/nhanphh_03/?theme=dark"><i class="fa fa-twitter"></i></a>
@@ -146,7 +146,7 @@
                             <h2>Fall - Winter Collections 2030</h2>
                             <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
                                 commitment to exceptional quality.</p>
-                            <a th="/shop" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                            <a th="/shop" class="primary-btn" style="color : white">Shop now <span class="arrow_right"></span></a>
                             <div class="hero__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
@@ -212,10 +212,9 @@
                 <div class="col-lg-12">
                     <ul class="filter__controls">
                         <li class="active" data-filter="*">All Product</li>
-<%--                        <c:forEach items="${listCategory}" var="category" >--%>
-<%--                            <li th:text="${category.name_Category}" th:data-filter="|.${category.ma_Category}|"></li>--%>
-<%--                        </c:forEach>--%>
-
+                        <li  data-filter="*">Best Seller</li>
+                        <li  data-filter="*">Sale off 20%</li>
+                        <li  data-filter="*">Collections</li>
                     </ul>
                 </div>
             </div>
@@ -271,7 +270,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="categories__hot__deal">
-                    <img src="/img/product-sale.png" alt="">
+                    <img src="/img/imgsProducts/product-23.0.png" alt="">
                     <div class="hot__deal__sticker">
                         <span>Sale Of</span>
                         <h5>$29.99</h5>
@@ -281,7 +280,7 @@
             <div class="col-lg-4 offset-lg-1">
                 <div class="categories__deal__countdown">
                     <span>Deal Of The Week</span>
-                    <h2>Multi-pocket Chest Bag Black</h2>
+                    <h2>LA Big Ball Chunky</h2>
                     <div class="categories__deal__countdown__timer" id="countdown">
                         <div class="cd-item">
                             <span>3</span>
