@@ -76,9 +76,5 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     public List<ChiTietGiay> findByIDGiayAndIDSize(Giay giay, Size size) {
         return chiTietGiayRepo.findByGiayAndSize(giay, size);
 
-    public List<ChiTietGiay> findBySize(UUID idGiay) {
-        return chiTietGiayRepo.findBySize(idGiay);
-
     }
-
 }
