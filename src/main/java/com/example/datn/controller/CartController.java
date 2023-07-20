@@ -2,14 +2,19 @@ package com.example.datn.controller;
 
 import com.example.datn.entity.Cart;
 import com.example.datn.entity.ChiTietGiay;
+import com.example.datn.entity.GiayDistinct;
 import com.example.datn.entity.HoaDon;
 import com.example.datn.entity.Item;
 import com.example.datn.entity.KhachHang;
+import com.example.datn.entity.*;
 import com.example.datn.service.ChiTietGiayService;
+import com.example.datn.service.GiayDistinctService;
 import com.example.datn.service.HoaDonService;
 import com.example.datn.service.KhachHangService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/mua-hang")
@@ -33,6 +35,9 @@ public class CartController {
 
     @Autowired
     private ChiTietGiayService chiTietGiayService;
+
+    @Autowired
+    private GiayDistinctService giayDistinctService;
 
     @Autowired
     private KhachHangService khachHangService;
@@ -57,6 +62,7 @@ public class CartController {
 
     @GetMapping("/cart/add")
     public String addToCart(@RequestParam("idChiTietGiay") UUID idChiTietGiay, Model model) {
+
         // lấy ctsp từ repo
         Optional<ChiTietGiay> chiTietGiay = chiTietGiayService.getOne(idChiTietGiay);
         double tongTien = 0;
@@ -112,17 +118,30 @@ public class CartController {
     @GetMapping("/chon-tai-khoan/{id}")
     public String chonTaiKhoan(@PathVariable("id") UUID id,Model model){
         Optional<KhachHang> khachHang = khachHangService.getOne(id);
-
         session.setAttribute("hoTen",khachHang.get().getHoTen());
         session.setAttribute("sdt",khachHang.get().getSdt());
         session.setAttribute("email",khachHang.get().getEmail());
-
         return "redirect:/mua-hang/cart/view";
     }
+
     @GetMapping("/cart/view")
     public String hienThi(Model model) {
+        model.addAttribute("modalSize", false);
         Cart cart = (Cart) httpSession.getAttribute("cart");
+
         model.addAttribute("list",chiTietGiayService.getAll());
+        //chon sp
+        model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
+//        //chọn size giày
+//        UUID idGiay = UUID.fromString("267d399f-39ea-4c71-830b-9a2cd340efed");
+//        model.addAttribute("listSize",chiTietGiayService.findByIdGiay(idGiay));
+
+        //chon sp
+        model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
+//        //chọn size giày
+        UUID idGiay = UUID.fromString("F5D7A5F0-BE44-4470-BEBD-09CB0AC07EA9");
+        model.addAttribute("listSize",chiTietGiayService.findByIdGiay(idGiay));
+
         if (cart == null){
             session.setAttribute("error","Bạn chưa có sản phẩm trong giỏ hàng");
             session.setAttribute("tongTien",0);
@@ -135,13 +154,30 @@ public class CartController {
             return "viewsBanHang/banhang";
         }
         model.addAttribute("gioHangChiTiet", list);
-
-
         //chọn khách hàng
         model.addAttribute("listkh",khachHangService.getAll());
 
         return "viewsBanHang/banhang";
     }
+    @GetMapping("/cart/view/chonSize/{id}")
+    public String chonSize(@PathVariable("id") UUID idGiay, Model model) {
+        Cart cart = (Cart) httpSession.getAttribute("cart");
+        model.addAttribute("modalSize", true);
+        //chon sp
+        model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
 
+    @GetMapping("/cart/view/chonSize/{idGiay}")
+    public String chonSize(@RequestParam("idGiay")UUID idGiay,Model model){
+        model.addAttribute("listChonSize",chiTietGiayService.findByIdGiay(idGiay));
+        System.out.println(" dã vào đây"+idGiay);
+        return"redirect:/mua-hang/cart/view";
+    }
+
+
+        List<ChiTietGiay> listSize = chiTietGiayService.findByIdGiay(idGiay);
+        model.addAttribute("listSize", listSize);
+        model.addAttribute("showModal", true);
+        return "viewsBanHang/banhang";
+    }
 
 }

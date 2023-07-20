@@ -16,7 +16,7 @@ import java.util.Random;
 
 @Controller
 @RequestMapping("viewsUsers/authencation")
-public class UserFoggotPass {
+public class UsersFoggotPass {
 
     private Random random = new Random();
 
