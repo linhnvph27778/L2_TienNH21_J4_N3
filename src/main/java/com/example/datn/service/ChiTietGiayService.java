@@ -21,6 +21,7 @@ public interface ChiTietGiayService {
 
     List<ChiTietGiay> findByIdGiay(UUID idGiay);
 
+
     List<MauSac> findMauSacByIDGiay(UUID idGiay);
 
     List<MauSac> findDistinctMauSacBySizeAndGiay(UUID idGiay, UUID idSize);
@@ -32,5 +33,7 @@ public interface ChiTietGiayService {
     List<ChatLieuThanGiay> findCLTGByIDGiay(UUID idGiay);
 
     List<ChiTietGiay> findByIDGiayAndIDSize(Giay giay, Size size);
+
+    List<ChiTietGiay> findBySize(UUID idGiay);
 
 }

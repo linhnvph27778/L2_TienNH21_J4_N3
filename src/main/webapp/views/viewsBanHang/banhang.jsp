@@ -19,10 +19,10 @@
 <div class="container">
     <div class="col-10 offset-1 mt-3">
 
-                <a class="btn btn-primary" href="/mua-hang/cart">Tạo hóa đơn</a>
+        <a class="btn btn-primary" href="/mua-hang/cart">Tạo hóa đơn</a>
         <%--        Modal chọn san pham--%>
         <div class="modal fade" id="chonSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
                         <table class="table mt-3 text-center">
@@ -31,11 +31,12 @@
                                 <td>Ảnh</td>
                                 <td></td>
                                 <td>Tên</td>
-                                <td>Đơn giá</td>
-
+                                <td>Tổng kho</td>
+                                <td>Giá</td>
                                 <td colspan="2">Action</td>
                             </tr>
                             </thead>
+
                             <tbody>
                                 <c:forEach items="${list}" var="kh">
                                     <tr>
@@ -46,6 +47,58 @@
                                          <td>
                                              <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}" class="btn btn-primary m-3">
                                             Chọn</a>
+
+                            <tbdoy>
+                                <c:forEach items="${listChonSanPham}" var="kh">
+                                    <tr>
+                                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"
+                                                 width="120">
+                                        </td>
+                                        <td>${kh.giay.ma}</td>
+                                        <td>${kh.giay.ten}</td>
+                                        <td>${kh.remindProducts}</td>
+                                        <td>${kh.minPrice}</td>
+                                        <td>
+                                            <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}"
+                                               class="btn btn-primary m-3" data-bs-toggle="modal"
+                                               data-bs-target="#chonSize">
+                                                Chọn
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbdoy>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--       END Modal chọn san pham--%>
+
+        <%--        Modal chọn size--%>
+        <div class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <table class="table mt-3 text-center">
+                            <thead class="">
+                            <tr>
+                                <td>San phẩm</td>
+                                <td></td>
+                            </tr>
+                            </thead>
+                            <tbdoy>
+                                <c:forEach items="${listSize}" var="kh">
+                                    <tr>
+                                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"
+                                                 width="120">
+                                        </td>
+                                        <td>${kh.size.soSize}</td>
+                                        <td>${kh.giay.ten}</td>
+                                        <td>
+                                            <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"
+                                               class="btn btn-secondary">Thêm giỏ hàng</a>
+
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -99,7 +152,10 @@
             </div>
         </div>
 
+
         <%--       END Modal chọn san pham--%>
+
+        <%--       END Modal chọn size--%>
 
         <% } %>
         <%--       END Modal chọn size--%>
@@ -178,11 +234,8 @@
                                 <tr>
                                     <th>Mã</th>
                                     <th>Họ tên</th>
-                                    <%--                                    <th>Ngày sinh</th>--%>
-                                    <%--                                    <th>Email</th>--%>
                                     <th>SDT</th>
                                     <th>Trạng thái</th>
-                                    <%--                                    <th>Loại khách hàng</th>--%>
                                     <th colspan="2">Action</th>
                                 </tr>
                                 </thead>
@@ -191,11 +244,8 @@
                                         <tr>
                                             <td>${kh.ma}</td>
                                             <td>${kh.hoTen}</td>
-                                                <%--                                            <td><f:formatDate value="${kh.ngaySinh}" pattern="dd-MM-yyyy"/></td>--%>
-                                                <%--                                            <td>${kh.email}</td>--%>
                                             <td>${kh.sdt}</td>
                                             <td>${kh.trangThai==1 ? "Đang hoạt động" : "Ngừng hoạt động"}</td>
-                                                <%--                                            <td>${kh.loaiKhachHang.ten}</td>--%>
                                             <td>
                                                 <a href="/mua-hang/chon-tai-khoan/${kh.id}"
                                                    class="btn btn-primary">Chọn</a>

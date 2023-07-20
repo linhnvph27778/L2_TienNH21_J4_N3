@@ -47,6 +47,7 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     }
 
     @Override
+
     public List<MauSac> findMauSacByIDGiay(UUID idGiay) {
         return  chiTietGiayRepo.findDistinctMauSac(idGiay);
     }
@@ -74,6 +75,10 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     @Override
     public List<ChiTietGiay> findByIDGiayAndIDSize(Giay giay, Size size) {
         return chiTietGiayRepo.findByGiayAndSize(giay, size);
+
+    public List<ChiTietGiay> findBySize(UUID idGiay) {
+        return chiTietGiayRepo.findBySize(idGiay);
+
     }
 
 }
