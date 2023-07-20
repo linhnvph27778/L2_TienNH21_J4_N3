@@ -29,45 +29,27 @@
                             <thead class="">
                             <tr>
                                 <td>Ảnh</td>
-                                <td>Mã</td>
+                                <td></td>
                                 <td>Tên</td>
                                 <td>Đơn giá</td>
 
                                 <td colspan="2">Action</td>
                             </tr>
                             </thead>
-                            <tbdoy>
+                            <tbody>
                                 <c:forEach items="${list}" var="kh">
                                     <tr>
-<<<<<<< Updated upstream
                                         <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="90"
-                                                 width="100">>
-=======
-                                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"
-                                                 width="100">
->>>>>>> Stashed changes
-                                        </td>
-                                        <td>${kh.giay.ma}</td>
+                                                 width="100"><td>
                                         <td>${kh.giay.ten}</td>
                                         <td>${kh.giaBan}</td>
-                                        <td>
-<<<<<<< Updated upstream
-
-                                            <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"
-                                               class="btn btn-secondary">Thêm giỏ hàng</a>
+                                         <td>
+                                             <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}" class="btn btn-primary m-3">
+                                            Chọn</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
-                            </tbdoy>
-=======
-                                            <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}"
-                                               class="btn btn-primary m-3">
-                                                Chọn
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbdoy>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -110,18 +92,18 @@
                                 </tr>
                             </c:forEach>
                             </tbody>
->>>>>>> Stashed changes
+
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-<<<<<<< Updated upstream
+
         <%--       END Modal chọn san pham--%>
-=======
+
         <% } %>
         <%--       END Modal chọn size--%>
->>>>>>> Stashed changes
+
 
         <div class="col-8 offset-2" style="background-color: #e5e5e5; border: #007bff 10px">
             <div>

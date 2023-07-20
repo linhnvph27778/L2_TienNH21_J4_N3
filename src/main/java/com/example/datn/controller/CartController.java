@@ -1,15 +1,13 @@
 package com.example.datn.controller;
 
-<<<<<<< Updated upstream
 import com.example.datn.entity.Cart;
 import com.example.datn.entity.ChiTietGiay;
 import com.example.datn.entity.HoaDon;
 import com.example.datn.entity.Item;
 import com.example.datn.entity.KhachHang;
-=======
 import com.example.datn.entity.*;
->>>>>>> Stashed changes
 import com.example.datn.service.ChiTietGiayService;
+import com.example.datn.service.GiayDistinctService;
 import com.example.datn.service.HoaDonService;
 import com.example.datn.service.KhachHangService;
 import jakarta.servlet.http.HttpSession;
@@ -34,6 +32,9 @@ public class CartController {
 
     @Autowired
     private ChiTietGiayService chiTietGiayService;
+
+    @Autowired
+    private GiayDistinctService giayDistinctService;
 
     @Autowired
     private KhachHangService khachHangService;
@@ -125,15 +126,12 @@ public class CartController {
     public String hienThi(Model model) {
         model.addAttribute("modalSize", false);
         Cart cart = (Cart) httpSession.getAttribute("cart");
-<<<<<<< Updated upstream
         model.addAttribute("list",chiTietGiayService.getAll());
-=======
         //chon sp
         model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
 //        //chọn size giày
 //        UUID idGiay = UUID.fromString("267d399f-39ea-4c71-830b-9a2cd340efed");
 //        model.addAttribute("listSize",chiTietGiayService.findByIdGiay(idGiay));
->>>>>>> Stashed changes
         if (cart == null){
             session.setAttribute("error","Bạn chưa có sản phẩm trong giỏ hàng");
             session.setAttribute("tongTien",0);
@@ -153,9 +151,6 @@ public class CartController {
 
         return "viewsBanHang/banhang";
     }
-
-<<<<<<< Updated upstream
-=======
     @GetMapping("/cart/view/chonSize/{id}")
     public String chonSize(@PathVariable("id") UUID idGiay, Model model) {
         Cart cart = (Cart) httpSession.getAttribute("cart");
@@ -169,7 +164,5 @@ public class CartController {
         model.addAttribute("showModal", true);
         return "viewsBanHang/banhang";
     }
-
->>>>>>> Stashed changes
 
 }
