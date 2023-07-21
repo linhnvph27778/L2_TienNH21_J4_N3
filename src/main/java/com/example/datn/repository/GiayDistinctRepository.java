@@ -15,4 +15,6 @@ public interface GiayDistinctRepository extends JpaRepository<GiayDistinct, UUID
     Page<GiayDistinct> findAllByOrderByMinPriceAsc(Pageable pageable);
 
     Page<GiayDistinct> findAllByOrderByMinPriceDesc(Pageable pageable);
+
+    List<GiayDistinct> findGiayDistinctByNameBrand(String nameBran);
 }
