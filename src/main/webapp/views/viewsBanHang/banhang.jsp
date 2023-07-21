@@ -21,54 +21,76 @@
 
         <a class="btn btn-primary" href="/mua-hang/cart">Tạo hóa đơn</a>
         <%--        Modal chọn san pham--%>
+        <% boolean modalTimKiem = (Boolean) request.getAttribute("modalTimKiem"); %>
+        <% if (modalTimKiem) { %>
         <div class="modal fade" id="chonSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
+                    <form method="get" action="/mua-hang/cart/view/timKiem">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-8">
+                                    <label>Giày</label>
+                                    <input name="keyword" class="form-control" type="text" placeholder="Tên hoặc mã"
+                                           aria-label="Tên hoặc mã">
+                                </div>
+                                <div class="col-4 mt-4">
+                                    <button type="submit" class="btn btn-primary" style="float:right">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <div class="modal-body">
                         <table class="table mt-3 text-center">
                             <thead class="">
                             <tr>
                                 <td>Ảnh</td>
                                 <td></td>
+                                <td>Mã</td>
                                 <td>Tên</td>
                                 <td>Tổng kho</td>
                                 <td>Giá thấp nhất</td>
-                                <td colspan="2">Action</td>
+                                <td>Action</td>
                             </tr>
                             </thead>
                             <tbody>
                                 <c:forEach items="${listChonSanPham}" var="kh">
                                     <tr>
-                                        <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="90"
-                                                 width="100"><td>
+                                        <td>
+                                            <img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="90"
+                                                 width="100"/>
+                                        <td>
+                                        <td>${kh.giay.ma}</td>
                                         <td>${kh.giay.ten}</td>
                                         <td>${kh.remindProducts}</td>
                                         <td>${kh.minPrice}</td>
-                                         <td>
-                                             <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}" class="btn btn-primary m-3">
-                                            Chọn</a>
-                                             </c:forEach>
-
+                                        <td>
+                                            <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}" class="btn btn-primary m-3">
+                                                Chọn</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
-
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+        <% } %>
         <%--       END Modal chọn san pham--%>
 
         <%--        Modal chọn size--%>
         <% boolean modalSize = (Boolean) request.getAttribute("modalSize"); %>
         <% if (modalSize) { %>
-        <div class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+             data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Danh sách sản phẩm</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <a href="/mua-hang/cart/view" class="btn btn-primary" >
+                            Back
+                        </a>
                     </div>
                     <div class="modal-body">
                         <table class="table mt-3 text-center">
@@ -105,7 +127,7 @@
         <%--       END Modal chọn size--%>
 
 
-        <div class="col-8 offset-2" style="background-color: #e5e5e5; border: #007bff 10px">
+        <div class="col-10 offset-1" style="background-color: #e5e5e5; border: #007bff 10px">
             <div>
                 <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal"
                         data-bs-target="#chonSanPham">
@@ -153,7 +175,7 @@
             <div class=pull-right">Tổng tiền :${tongTien}</div>
         </div>
 
-        <div class="col-8 offset-2 mt-5" style="background-color: #e5e5e5 ">
+        <div class="col-10 offset-1 mt-5" style="background-color: #e5e5e5 ">
             <div>
                 <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal"
                         data-bs-target="#chonTaiKhoan">
@@ -220,9 +242,27 @@
         crossorigin="anonymous"></script>
 <script>
     // Kích hoạt modal khi trang được tải
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#chonSize').modal('show');
     });
 </script>
+<script>
+    // Kích hoạt modal khi trang được tải
+    $(document).ready(function () {
+        $('#modalTimKiem').modal('show');
+    });
+</script>
+
+<style>
+    /* Đặt chiều cao tối đa cho phần thân của modal */
+    .modal-xl .modal-content {
+        max-height: 600px; /* Bạn có thể điều chỉnh giá trị theo sở thích của mình */
+    }
+
+    /* Kích hoạt cuộn dọc cho phần thân của modal */
+    .modal-xl .modal-body {
+        overflow-y: auto;
+    }
+</style>
 </body>
 </html>
