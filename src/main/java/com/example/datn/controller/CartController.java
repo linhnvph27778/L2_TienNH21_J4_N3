@@ -67,7 +67,7 @@ public class CartController {
     public String addToCart(@RequestParam("idChiTietGiay") UUID idChiTietGiay, Model model) {
 
         model.addAttribute("modalSize", false);
-        model.addAttribute("modalTimKiem", false);
+        model.addAttribute("modalFullSP", false);
         // lấy ctsp từ repo
         Optional<ChiTietGiay> chiTietGiay = chiTietGiayService.getOne(idChiTietGiay);
         double tongTien = 0;
@@ -123,7 +123,7 @@ public class CartController {
     @GetMapping("/chon-tai-khoan/{id}")
     public String chonTaiKhoan(@PathVariable("id") UUID id,Model model){
         model.addAttribute("modalSize", false);
-        model.addAttribute("modalTimKiem", false);
+        model.addAttribute("modalFullSP", false);
         Optional<KhachHang> khachHang = khachHangService.getOne(id);
         session.setAttribute("hoTen",khachHang.get().getHoTen());
         session.setAttribute("sdt",khachHang.get().getSdt());
@@ -134,10 +134,8 @@ public class CartController {
     @GetMapping("/cart/view")
     public String hienThi(Model model) {
         model.addAttribute("modalSize", false);
-        model.addAttribute("modalTimKiem", true);
+        model.addAttribute("modalFullSP", false);
         Cart cart = (Cart) httpSession.getAttribute("cart");
-
-        model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
 
         if (cart == null){
             session.setAttribute("error","Bạn chưa có sản phẩm trong giỏ hàng");
@@ -156,12 +154,20 @@ public class CartController {
 
         return "viewsBanHang/banhang";
     }
+    @GetMapping("/cart/view/fullSP")
+    public String hienThiSP(Model model) {
+
+        model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
+
+        model.addAttribute("modalSize", false);
+        model.addAttribute("modalFullSP", true);
+        return "viewsBanHang/banhang";
+    }
     @GetMapping("/cart/view/timKiem")
     public String search(@RequestParam(value = "keyword",required = false)String keyword,Model model){
-        model.addAttribute("modalTimKiem", true);
+        model.addAttribute("modalFullSP", true);
         model.addAttribute("modalSize", false);
         model.addAttribute("listChonSanPham",giayDistinctService.timKiem(keyword));
-        System.out.println(giayDistinctService.timKiem(keyword).get(0).getGiay().getTen());
         return "viewsBanHang/banhang";
     }
 
@@ -169,12 +175,13 @@ public class CartController {
     public String chonSize(@PathVariable("id") UUID idGiay, Model model) {
         Cart cart = (Cart) httpSession.getAttribute("cart");
         model.addAttribute("modalSize", true);
+        model.addAttribute("modalFullSP", false);
         //chon sp
         model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
 
         List<ChiTietGiay> listSize = chiTietGiayService.findByIdGiay(idGiay);
         model.addAttribute("listSize", listSize);
-//        model.addAttribute("showModal", true);
+
         return "viewsBanHang/banhang";
     }
 
