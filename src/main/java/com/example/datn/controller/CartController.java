@@ -14,6 +14,9 @@ import com.example.datn.service.KhachHangService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,6 +67,7 @@ public class CartController {
     public String addToCart(@RequestParam("idChiTietGiay") UUID idChiTietGiay, Model model) {
 
         model.addAttribute("modalSize", false);
+        model.addAttribute("modalTimKiem", false);
         // lấy ctsp từ repo
         Optional<ChiTietGiay> chiTietGiay = chiTietGiayService.getOne(idChiTietGiay);
         double tongTien = 0;
@@ -119,6 +123,7 @@ public class CartController {
     @GetMapping("/chon-tai-khoan/{id}")
     public String chonTaiKhoan(@PathVariable("id") UUID id,Model model){
         model.addAttribute("modalSize", false);
+        model.addAttribute("modalTimKiem", false);
         Optional<KhachHang> khachHang = khachHangService.getOne(id);
         session.setAttribute("hoTen",khachHang.get().getHoTen());
         session.setAttribute("sdt",khachHang.get().getSdt());
@@ -129,20 +134,10 @@ public class CartController {
     @GetMapping("/cart/view")
     public String hienThi(Model model) {
         model.addAttribute("modalSize", false);
+        model.addAttribute("modalTimKiem", true);
         Cart cart = (Cart) httpSession.getAttribute("cart");
 
-        model.addAttribute("list",chiTietGiayService.getAll());
-        //chon sp
         model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
-//        //chọn size giày
-//        UUID idGiay = UUID.fromString("267d399f-39ea-4c71-830b-9a2cd340efed");
-//        model.addAttribute("listSize",chiTietGiayService.findByIdGiay(idGiay));
-
-        //chon sp
-        model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
-//        //chọn size giày
-        UUID idGiay = UUID.fromString("F5D7A5F0-BE44-4470-BEBD-09CB0AC07EA9");
-        model.addAttribute("listSize",chiTietGiayService.findByIdGiay(idGiay));
 
         if (cart == null){
             session.setAttribute("error","Bạn chưa có sản phẩm trong giỏ hàng");
@@ -161,6 +156,15 @@ public class CartController {
 
         return "viewsBanHang/banhang";
     }
+    @GetMapping("/cart/view/timKiem")
+    public String search(@RequestParam(value = "keyword",required = false)String keyword,Model model){
+        model.addAttribute("modalTimKiem", true);
+        model.addAttribute("modalSize", false);
+        model.addAttribute("listChonSanPham",giayDistinctService.timKiem(keyword));
+        System.out.println(giayDistinctService.timKiem(keyword).get(0).getGiay().getTen());
+        return "viewsBanHang/banhang";
+    }
+
     @GetMapping("/cart/view/chonSize/{id}")
     public String chonSize(@PathVariable("id") UUID idGiay, Model model) {
         Cart cart = (Cart) httpSession.getAttribute("cart");
@@ -168,11 +172,9 @@ public class CartController {
         //chon sp
         model.addAttribute("listChonSanPham",giayDistinctService.getAllGiayDistince());
 
-
-
         List<ChiTietGiay> listSize = chiTietGiayService.findByIdGiay(idGiay);
         model.addAttribute("listSize", listSize);
-        model.addAttribute("showModal", true);
+//        model.addAttribute("showModal", true);
         return "viewsBanHang/banhang";
     }
 
