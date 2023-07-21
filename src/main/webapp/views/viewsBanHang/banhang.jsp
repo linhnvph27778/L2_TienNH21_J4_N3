@@ -21,8 +21,9 @@
 
         <a class="btn btn-primary" href="/mua-hang/cart">Tạo hóa đơn</a>
         <%--        Modal chọn san pham--%>
-        <% boolean modalTimKiem = (Boolean) request.getAttribute("modalTimKiem"); %>
-        <% if (modalTimKiem) { %>
+
+        <% boolean modalFullSP = (Boolean) request.getAttribute("modalFullSP"); %>
+        <% if (modalFullSP) { %>
         <div class="modal fade" id="chonSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -121,18 +122,15 @@
                 </div>
             </div>
         </div>
-
-
         <% } %>
         <%--       END Modal chọn size--%>
 
 
         <div class="col-10 offset-1" style="background-color: #e5e5e5; border: #007bff 10px">
             <div>
-                <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal"
-                        data-bs-target="#chonSanPham">
+                <a type="button" class="btn btn-primary m-3" href="/mua-hang/cart/view/fullSP">
                     Thêm sản phẩm
-                </button>
+                </a>
             </div>
             <table class="table mt-3 text-center">
                 <thead class="">
@@ -246,10 +244,11 @@
         $('#chonSize').modal('show');
     });
 </script>
+
 <script>
     // Kích hoạt modal khi trang được tải
     $(document).ready(function () {
-        $('#modalTimKiem').modal('show');
+        $('#chonSanPham').modal('show');
     });
 </script>
 
