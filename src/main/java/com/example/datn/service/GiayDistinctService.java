@@ -18,4 +18,6 @@ public interface GiayDistinctService {
     Page<GiayDistinct> priceProductLTH(Pageable pageable);
 
     Page<GiayDistinct> priceProductHTL(Pageable pageable);
+
+    List<GiayDistinct> timKiem(String keyword,double giaMin, double giaMax);
 }
