@@ -37,4 +37,9 @@ public class GiayDistinceServiceImpls implements GiayDistinctService {
 
         return giayDistinctRepository.findAllByOrderByMinPriceDesc(pageable);
     }
+
+    @Override
+    public List<GiayDistinct> timKiem(String keyword,double giaMin, double giaMax) {
+        return giayDistinctRepository.timKiem(keyword,giaMin,giaMax);
+    }
 }

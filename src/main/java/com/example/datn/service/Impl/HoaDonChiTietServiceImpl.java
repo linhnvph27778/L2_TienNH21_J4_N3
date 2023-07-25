@@ -1,5 +1,6 @@
 package com.example.datn.service.Impl;
 
+import com.example.datn.entity.ChiTietGiay;
 import com.example.datn.entity.HoaDonChiTiet;
 import com.example.datn.repository.HoaDonChiTietRepository;
 import com.example.datn.service.HoaDonChiTietService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
@@ -21,5 +23,10 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     @Override
     public void add(HoaDonChiTiet hoaDonChiTiet) {
         hoaDonChiTietRepository.save(hoaDonChiTiet);
+    }
+
+    @Override
+    public List<ChiTietGiay> listHoaDonCho(UUID idHoaDon) {
+        return hoaDonChiTietRepository.listHoaDonCho(idHoaDon);
     }
 }
