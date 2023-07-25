@@ -19,5 +19,5 @@ public interface GiayDistinctService {
 
     Page<GiayDistinct> priceProductHTL(Pageable pageable);
 
-    List<GiayDistinct> timKiem(String nameBrand);
+    List<GiayDistinct> timKiem(String keyword,double giaMin, double giaMax);
 }
