@@ -39,7 +39,7 @@ public class GiayDistinceServiceImpls implements GiayDistinctService {
     }
 
     @Override
-    public List<GiayDistinct> timKiem(String nameBrand) {
-        return giayDistinctRepository.findGiayDistinctByNameBrand(nameBrand);
+    public List<GiayDistinct> timKiem(String keyword,double giaMin, double giaMax) {
+        return giayDistinctRepository.timKiem(keyword,giaMin,giaMax);
     }
 }
