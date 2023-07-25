@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -62,6 +63,9 @@ public class HoaDon {
 
     @Column(name = "HinhThucThanhToan")
     private int hinhThucThanhToan;
+
+    @Column(name = "TongTien")
+    private BigDecimal tongTien;
 
     @ManyToOne
     @JoinColumn(name = "idKhachHang")
