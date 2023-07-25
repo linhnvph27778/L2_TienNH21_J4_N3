@@ -186,16 +186,17 @@
                     <div class="col-lg-8">
                         <div class="product__details__text">
                             <h4>${product.giay.ten}</h4>
+                            <% boolean minMaxPrice = (Boolean) request.getAttribute("minMaxPrice"); %>
+                            <% if ( minMaxPrice) { %>
                             <h3>${money} ${product.minPrice} ${space} ${money}${product.maxPrice}</h3>
+                            <% } %>
                             <h3>${price_product}</h3>
                             <p>${product.giay.moTa}</p>
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
                                     <span>Size :</span>
                                     <c:forEach items="${listSize}" var="size" >
-                                        <label>
-                                            <a href="${product.giay.id}/${size.id}" >${size.soSize}</a>
-                                        </label>
+                                            <a href="${product.giay.id}/${size.id}"> <label> ${size.soSize} </label></a>
                                     </c:forEach>
                                 </div>
                                 <div class="product__details__option__color">
@@ -499,11 +500,6 @@
         }
     });
 </script>
-
-
-
-
-
 
 
 <!-- Js Plugins -->

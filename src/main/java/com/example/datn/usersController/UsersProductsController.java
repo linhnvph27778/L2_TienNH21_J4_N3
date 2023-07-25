@@ -118,6 +118,7 @@ public class UsersProductsController {
         KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
 
         if (khachHang != null){
+            model.addAttribute("fullnameLogin", khachHang.getHoTen());
             model.addAttribute("ifFullnameLogin", true);
             model.addAttribute("messageLoginOrSignin", false);
         }else{

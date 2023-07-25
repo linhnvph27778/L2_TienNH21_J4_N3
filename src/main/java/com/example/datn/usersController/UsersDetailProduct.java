@@ -25,8 +25,7 @@ public class UsersDetailProduct {
     private List<MauSac> listColors = new ArrayList<>();
     private List<ChiTietGiay> listProducts = new ArrayList<>();
     private List<GiayDistinct> listGiayDistince = new ArrayList<>();
-    private List<ChatLieuDeGiay> chatLieuDeGiayList = new ArrayList<>();
-    private List<ChatLieuThanGiay> chatLieuThanGiayList = new ArrayList<>();
+
 
     @Autowired
     private HttpSession session;
@@ -55,9 +54,12 @@ public class UsersDetailProduct {
 
         checkUsersLogin(model);
 
+        model.addAttribute("minMaxPrice", true);
+
         session.removeAttribute("productDetail");
 
         GiayDistinct product = giayDistinctService.findByID(idProduct);
+
         model.addAttribute("product", product);
 
         model.addAttribute("money", "$");
@@ -92,10 +94,15 @@ public class UsersDetailProduct {
 
         checkUsersLogin(model);
 
+        List<Size> listSize = new ArrayList<>();
+        List<ChatLieuDeGiay> chatLieuDeGiayList = new ArrayList<>();
+        List<ChatLieuThanGiay> chatLieuThanGiayList = new ArrayList<>();
+
+        model.addAttribute("minMaxPrice", false);
+
         GiayDistinct giayDistinct = (GiayDistinct) session.getAttribute("productDetail");
 
         model.addAttribute("product", giayDistinct);
-
 
         Size size = sizeService.findByID(idTK1);
 
@@ -104,16 +111,13 @@ public class UsersDetailProduct {
         listProducts = chiTietGiayService.findByIDGiayAndIDSize(giay, size);
 
         if (size != null && listProducts.size()==1){
-            listSizes.add(size);
-            model.addAttribute("listSize", listSizes);
-
+            listSize.add(size);
+            model.addAttribute("listSize", listSize);
             for (ChiTietGiay c: listProducts) {
                 chatLieuDeGiayList.add(c.getChatLieuDeGiay());
                 chatLieuThanGiayList.add(c.getChatLieuThanGiay());
                 model.addAttribute("price_product",c.getGiaBan());
             }
-
-
             model.addAttribute("listCLDG", chatLieuDeGiayList);
             model.addAttribute("listCLTG", chatLieuThanGiayList);
             List<MauSac> listColor = chiTietGiayService.findDistinctMauSacBySizeAndGiay(idGiay, idTK1);
@@ -129,6 +133,7 @@ public class UsersDetailProduct {
         KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
 
         if (khachHang != null){
+            model.addAttribute("fullnameLogin", khachHang.getHoTen());
             model.addAttribute("ifFullnameLogin", true);
             model.addAttribute("messageLoginOrSignin", false);
         }else{
