@@ -32,6 +32,6 @@ public interface ChiTietGiayRepo extends JpaRepository<ChiTietGiay, UUID> {
 
     List<ChiTietGiay> findByGiayAndSize(Giay giay, Size size);
 
-
+    ChiTietGiay findChiTietGiayById(UUID id);
 
 }
