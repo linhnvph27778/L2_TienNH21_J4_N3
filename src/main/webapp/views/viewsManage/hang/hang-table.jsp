@@ -21,8 +21,8 @@
             </td>
             <td>
                 <a href="javascript:remove('${item.id}')">Remove</a>
-                <a href="/hang/view-update/${item.id}">Update</a>
-                <a href="/hang/detail/${item.id}">Detail</a>
+                <a href="/viewsManage/hang/view-update/${item.id}">Update</a>
+                <a href="/viewsManage/hang/detail/${item.id}">Detail</a>
             </td>
         </tr>
     </c:forEach>
@@ -40,7 +40,7 @@
 <script>
     function remove(id) {
         if (confirm('Bạn có muốn xóa?')) {
-            location.href = "/hang/remove/" + id;
+            location.href = "/viewsManage/hang/remove/" + id;
         }
     }
 </script>
