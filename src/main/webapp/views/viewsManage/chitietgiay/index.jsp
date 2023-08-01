@@ -42,8 +42,7 @@
 
     <table class="table table-bordered bordered-dark mt-3 text-center">
         <thead class="bg-info">
-        <tr>
-<%--            <td>Mã giày</td>--%>
+        <%--<tr>
             <td>Tên giày</td>
             <td>Năm Bảo hành</td>
             <td>NSX</td>
@@ -59,28 +58,39 @@
             <td>Màu</td>
             <td>Size</td>
             <td colspan="2">Action</td>
+        </tr>--%>
+        <tr>
+            <td>STT</td>
+            <td>Hình ảnh</td>
+            <td>Tên giày</td>
+            <td>Giá Bán</td>
+            <td>Số lượng tồn</td>
+            <td>Trạng thái</td>
+            <td colspan="2">Action</td>
         </tr>
         </thead>
         <tbdoy>
             <c:forEach items="${list}" var="kh" >
                 <tr>
+                    <td></td>
+                    <td>${kh.hinhAnh.urlImg0}</td>
                     <td>${kh.giay.ten}</td>
-                    <td>${kh.namBaoHanh}</td>
+                    <%--<td>${kh.namBaoHanh}</td>
                     <td>${kh.namSanXuat}</td>
                     <td>${kh.trongLuong}</td>
-                    <td>${kh.giaNhap}</td>
+                    <td>${kh.giaNhap}</td>--%>
                     <td>${kh.giaBan}</td>
                     <td>${kh.soLuongTon}</td>
                     <td>${kh.trangThai}</td>
-                    <td>${kh.hinhAnh.urlImg0}</td>
-                    <td>${kh.chatLieuDeGiay.ten}</td>
+                    <%--<td>${kh.chatLieuDeGiay.ten}</td>
                     <td>${kh.chatLieuThanGiay.ten}</td>
                     <td>${kh.hang.ten}</td>
                     <td>${kh.mauSac.ten}</td>
-                    <td>${kh.size.soSize}</td>
+                    <td>${kh.size.soSize}</td>--%>
                     <td>
                         <a onclick="xacNhan(event)" href="/chi-tiet-giay/delete/${kh.id}" class="btn btn-danger">Xoa</a>
                         <a href="/chi-tiet-giay/viewUpdate/${kh.id}" class="btn btn-primary">Update</a>
+                        <a href="/chi-tiet-giay/detail/${kh.id}" class="btn btn-warning">Detail</a>
                     </td>
                 </tr>
             </c:forEach>

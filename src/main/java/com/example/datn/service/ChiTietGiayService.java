@@ -34,5 +34,5 @@ public interface ChiTietGiayService {
 
     List<ChiTietGiay> findByIDGiayAndIDSize(Giay giay, Size size);
 
-
+    public ChiTietGiay getByIdCtGiay(UUID id);
 }
