@@ -82,4 +82,9 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     public List<Size> findSizeByIDGiayAndSize(UUID idGiay, Size size) {
         return chiTietGiayRepo.findByIDGiayAndSize(idGiay, size);
     }
+
+    @Override
+    public List<ChiTietGiay> listDistinctGiay(UUID idGiay) {
+        return chiTietGiayRepo.findDistinctByGiay(idGiay);
+    }
 }

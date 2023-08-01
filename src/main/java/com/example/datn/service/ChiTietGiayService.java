@@ -35,5 +35,7 @@ public interface ChiTietGiayService {
 
     List<Size> findSizeByIDGiayAndSize(UUID idGiay, Size size);
 
+    List<ChiTietGiay> listDistinctGiay(UUID idGiay);
+
 
 }
