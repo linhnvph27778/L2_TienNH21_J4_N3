@@ -55,6 +55,7 @@ public class UsersDetailProduct {
         checkUsersLogin(model);
 
         model.addAttribute("minMaxPrice", true);
+        model.addAttribute("remindProduct", true);
 
         session.removeAttribute("productDetail");
 
@@ -68,14 +69,8 @@ public class UsersDetailProduct {
 
         session.setAttribute("productDetail",product);
 
-        listProducts = chiTietGiayService.findByIdGiay(product.getGiay().getId());
+        listProducts = chiTietGiayService.listDistinctGiay(product.getGiay().getId());
         model.addAttribute("listProducts", listProducts);
-
-        List<MauSac> listColor = chiTietGiayService.findMauSacByIDGiay(product.getGiay().getId());
-        model.addAttribute("listColor", listColor);
-
-        List<Size> listSize = chiTietGiayService.findSizeByIDGiay(product.getGiay().getId());
-        model.addAttribute("listSize", listSize);
 
         List<ChatLieuThanGiay> listCLTG = chiTietGiayService.findCLTGByIDGiay(product.getGiay().getId());
         model.addAttribute("listCLTG", listCLTG);
@@ -99,6 +94,7 @@ public class UsersDetailProduct {
         List<ChatLieuThanGiay> chatLieuThanGiayList = new ArrayList<>();
 
         model.addAttribute("minMaxPrice", false);
+        model.addAttribute("remindProduct", false);
 
         GiayDistinct giayDistinct = (GiayDistinct) session.getAttribute("productDetail");
 
@@ -110,6 +106,8 @@ public class UsersDetailProduct {
 
         listProducts = chiTietGiayService.findByIDGiayAndIDSize(giay, size);
 
+
+
         if (size != null && listProducts.size()==1){
             listSize.add(size);
             model.addAttribute("listSize", listSize);
@@ -117,6 +115,7 @@ public class UsersDetailProduct {
                 chatLieuDeGiayList.add(c.getChatLieuDeGiay());
                 chatLieuThanGiayList.add(c.getChatLieuThanGiay());
                 model.addAttribute("price_product",c.getGiaBan());
+                model.addAttribute("remindProducts",c.getSoLuongTon());
             }
             model.addAttribute("listCLDG", chatLieuDeGiayList);
             model.addAttribute("listCLTG", chatLieuThanGiayList);
