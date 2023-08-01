@@ -30,12 +30,4 @@ public interface ChiTietGiayRepo extends JpaRepository<ChiTietGiay, UUID> {
 
     List<ChiTietGiay> findByGiayAndSize(Giay giay, Size size);
 
-    @Query("SELECT g.size FROM ChiTietGiay g WHERE g.giay.id = ?1 AND g.size =?2 ")
-    List<Size> findByIDGiayAndSize(UUID idGiay, Size size);
-
-    @Query("SELECT DISTINCT g FROM ChiTietGiay g WHERE g.giay.id = ?1")
-    List<ChiTietGiay> findDistinctByGiay(UUID idGiay);
-
-
-
 }

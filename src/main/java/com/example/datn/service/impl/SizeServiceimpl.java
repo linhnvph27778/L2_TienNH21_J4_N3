@@ -1,6 +1,7 @@
 package com.example.datn.service.impl;
 
 import com.example.datn.entity.ChatLieuDeGiay;
+import com.example.datn.entity.GiayDistinct;
 import com.example.datn.entity.Size;
 import com.example.datn.repository.CLDeGiayRep;
 import com.example.datn.repository.QLSizeRepo;
@@ -48,5 +49,10 @@ public class SizeServiceimpl implements SizeService {
     @Override
     public Size findByID(UUID id) {
         return sizeRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Size> sizeGiay(UUID idGiay) {
+        return sizeRepo.sizeGiay(idGiay);
     }
 }

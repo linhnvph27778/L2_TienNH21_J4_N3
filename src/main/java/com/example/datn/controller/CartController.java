@@ -12,6 +12,7 @@ import com.example.datn.service.GiayDistinctService;
 import com.example.datn.service.HoaDonChiTietService;
 import com.example.datn.service.HoaDonService;
 import com.example.datn.service.KhachHangService;
+import com.example.datn.service.SizeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,11 @@ public class CartController {
     @Autowired
     private HoaDonChiTietService hoaDonChiTietService;
 
+    @Autowired
+    private SizeService sizeService;
+
     @GetMapping("/cart")
-    public String taoHoaDon(Model model) {
+    public String taoHoaDon() {
         List<HoaDon> listHD = hoaDonService.getHoaDonChuaThanhToan();
         if (listHD.size() < 3) {
             String ma = String.valueOf(Math.floor(((Math.random() * 899999) + 100000)));
@@ -65,16 +69,19 @@ public class CartController {
             hd.setNgayTao(ngayTao);
             hd.setTrangThai(tinhTrang);
             hoaDonService.add(hd);
-            httpSession.setAttribute("message","Đã tạo hóa đơn");
+            httpSession.setAttribute("message", "Tạo hóa đơn thành công");
+        } else if (listHD.size() == -1) {
+            httpSession.setAttribute("message", "Hãy tạo hóa đơn");
         } else {
-            httpSession.setAttribute("message","Quá số lượng");
+            httpSession.setAttribute("message", "Quá số lượng");
         }
         return "redirect:/mua-hang/cart/view";
     }
 
 
     @GetMapping("/cart/add")
-    public String addToCart(@RequestParam("idChiTietGiay") UUID idChiTietGiay, Model model) {
+    public String addToCart(@RequestParam("idChiTietGiay") UUID idChiTietGiay,
+                            @RequestParam("soLuong") int soLuong, Model model) {
 
         model.addAttribute("modalSize", false);
         model.addAttribute("modalFullSP", false);
@@ -90,7 +97,7 @@ public class CartController {
                 chiTietGiay.get().getMauSac().getTen(),
                 chiTietGiay.get().getSize().getSoSize(),
                 chiTietGiay.get().getHang().getTen(),
-                1,
+                soLuong,
                 chiTietGiay.get().getGiaBan().doubleValue());
         //lấy gior hàng từ session
         Cart cartSesion = (Cart) httpSession.getAttribute("cart");
@@ -107,11 +114,11 @@ public class CartController {
             Cart cart = (Cart) httpSession.getAttribute("cart");
             ArrayList<Item> listItem = cart.getItemList();
             // kieemr tra sản phẩm đã có trong giỏ hàng chưa
-            // nếu có thì tăng số lwonjg lên 1
+            // nếu có thì tăng số lwonjg lên
             boolean found = false;
             for (Item itemTmp : listItem) {
                 if (itemTmp.getIdChiTietGiay().equals(idChiTietGiay)) {
-                    itemTmp.setSoLuong(itemTmp.getSoLuong() + 1);
+                    itemTmp.setSoLuong(itemTmp.getSoLuong() + soLuong);
                     found = true;
                     break;
                 }
@@ -124,20 +131,33 @@ public class CartController {
                 tongTien += gioHang.getSoLuong() * gioHang.getGiaBan();
             }
         }
+        // lấy id hoa don
+        UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
+
 
         // thêm vào hóa đơn chi tiết
-        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-        hoaDonChiTiet.setDonGia(BigDecimal.valueOf( item.getGiaBan()));
-        hoaDonChiTiet.setSoLuong(item.getSoLuong());
-        hoaDonChiTiet.setChiTietGiay(chiTietGiay.get());
+        HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHoaDon, idChiTietGiay);
 
-        // hoa don
-        UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
-        Optional<HoaDon> hoaDon = hoaDonService.getOne(idHoaDon);
-        hoaDonChiTiet.setHoaDon(hoaDon.get());
+        // nếu chưa có hóa đơn chi tiết thì thêm mới
+        if (hoaDonChiTiet == null) {
+            HoaDonChiTiet hdct = new HoaDonChiTiet();
+            hdct.setDonGia(BigDecimal.valueOf(item.getGiaBan()));
+            hdct.setSoLuong(item.getSoLuong());
+            hdct.setChiTietGiay(chiTietGiay.get());
 
-        hoaDonChiTietService.add(hoaDonChiTiet);
+            Optional<HoaDon> hoaDon = hoaDonService.getOne(idHoaDon);
+            hdct.setHoaDon(hoaDon.get());
+            hoaDonChiTietService.add(hdct);
+        } else {
+            // nếu có hóa đơn chi tiết rồi thì cập nhật số lượng
+            hoaDonChiTiet.setSoLuong(hoaDonChiTiet.getSoLuong() + soLuong);
+            hoaDonChiTietService.add(hoaDonChiTiet);
+        }
 
+        // cập nhật số lượng tồn trong chi tiết giày
+        ChiTietGiay ctg = chiTietGiayService.findChiTietGiayById(idChiTietGiay);
+        ctg.setSoLuongTon(chiTietGiay.get().getSoLuongTon()-soLuong);
+        chiTietGiayService.add(ctg);
 
         httpSession.setAttribute("tongTien", tongTien);
         return "redirect:/mua-hang/cart/view";
@@ -191,8 +211,14 @@ public class CartController {
 
     @GetMapping("/cart/view/fullSP")
     public String hienThiSP(Model model) {
+        List<GiayDistinct> giayDistinctList = giayDistinctService.getAllGiayDistince();
 
-        model.addAttribute("listChonSanPham", giayDistinctService.getAllGiayDistince());
+        for (GiayDistinct g : giayDistinctList) {
+            model.addAttribute("listSize_" + g.getGiay().getId(), giayDistinctService.soSize(g.getGiay().getId()));
+            System.out.println(sizeService.sizeGiay(g.getGiay().getId()));
+        }
+
+        model.addAttribute("listChonSanPham", giayDistinctList);
 
         model.addAttribute("modalSize", false);
         model.addAttribute("modalFullSP", true);
@@ -226,8 +252,8 @@ public class CartController {
     }
 
     @GetMapping("/cart/hoadon/{idHoaDon}")
-    public String muaHang(@PathVariable("idHoaDon") UUID idHoaDon,Model model){
-        httpSession.setAttribute("idHoaDon",idHoaDon);
+    public String muaHang(@PathVariable("idHoaDon") UUID idHoaDon, Model model) {
+        httpSession.setAttribute("idHoaDon", idHoaDon);
 
         //click vào hóa đơn
         // => hiển thị hóa đơn đang treo
@@ -247,15 +273,16 @@ public class CartController {
     }
 
     @GetMapping("/cart/thanhtoan")
-    public String thanhToan(){
-        //câp nhật trạng thái hóa đơn
+    public String thanhToan() {
+        //câp nhật trạng thái hóa đơn va tong tien
         UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
         Optional<HoaDon> hoaDon = hoaDonService.getOne(idHoaDon);
         hoaDon.get().setTrangThai(1);
+
+        double tongTien = (double) httpSession.getAttribute("tongTien");
+        System.out.println(tongTien);
+        hoaDon.get().setTongTien(BigDecimal.valueOf(tongTien));
         hoaDonService.add(hoaDon.get());
-
-        //cập nhật số lượng tồn
-
 
         //xóa httpSession
         httpSession.invalidate();
@@ -264,7 +291,7 @@ public class CartController {
     }
 
     @GetMapping("/cart/treo-hoa-don")
-    public String treoHoaDon(){
+    public String treoHoaDon() {
         httpSession.invalidate();
         return "redirect:/mua-hang/cart/view";
     }
