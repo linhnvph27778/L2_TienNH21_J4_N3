@@ -78,8 +78,4 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
 
     }
 
-    @Override
-    public ChiTietGiay findChiTietGiayById(UUID id) {
-        return chiTietGiayRepo.findChiTietGiayById(id);
-    }
 }
