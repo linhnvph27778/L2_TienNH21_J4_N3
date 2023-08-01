@@ -78,8 +78,4 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
 
     }
 
-    @Override
-    public List<Size> findSizeByIDGiayAndSize(UUID idGiay, Size size) {
-        return chiTietGiayRepo.findByIDGiayAndSize(idGiay, size);
-    }
 }
