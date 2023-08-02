@@ -186,27 +186,19 @@
                     <div class="col-lg-8">
                         <div class="product__details__text">
                             <h4>${product.giay.ten}</h4>
+                            <% boolean minMaxPrice = (Boolean) request.getAttribute("minMaxPrice"); %>
+                            <% if ( minMaxPrice) { %>
                             <h3>${money} ${product.minPrice} ${space} ${money}${product.maxPrice}</h3>
+                            <% } %>
                             <h3>${price_product}</h3>
                             <p>${product.giay.moTa}</p>
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
-                                    <span>Size :</span>
-                                    <c:forEach items="${listSize}" var="size" >
-                                        <label>
-                                            <a href="${product.giay.id}/${size.id}" >${size.soSize}</a>
-                                        </label>
+                                    <span>Variation :</span>
+                                    <c:forEach items="${listProducts}" var="x" >
+                                        <label style="font-weight: unset; font-size: small" > ${x.size.soSize} ${x.mauSac.ten} <input type="radio" ></label>
                                     </c:forEach>
-                                </div>
-                                <div class="product__details__option__color">
-                                    <span>Color :</span>
-                                    <c:forEach items="${listColor}" var="color" >
-                                        <a href="${product.giay.id}/${color.id}">
-                                            <label style="background-color: ${color.ten};" ></label>
-                                        </a>
-                                    </c:forEach>
-                                    <span>${product.remindProducts}</span>
-                                    <span>Pieces avaiable</span>
+
                                 </div>
                                 <br>
                                 <br>
@@ -228,14 +220,24 @@
                             </div>
                             <div class="product__details__cart__option">
                                 <div class="quantity">
-                                    <div class="pro-qty">
+                                    <p style="display: inline-block; margin: 0;">Quantity :</p>
+                                    <div class="pro-qty" style="display: inline-block;">
                                         <input data-max-quantity="${product.remindProducts}" id="quantityInput" type="text" value="1">
                                     </div>
+                                    <% boolean remindProduct = (Boolean) request.getAttribute("remindProduct"); %>
+                                    <% if (remindProduct) { %>
+                                    <p style="display: inline-block; margin: 0;">${product.remindProducts}</p>
+                                    <% } %>
+                                    <p style="display: inline-block; margin: 0;">${remindProducts}</p>
+                                    <p style="display: inline-block; margin: 0;">Pieces available</p>
                                 </div>
+                            </div>
+
+                            <div class="product__details__cart__option">
                                 <button  class="primary-btn">buy now</button>
                                 <button id="addToCartButton" class="primary-btn" >add to cart</button>
-
                             </div>
+
                             <div class="product__details__btns__option">
                                 <a href="#"><i class="fa fa-heart"></i>add to wishlist</a>
                             </div>
@@ -499,11 +501,6 @@
         }
     });
 </script>
-
-
-
-
-
 
 
 <!-- Js Plugins -->

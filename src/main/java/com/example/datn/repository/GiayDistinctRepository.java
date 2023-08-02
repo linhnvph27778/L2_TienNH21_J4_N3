@@ -19,8 +19,16 @@ public interface GiayDistinctRepository extends JpaRepository<GiayDistinct, UUID
 
     @Query(value = "select GiayDistinct.id,GiayDistinct.idHinhAnh,GiayDistinct.idGiay,GiayDistinct.minPrice,GiayDistinct.maxPrice, GiayDistinct.remindProducts,GiayDistinct.nameBrand" +
             " from GiayDistinct join Giay on GiayDistinct.idGiay=Giay.id  where" +
-            " (Giay.Ten = ?1  or ?1 is null or ?1 like '') and " +
+            " (Giay.Ten like %?1% or ?1 is null or ?1 like '') and " +
             " (minPrice >= ?2 or ?2 is null ) and " +
             "(minPrice <= ?3 or ?3 is null )", nativeQuery = true)
     List<GiayDistinct> timKiem(String keyword, double giaMin,double giaMax);
+
+    @Query(value = "select GiayDistinct.id,GiayDistinct.idHinhAnh,GiayDistinct.idGiay,GiayDistinct.minPrice,GiayDistinct.maxPrice, GiayDistinct.remindProducts,GiayDistinct.nameBrand, Size.soSize " +
+                    " from GiayDistinct join giay on GiayDistinct.idGiay= Giay.id\n" +
+                    " join chitietgiay on Giay.id = chitietgiay.idGiay\n" +
+                    " join size on chitietgiay.idsize = size.id \n" +
+                    " where GiayDistinct.idgiay= ?1 ",nativeQuery = true)
+    List<GiayDistinct> soSize(UUID idGiay);
+
 }

@@ -42,4 +42,9 @@ public class GiayDistinceServiceImpls implements GiayDistinctService {
     public List<GiayDistinct> timKiem(String keyword,double giaMin, double giaMax) {
         return giayDistinctRepository.timKiem(keyword,giaMin,giaMax);
     }
+
+    @Override
+    public List<GiayDistinct> soSize(UUID idGiay) {
+        return giayDistinctRepository.soSize(idGiay);
+    }
 }
