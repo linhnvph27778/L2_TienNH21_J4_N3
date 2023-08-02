@@ -29,4 +29,9 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     public List<ChiTietGiay> listHoaDonCho(UUID idHoaDon) {
         return hoaDonChiTietRepository.listHoaDonCho(idHoaDon);
     }
+
+    @Override
+    public HoaDonChiTiet getOne(UUID idHoaDon, UUID idChiTietGiay) {
+        return hoaDonChiTietRepository.findHoaDonChiTietByIdHoaDonAndIdChiTietGiay(idHoaDon, idChiTietGiay);
+    }
 }

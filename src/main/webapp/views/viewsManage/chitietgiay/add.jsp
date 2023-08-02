@@ -9,6 +9,7 @@
 </header>
 <body>
 <div class="container">
+    <h2 align="center" style="font-family: 'Times New Roman'">Thêm Sản Phẩm</h2>
     <div class="col-8 offset-2 mt-3">
         <sf:form action="${action}" method="post" modelAttribute="chiTietGiay">
             <div class="row">
@@ -112,7 +113,6 @@
                     </sf:select>
                 </div>
             </div>
-
             <div class="mt-3 offset-4">
                 <button type="submit" class="btn btn-success">Add</button>
             </div>
