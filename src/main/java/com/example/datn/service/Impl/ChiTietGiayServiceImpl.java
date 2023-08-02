@@ -77,9 +77,4 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
         return chiTietGiayRepo.findByGiayAndSize(giay, size);
 
     }
-
-    @Override
-    public ChiTietGiay getByIdCtGiay(UUID id) {
-        return chiTietGiayRepo.findById(id).orElse(null);
-    }
 }

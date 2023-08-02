@@ -20,4 +20,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "join Hang on Hang.Id= ChiTietGiay.idHang " +
             "where idhoadon = ?1",nativeQuery = true)
     List<ChiTietGiay> listHoaDonCho(UUID idHoaDon);
+
+    @Query(value = "select * from hoadonchitiet where idhoadon =?1 and idChiTietGiay = ?2 ",nativeQuery = true)
+    HoaDonChiTiet findHoaDonChiTietByIdHoaDonAndIdChiTietGiay(UUID idHoaDon, UUID idChiTietGiay);
 }

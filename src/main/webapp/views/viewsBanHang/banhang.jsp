@@ -20,28 +20,36 @@
     <div class="col-10 offset-1 mt-3">
 
         <div class="col-10 offset-1">
-            <nav class="navbar navbar-expand-lg " style="background-color: #e3f2fd;">
-                <a class="btn" href="/mua-hang/cart">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-person-add" viewBox="0 0 16 16">
-                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
-                        <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
-                    </svg>
-                </a>
-                <div class="collapse navbar-collapse shop__sidebar__size">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <c:forEach items="${listHoaDon}" var="hd">
-                            <li class="nav-item">
-                                <label class="text-center mr-3">
-                                    <a href="/mua-hang/cart/hoadon/${hd.id}" >
-                                            ${hd.ma}
-                                    </a>
-                                </label>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </nav>
+            <div class="row">
+                <c:if test="${ not empty sessionScope.message }">
+                    <div class="alert alert-success text-center">${sessionScope.message}</div>
+                    <c:remove var="message" scope="session"/>
+                </c:if>
+            </div>
+            <div>
+                <nav class="navbar navbar-expand-lg " style="background-color: #e3f2fd;">
+                    <a class="btn" href="/mua-hang/cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-person-add" viewBox="0 0 16 16">
+                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                            <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
+                        </svg>
+                    </a>
+                    <div class="collapse navbar-collapse shop__sidebar__size">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <c:forEach items="${listHoaDon}" var="hd">
+                                <li class="nav-item">
+                                    <label class="text-center mr-3">
+                                        <a class="btn btn-outline-dark" href="/mua-hang/cart/hoadon/${hd.id}">
+                                                ${hd.ma}
+                                        </a>
+                                    </label>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
         </div>
 
         <%--        Modal chọn san pham--%>
@@ -52,41 +60,44 @@
                 <div class="modal-content">
                     <form method="get" action="/mua-hang/cart/view/timKiem">
                         <div class="row">
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label>Giày</label>
-                                    <input name="keyword" class="form-control" type="text" placeholder="Tên hoặc mã" aria-label="Tên hoặc mã">
-                                </div>
-                                <div class="col-3">
-                                    <label>giá min</label>
-                                    <input name="giaMin" class="form-control" type="number">
-                                </div>
-                                <div class="col-3">
-                                    <label>giá max</label>
-                                    <input name="giaMax" class="form-control" type="number">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label>Giày</label>
+                                        <input name="keyword" class="form-control" type="text" placeholder="Tên hoặc mã"
+                                               aria-label="Tên hoặc mã">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>giá min</label>
+                                        <input name="giaMin" class="form-control" type="number">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>giá max</label>
+                                        <input name="giaMax" class="form-control" type="number">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-6 mt-4">
-                            <button type="submit" class="btn btn-primary" style="float:left">Search</button>
-                            <a href="/mua-hang/cart/view" class="btn btn-primary " style="float:right">
-                                Back
-                            </a>
-                        </div>
+                            <div class="col-6 mt-4">
+                                <button type="submit" class="btn btn-primary" style="float:left">Search</button>
+                                <a href="/mua-hang/cart/view" class="btn btn-primary " style="float:right">
+                                    Back
+                                </a>
+                            </div>
                         </div>
                     </form>
                     <div class="modal-body">
                         <table class="table mt-3 text-center">
                             <thead class="">
                             <tr>
-                                <td>Ảnh</td>
-                                <td></td>
-                                <td>Mã</td>
-                                <td>Tên</td>
-                                <td>Tổng kho</td>
-                                <td>Giá thấp nhất</td>
-                                <td>Action</td>
+                                <th>Ảnh</th>
+                                <th></th>
+                                <th>Mã</th>
+                                <th>Tên</th>
+                                <th>Tổng kho</th>
+                                <th>Giá thấp nhất</th>
+                                <th>Số lượng</th>
+                                <th>Size</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -100,6 +111,14 @@
                                     <td>${kh.giay.ten}</td>
                                     <td>${kh.remindProducts}</td>
                                     <td>${kh.minPrice}</td>
+                                    <td>
+                                        <input type="number" value="1" class="form-control">
+                                    </td>
+                                    <td>
+                                        <c:forEach items="'listSize_'${kh.giay.id}" var="sizeGiay">
+                                            <a href="/mua-hang/cart/view/${sizeGiay}">${sizeGiay}</a>
+                                        </c:forEach>
+                                    </td>
                                     <td>
                                         <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}"
                                            class="btn btn-primary m-3">
@@ -136,6 +155,8 @@
                                 <td>Sản phẩm</td>
                                 <td>Size</td>
                                 <td>Tên</td>
+                                <td>Số lượng</td>
+                                <td>Hành động</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -145,10 +166,22 @@
                                              width="100"></td>
                                     <td>${kh.size.soSize}</td>
                                     <td>${kh.giay.ten}</td>
-                                    <td>
-                                        <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"
-                                           class="btn btn-secondary">Thêm giỏ hàng</a>
-                                    </td>
+                                        <%--                                    <td>--%>
+                                        <%--                                        <input type="number" name="soLuong" value="1" class="form-control">--%>
+                                        <%--                                    </td>--%>
+                                        <%--                                    <td>--%>
+                                        <%--                                        <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"--%>
+                                        <%--                                           class="btn btn-secondary">Thêm giỏ hàng</a>--%>
+                                        <%--                                    </td>--%>
+                                    <form action="/mua-hang/cart/add" method="get">
+                                        <td>
+                                            <input type="number" name="soLuong" value="1" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="hidden" name="idChiTietGiay" value="${kh.id}">
+                                            <button type="submit" class="btn btn-secondary">Thêm giỏ hàng</button>
+                                        </td>
+                                    </form>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -162,15 +195,13 @@
 
 
         <div class="col-10 offset-1 mt-3" style="background-color: #e5e5e5;">
-            <div>
-                <c:if test="${ not empty sessionScope.message }">
-                    <div class="alert alert-success text-center">${sessionScope.message}</div>
-                    <c:remove var="message" scope="session"/>
-                </c:if>
-            </div>
+
             <div class="row mt-3">
                 <div>
                     <a class="btn btn-secondary m-3" href="/mua-hang/cart/treo-hoa-don">Treo HĐ</a>
+                    <a href="/" class="btn btn-success m-3" style="float:right">
+                        Quet ma
+                    </a>
                     <a class="btn btn-primary m-3" style="float: right" href="/mua-hang/cart/view/fullSP">
                         Thêm sản phẩm
                     </a>
@@ -238,6 +269,17 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body">
+                            <form method="get" action="/mua-hang/cart/view/khach-hang">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <input name="sdt" class="form-control" type="text" placeholder="Tên hoặc SDT">
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="submit" class="btn btn-dark">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+
                             <table class="table mt-3 text-center">
                                 <thead>
                                 <tr>
