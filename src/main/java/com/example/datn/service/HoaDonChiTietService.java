@@ -16,4 +16,6 @@ public interface HoaDonChiTietService {
 
     //
     List<ChiTietGiay> listHoaDonCho(UUID idHoaDon);
+
+    HoaDonChiTiet getOne(UUID idHoaDon,UUID idChiTietGiay);
 }

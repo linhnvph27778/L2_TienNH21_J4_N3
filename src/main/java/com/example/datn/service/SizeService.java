@@ -1,7 +1,6 @@
 package com.example.datn.service;
 
 
-import com.example.datn.entity.ChatLieuDeGiay;
 import com.example.datn.entity.Size;
 
 import java.util.List;
@@ -20,4 +19,7 @@ public interface SizeService {
     List<Size> findSizeActive();
 
     Size findByID(UUID id);
+
+
+    List<Size> sizeGiay(UUID idGiay);
 }

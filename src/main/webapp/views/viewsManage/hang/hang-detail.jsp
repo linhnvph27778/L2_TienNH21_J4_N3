@@ -9,5 +9,5 @@
         <c:if test="${hangDetail.trangThai == 1}">Hoạt động</c:if>
         <c:if test="${hangDetail.trangThai == 0}">Không hoạt động</c:if>
     </p>
-    <a href="/hang/index">Back</a>
+    <a href="/viewsManage/hang/index">Back</a>
 </div>
