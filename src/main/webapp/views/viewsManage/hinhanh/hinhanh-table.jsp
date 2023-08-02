@@ -5,24 +5,28 @@
 <table border="1" style="width:100%">
     <tr>
         <th>Id</th>
-        <th>Tên</th>
-        <th>Đường dẫn</th>
+        <th>Đường dẫn 0</th>
+        <th>Đường dẫn 1</th>
+        <th>Đường dẫn 2</th>
+        <th>Đường dẫn 3</th>
         <th>Trạng thái</th>
         <th>Action</th>
     </tr>
     <c:forEach items="${items}" var="item">
         <tr>
             <td>${item.id}</td>
-            <td>${item.ten}</td>
-            <td>${item.duongDan}</td>
+            <td>${item.urlImg0}</td>
+            <td>${item.urlImg1}</td>
+            <td>${item.urlImg2}</td>
+            <td>${item.urlImg3}</td>
             <td>
                 <c:if test="${item.trangThai == 0}">Không hoạt động</c:if>
                 <c:if test="${item.trangThai == 1}">Hoạt động</c:if>
             </td>
             <td>
                 <a href="javascript:remove('${item.id}')">Remove</a>
-                <a href="/hinhanh/view-update/${item.id}">Update</a>
-                <a href="/hinhanh/detail/${item.id}">Detail</a>
+                <a href="/viewsManage/hinhanh/view-update/${item.id}">Update</a>
+                <a href="/viewsManage/hinhanh/detail/${item.id}">Detail</a>
             </td>
         </tr>
     </c:forEach>
@@ -40,7 +44,7 @@
 <script>
     function remove(id) {
         if (confirm('Bạn có muốn xóa?')) {
-            location.href = "/hinhanh/remove/" + id;
+            location.href = "/viewsManage/hinhanh/remove/" + id;
         }
     }
 </script>

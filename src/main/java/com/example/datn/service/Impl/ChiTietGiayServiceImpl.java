@@ -77,5 +77,4 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
         return chiTietGiayRepo.findByGiayAndSize(giay, size);
 
     }
-
 }

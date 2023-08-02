@@ -32,5 +32,4 @@ public interface ChiTietGiayService {
     List<ChatLieuThanGiay> findCLTGByIDGiay(UUID idGiay);
 
     List<ChiTietGiay> findByIDGiayAndIDSize(Giay giay, Size size);
-
 }

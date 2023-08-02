@@ -1,7 +1,7 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<form:form modelAttribute="hang" method="post" action="/hang/update/${hang.id}">
+<form:form modelAttribute="hang" method="post" action="/viewsManage/hang/update/${hang.id}">
     <p>Mã:
         <form:input path="Ma"/>
     </p>
