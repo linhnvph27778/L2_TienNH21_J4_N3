@@ -283,8 +283,7 @@
                                 <div class="product__item__pic set-bg" style="border-radius: 10px;"  data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg0}">
                                     <ul class="product__hover">
                                         <li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
-                                        <li><a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a>
-                                        </li>
+                                        <li><a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
                                         <li><a href="/viewsUsers/shop-details/${product.distinct}"><img src="/img/icon/search.png" alt=""></a></li>
                                     </ul>
                                 </div>
