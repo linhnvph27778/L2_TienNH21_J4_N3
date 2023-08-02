@@ -32,6 +32,11 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     }
 
     @Override
+    public void save(ChiTietGiay chiTietGiay) {
+        chiTietGiayRepo.save(chiTietGiay);
+    }
+
+    @Override
     public Optional<ChiTietGiay> getOne(UUID id) {
         return chiTietGiayRepo.findById(id);
     }
