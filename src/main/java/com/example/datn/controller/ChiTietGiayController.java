@@ -2,6 +2,7 @@ package com.example.datn.controller;
 
 import com.example.datn.entity.ChiTietGiay;
 import com.example.datn.entity.Giay;
+import com.example.datn.entity.Hang;
 import com.example.datn.entity.KhachHang;
 import com.example.datn.repository.CLDeGiayRep;
 import com.example.datn.repository.CLThanGiayRep;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/chi-tiet-giay")
@@ -58,8 +61,8 @@ public class ChiTietGiayController {
     private CLThanGiayRep clThanGiayRep;
 
     @GetMapping("/hien-thi")
-    public String hienThi(Model model){
-        model.addAttribute("list",chiTietGiayService.getAll());
+    public String hienThi(Model model) {
+        model.addAttribute("list", chiTietGiayService.getAll());
         return "viewsManage/chitietgiay/index";
     }
 
@@ -69,11 +72,11 @@ public class ChiTietGiayController {
         model.addAttribute("chiTietGiay", chiTietGiay);
         model.addAttribute("hinhAnh", hinhAnhRepo.findAll());
         model.addAttribute("giay", giayService.getAll());
-        model.addAttribute("size",sizeService.getAll());
-        model.addAttribute("mauSac",mauSacRepo.findAll());
-        model.addAttribute("hang",hangRepo.findAll());
-        model.addAttribute("chatLieuDeGiay",clDeGiayRep.findAll());
-        model.addAttribute("chatLieuThanGiay",clThanGiayRep.findAll());
+        model.addAttribute("size", sizeService.getAll());
+        model.addAttribute("mauSac", mauSacRepo.findAll());
+        model.addAttribute("hang", hangRepo.findAll());
+        model.addAttribute("chatLieuDeGiay", clDeGiayRep.findAll());
+        model.addAttribute("chatLieuThanGiay", clThanGiayRep.findAll());
         model.addAttribute("action", "/chi-tiet-giay/add");
         return "viewsManage/chitietgiay/add";
     }
@@ -82,11 +85,11 @@ public class ChiTietGiayController {
     public String add(@Valid @ModelAttribute("chiTietGiay") ChiTietGiay chiTietGiay, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("hinhAnh", hinhAnhRepo.findAll());
-            model.addAttribute("size",sizeService.getAll());
-            model.addAttribute("mauSac",mauSacRepo.findAll());
-            model.addAttribute("hang",hangRepo.findAll());
-            model.addAttribute("chatLieuDeGiay",clDeGiayRep.findAll());
-            model.addAttribute("chatLieuThanGiay",clThanGiayRep.findAll());
+            model.addAttribute("size", sizeService.getAll());
+            model.addAttribute("mauSac", mauSacRepo.findAll());
+            model.addAttribute("hang", hangRepo.findAll());
+            model.addAttribute("chatLieuDeGiay", clDeGiayRep.findAll());
+            model.addAttribute("chatLieuThanGiay", clThanGiayRep.findAll());
             model.addAttribute("giay", giayService.getAll());
             return "viewsManage/chitietgiay/add";
         } else {
@@ -101,5 +104,12 @@ public class ChiTietGiayController {
         chiTietGiayService.delete(khachHang);
         session.setAttribute("message", "Xóa thành công");
         return "redirect:/chi-tiet-giay/hien-thi";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable UUID id, Model model) {
+        ChiTietGiay ctGiay = chiTietGiayService.getByIdCtGiay(id);
+        model.addAttribute("ctgiayDetail", ctGiay);
+        return "viewsManage/chitietgiay/detail";
     }
 }

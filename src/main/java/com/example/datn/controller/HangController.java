@@ -28,35 +28,35 @@ public class HangController {
         return dsTrangThai;
     }
 
-    @RequestMapping("/hang/index")
+    @RequestMapping("/viewsManage/hang/index")
     public String index(Model model) {
         List<Hang> items = repo.findAll();
         model.addAttribute("items", items);
         model.addAttribute("hang", new Hang());
-        return "/hang/hang-index";
+        return "/viewsManage/hang/hang-index";
     }
 
-    @PostMapping("/hang/add")
+    @PostMapping("/viewsManage/hang/add")
     public String add(@ModelAttribute("hang") Hang hang) {
         service.save(hang);
-        return "redirect:/hang/index";
+        return "redirect:/viewsManage/hang/index";
     }
 
-    @GetMapping("/hang/detail/{id}")
+    @GetMapping("/viewsManage/hang/detail/{id}")
     public String detail(@PathVariable UUID id, Model model) {
         Hang hang = service.getByIdHang(id);
         model.addAttribute("hangDetail", hang);
-        return "hang/hang-detail";
+        return "viewsManage/hang/hang-detail";
     }
 
-    @GetMapping("/hang/view-update/{id}")
+    @GetMapping("/viewsManage/hang/view-update/{id}")
     public String viewUpdate(@PathVariable UUID id, Model model) {
         Hang hang = service.getByIdHang(id);
         model.addAttribute("hang", hang);
-        return "hang/hang-update";
+        return "viewsManage/hang/hang-update";
     }
 
-    @PostMapping("/hang/update/{id}")
+    @PostMapping("/viewsManage/hang/update/{id}")
     public String update(@PathVariable UUID id, @ModelAttribute("hang") Hang hang) {
         Hang hangDb = service.getByIdHang(id);
         if (hangDb != null) {
@@ -65,12 +65,12 @@ public class HangController {
             hangDb.setTrangThai(hang.getTrangThai());
             service.save(hangDb);
         }
-        return "redirect:/hang/index";
+        return "redirect:/viewsManage/hang/index";
     }
 
-    @RequestMapping("/hang/remove/{id}")
+    @RequestMapping("/viewsManage/hang/remove/{id}")
     public String delete(@PathVariable UUID id) {
         service.deleteByIdHang(id);
-        return "redirect:/hang/index";
+        return "redirect:/viewsManage/hang/index";
     }
 }
