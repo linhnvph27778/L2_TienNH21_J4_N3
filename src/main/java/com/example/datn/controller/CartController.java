@@ -2,24 +2,25 @@ package com.example.datn.controller;
 
 import com.example.datn.entity.Cart;
 import com.example.datn.entity.ChiTietGiay;
+import com.example.datn.entity.Giay;
 import com.example.datn.entity.GiayDistinct;
 import com.example.datn.entity.HoaDon;
+import com.example.datn.entity.HoaDonChiTiet;
 import com.example.datn.entity.Item;
 import com.example.datn.entity.KhachHang;
-import com.example.datn.entity.*;
+import com.example.datn.entity.MauSac;
+import com.example.datn.entity.Size;
+import com.example.datn.repository.MauSacRepo;
 import com.example.datn.service.ChiTietGiayService;
 import com.example.datn.service.GiayDistinctService;
+import com.example.datn.service.GiayService;
+import com.example.datn.service.HangService;
 import com.example.datn.service.HoaDonChiTietService;
 import com.example.datn.service.HoaDonService;
 import com.example.datn.service.KhachHangService;
 import com.example.datn.service.SizeService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/mua-hang")
@@ -57,8 +62,18 @@ public class CartController {
     @Autowired
     private SizeService sizeService;
 
+    @Autowired
+    private MauSacRepo mauSacRepo;
+
+    @Autowired
+    private HangService hangService;
+
+    @Autowired
+    private GiayService giayService;
+
+
     @GetMapping("/cart")
-    public String taoHoaDon() {
+    public String taoHoaDon(Model model) {
         List<HoaDon> listHD = hoaDonService.getHoaDonChuaThanhToan();
         if (listHD.size() < 3) {
             String ma = String.valueOf(Math.floor(((Math.random() * 899999) + 100000)));
@@ -75,7 +90,8 @@ public class CartController {
         } else {
             httpSession.setAttribute("message", "Quá số lượng");
         }
-        return "redirect:/mua-hang/cart/view";
+
+        return "viewsBanHang/banhang";
     }
 
 
@@ -213,12 +229,10 @@ public class CartController {
     public String hienThiSP(Model model) {
         List<GiayDistinct> giayDistinctList = giayDistinctService.getAllGiayDistince();
 
-        for (GiayDistinct g : giayDistinctList) {
-            model.addAttribute("listSize_" + g.getGiay().getId(), giayDistinctService.soSize(g.getGiay().getId()));
-            System.out.println(sizeService.sizeGiay(g.getGiay().getId()));
-        }
-
         model.addAttribute("listChonSanPham", giayDistinctList);
+        model.addAttribute("mauSac",mauSacRepo.findAll());
+        model.addAttribute("size",sizeService.getAll());
+        model.addAttribute("hang",hangService.findBrandActive());
 
         model.addAttribute("modalSize", false);
         model.addAttribute("modalFullSP", true);
@@ -237,16 +251,45 @@ public class CartController {
         return "viewsBanHang/banhang";
     }
 
-    @GetMapping("/cart/view/chonSize/{id}")
-    public String chonSize(@PathVariable("id") UUID idGiay, Model model) {
-        Cart cart = (Cart) httpSession.getAttribute("cart");
+    @GetMapping("/cart/view/chonSize/{idGiay}")
+    public String chonSize(@PathVariable("idGiay") UUID idGiay, Model model) {
         model.addAttribute("modalSize", true);
         model.addAttribute("modalFullSP", false);
         //chon sp
         model.addAttribute("listChonSanPham", giayDistinctService.getAllGiayDistince());
 
-        List<ChiTietGiay> listSize = chiTietGiayService.findByIdGiay(idGiay);
+
+        //lấy ra đối tượng giayDistinct khi click nút chọn
+        GiayDistinct giayDistinct = giayDistinctService.findGiayDistinctByIdGiay(idGiay);
+        System.out.println(giayDistinct.toString());
+        model.addAttribute("giayDistinct", giayDistinct);
+
+        List<Size> listSize = chiTietGiayService.findSizeByIDGiay(idGiay);
         model.addAttribute("listSize", listSize);
+
+        List<ChiTietGiay> listColor = chiTietGiayService.findByIdGiay(idGiay);
+        model.addAttribute("listColor", listColor);
+
+        return "viewsBanHang/banhang";
+    }
+
+    @GetMapping("/cart/view/chonSize/{idGiay}/{idSize}")
+    public String getChonMau(@PathVariable("idGiay") UUID idGiay,
+                             @PathVariable("idSize") UUID idSize,
+                             Model model){
+        model.addAttribute("modalSize", true);
+        model.addAttribute("modalFullSP", false);
+        //lấy ra đối tượng giayDistinct khi click nút chọn
+        GiayDistinct giayDistinct = giayDistinctService.findGiayDistinctByIdGiay(idGiay);
+        model.addAttribute("giayDistinct", giayDistinct);
+
+        List<Size> listSize = chiTietGiayService.findSizeByIDGiay(idGiay);
+        model.addAttribute("listSize", listSize);
+
+        Giay giay = giayService.findByID(idGiay);
+        Size size = sizeService.findByID(idSize);
+        List<ChiTietGiay> chiTietGiayList = chiTietGiayService.findChiTietGiayByGiayAndSize(giay,size);
+        model.addAttribute("listColor", chiTietGiayList);
 
         return "viewsBanHang/banhang";
     }
@@ -254,10 +297,14 @@ public class CartController {
     @GetMapping("/cart/hoadon/{idHoaDon}")
     public String muaHang(@PathVariable("idHoaDon") UUID idHoaDon, Model model) {
         httpSession.setAttribute("idHoaDon", idHoaDon);
+        model.addAttribute("listHoaDon", hoaDonService.getHoaDonChuaThanhToan());
 
         //click vào hóa đơn
         // => hiển thị hóa đơn đang treo
-//        List<ChiTietGiay> list = hoaDonChiTietService.listHoaDonCho(idHoaDon);
+//        System.out.println("idhoa don"+idHoaDon);
+//        List<Item> listHoaDonCho = chiTietGiayService.listHoaDonCho(idHoaDon);
+//        System.out.println(listHoaDonCho.size());
+
 //        System.out.println("so luong "+list.size());
 //        Cart cart = (Cart) httpSession.getAttribute("cart");
 //        ArrayList<Item> listItem = cart.getItemList();
