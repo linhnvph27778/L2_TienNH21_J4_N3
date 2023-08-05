@@ -22,4 +22,6 @@ public interface GiayDistinctService {
     List<GiayDistinct> timKiem(String keyword,double giaMin, double giaMax);
 
     List<GiayDistinct> soSize(UUID idGiay);
+
+    GiayDistinct findGiayDistinctByIdGiay(UUID uuid);
 }
