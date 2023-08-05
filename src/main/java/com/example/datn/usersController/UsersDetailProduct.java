@@ -71,6 +71,7 @@ public class UsersDetailProduct {
 
 //        listProducts = chiTietGiayService.listDistinctGiay(product.getGiay().getId());
 //        model.addAttribute("listProducts", listProducts);
+        model.addAttribute("listProducts", listProducts);
 
         List<ChatLieuThanGiay> listCLTG = chiTietGiayService.findCLTGByIDGiay(product.getGiay().getId());
         model.addAttribute("listCLTG", listCLTG);

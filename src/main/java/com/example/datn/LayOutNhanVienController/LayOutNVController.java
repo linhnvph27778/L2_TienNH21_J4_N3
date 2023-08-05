@@ -8,6 +8,6 @@ public class LayOutNVController {
     @RequestMapping("mainNV")
     public String getLayOut(){
 
-        return "viewsNhanVien/LayOutNhanVien";
+        return "viewsNhanVien/LayOutNhanVien2";
     }
 }
