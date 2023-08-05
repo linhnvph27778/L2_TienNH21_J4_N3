@@ -60,28 +60,64 @@
                 <div class="modal-content">
                     <form method="get" action="/mua-hang/cart/view/timKiem">
                         <div class="row">
-                            <div class="col-6">
-                                <div class="row">
-                                    <div class="col-6">
+                            <div class="col-8">
+                                <div class="row m-3">
+                                    <div class="col-8">
                                         <label>Giày</label>
                                         <input name="keyword" class="form-control" type="text" placeholder="Tên hoặc mã"
                                                aria-label="Tên hoặc mã">
                                     </div>
-                                    <div class="col-3">
-                                        <label>giá min</label>
+                                    <div class="col-2">
+                                        <label>Giá Min</label>
                                         <input name="giaMin" class="form-control" type="number">
                                     </div>
-                                    <div class="col-3">
-                                        <label>giá max</label>
+                                    <div class="col-2">
+                                        <label>Giá Max</label>
                                         <input name="giaMax" class="form-control" type="number">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 mt-4">
+                            <div class="col-4 mt-5">
                                 <button type="submit" class="btn btn-primary" style="float:left">Search</button>
-                                <a href="/mua-hang/cart/view" class="btn btn-primary " style="float:right">
+                                <a href="/mua-hang/cart/view" class="btn btn-dark mr-3" style="float:right">
                                     Back
                                 </a>
+                            </div>
+                        </div>
+                        <div class="col-8 offset-2 mt-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="d-flex">
+                                        <label class="form-label me-2">Hãng</label>
+                                        <select class="form-select">
+                                            <option value="">Tất cả</option>
+                                            <c:forEach items="${hang}" var="kh">
+                                                <option value="${kh.id}">${kh.ten}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="d-flex">
+                                        <label class="form-label me-2">Màu sắc</label>
+                                        <select class="form-select">
+                                            <c:forEach items="${mauSac}" var="kh">
+                                                <option value="${kh.id}">${kh.ten}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="d-flex">
+                                        <label class="form-label me-2">Size</label>
+                                        <select class="form-select">
+                                            <option value="">Tất cả</option>
+                                            <c:forEach items="${size}" var="kh">
+                                                <option value="${kh.id}">${kh.soSize}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -95,8 +131,6 @@
                                 <th>Tên</th>
                                 <th>Tổng kho</th>
                                 <th>Giá thấp nhất</th>
-                                <th>Số lượng</th>
-                                <th>Size</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -112,16 +146,8 @@
                                     <td>${kh.remindProducts}</td>
                                     <td>${kh.minPrice}</td>
                                     <td>
-                                        <input type="number" value="1" class="form-control">
-                                    </td>
-                                    <td>
-                                        <c:forEach items="'listSize_'${kh.giay.id}" var="sizeGiay">
-                                            <a href="/mua-hang/cart/view/${sizeGiay}">${sizeGiay}</a>
-                                        </c:forEach>
-                                    </td>
-                                    <td>
                                         <a href="/mua-hang/cart/view/chonSize/${kh.giay.id}"
-                                           class="btn btn-primary m-3">
+                                           class="btn btn-outline-warning m-3">
                                             Chọn</a>
                                     </td>
                                 </tr>
@@ -140,7 +166,7 @@
         <% if (modalSize) { %>
         <div class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
              data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog modal-md" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Danh sách sản phẩm</h5>
@@ -149,43 +175,100 @@
                         </a>
                     </div>
                     <div class="modal-body">
-                        <table class="table mt-3 text-center">
-                            <thead class="">
-                            <tr>
-                                <td>Sản phẩm</td>
-                                <td>Size</td>
-                                <td>Tên</td>
-                                <td>Số lượng</td>
-                                <td>Hành động</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${listSize}" var="kh">
-                                <tr>
-                                    <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"
-                                             width="100"></td>
-                                    <td>${kh.size.soSize}</td>
-                                    <td>${kh.giay.ten}</td>
-                                        <%--                                    <td>--%>
-                                        <%--                                        <input type="number" name="soLuong" value="1" class="form-control">--%>
-                                        <%--                                    </td>--%>
-                                        <%--                                    <td>--%>
-                                        <%--                                        <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"--%>
-                                        <%--                                           class="btn btn-secondary">Thêm giỏ hàng</a>--%>
-                                        <%--                                    </td>--%>
-                                    <form action="/mua-hang/cart/add" method="get">
-                                        <td>
-                                            <input type="number" name="soLuong" value="1" class="form-control">
-                                        </td>
-                                        <td>
-                                            <input type="hidden" name="idChiTietGiay" value="${kh.id}">
-                                            <button type="submit" class="btn btn-secondary">Thêm giỏ hàng</button>
-                                        </td>
-                                    </form>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                        <div class="row m-3">
+                            <div class="col-6">
+                                <img src="/img/imgsProducts/${giayDistinct.hinhAnh.urlImg0}" alt="" height="400"
+                                     width="300">
+                            </div>
+                            <div class="col-6">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="text-left fs-2 fw-bolder">
+                                            <label>${giayDistinct.giay.ten}</label>
+                                        </div>
+                                        <div class="text-left ">
+                                            <label>Mã giày: ${giayDistinct.giay.ma}</label>
+                                        </div>
+                                        <div class="text-left ">
+                                            <label>Thương hiệu: ${giayDistinct.nameBrand}</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="product__details__option">
+                                            <div class="product__details__option__size">
+                                                <span>Size :</span>
+                                                <c:forEach items="${listSize}" var="size">
+                                                    <a href="/mua-hang/cart/view/chonSize/${giayDistinct.giay.id}/${size.id}"
+                                                       class="btn btn-light">${size.soSize}</a>
+                                                </c:forEach>
+                                            </div>
+                                            <div class="product__details__option__color">
+                                                <span class="">Color :</span>
+                                                <c:forEach items="${listColor}" var="color">
+                                                    <button style="background-color: ${color.ten}; width: 40px; height: 30px;display: inline-block;"
+                                                            class="m-2"></button>
+                                                </c:forEach>
+                                            </div>
+                                            <div class="mt-3">
+                                                <form action="/mua-hang/cart/add" method="get">
+                                                    <div class="">
+                                                        <span>Số lượng</span>
+                                                        <input type="number" name="soLuong" value="1" class="form-control"/>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span>Có ${giayDistinct.remindProducts}</span>
+                                                        <span>Sản phẩm có sẵn</span>
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-secondary btn-center mt-3">Thêm
+                                                        giỏ hàng
+                                                    </button>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <%--                        <table class="table mt-3 text-center">--%>
+                        <%--                            <thead class="">--%>
+                        <%--                            <tr>--%>
+                        <%--                                <td>Sản phẩm</td>--%>
+                        <%--                                <td>Size</td>--%>
+                        <%--                                <td>Tên</td>--%>
+                        <%--                                <td>Số lượng</td>--%>
+                        <%--                                <td>Hành động</td>--%>
+                        <%--                            </tr>--%>
+                        <%--                            </thead>--%>
+                        <%--                            <tbody>--%>
+                        <%--                            <c:forEach items="${listSize}" var="kh">--%>
+                        <%--                                <tr>--%>
+                        <%--                                    <td><img src="/img/imgsProducts/${kh.hinhAnh.urlImg0}" alt="" height="100"--%>
+                        <%--                                             width="100"></td>--%>
+                        <%--                                    <td>${kh.size.soSize}</td>--%>
+                        <%--                                    <td>${kh.giay.ten}</td>--%>
+                        <%--                                        &lt;%&ndash;                                    <td>&ndash;%&gt;--%>
+                        <%--                                        &lt;%&ndash;                                        <input type="number" name="soLuong" value="1" class="form-control">&ndash;%&gt;--%>
+                        <%--                                        &lt;%&ndash;                                    </td>&ndash;%&gt;--%>
+                        <%--                                        &lt;%&ndash;                                    <td>&ndash;%&gt;--%>
+                        <%--                                        &lt;%&ndash;                                        <a href="/mua-hang/cart/add?idChiTietGiay=${kh.id}"&ndash;%&gt;--%>
+                        <%--                                        &lt;%&ndash;                                           class="btn btn-secondary">Thêm giỏ hàng</a>&ndash;%&gt;--%>
+                        <%--                                        &lt;%&ndash;                                    </td>&ndash;%&gt;--%>
+                        <%--                                    <form action="/mua-hang/cart/add" method="get">--%>
+                        <%--                                        <td>--%>
+                        <%--                                            <input type="number" name="soLuong" value="1" class="form-control">--%>
+                        <%--                                        </td>--%>
+                        <%--                                        <td>--%>
+                        <%--                                            <input type="hidden" name="idChiTietGiay" value="${kh.id}">--%>
+                        <%--                                            <button type="submit" class="btn btn-secondary">Thêm giỏ hàng</button>--%>
+                        <%--                                        </td>--%>
+                        <%--                                    </form>--%>
+                        <%--                                </tr>--%>
+                        <%--                            </c:forEach>--%>
+                        <%--                            </tbody>--%>
+                        <%--                        </table>--%>
                     </div>
                 </div>
             </div>
@@ -336,6 +419,7 @@
                     </div>
                     <div>
                         <a class="btn btn-dark mt-3" href="/mua-hang/cart/thanhtoan">Thanh toán</a>
+                        <a class="btn btn-dark mt-3" href="">In hóa đơn</a>
                     </div>
                 </div>
             </div>
@@ -371,7 +455,7 @@
 <style>
     /* Đặt chiều cao tối đa cho phần thân của modal */
     .modal-xl .modal-content {
-        max-height: 600px; /* Bạn có thể điều chỉnh giá trị theo sở thích của mình */
+        max-height: 650px; /* Bạn có thể điều chỉnh giá trị theo sở thích của mình */
     }
 
     /* Kích hoạt cuộn dọc cho phần thân của modal */

@@ -47,4 +47,9 @@ public class GiayDistinceServiceImpls implements GiayDistinctService {
     public List<GiayDistinct> soSize(UUID idGiay) {
         return giayDistinctRepository.soSize(idGiay);
     }
+
+    @Override
+    public GiayDistinct findGiayDistinctByIdGiay(UUID uuid) {
+        return giayDistinctRepository.findGiayDistinctByIdGiay(uuid);
+    }
 }

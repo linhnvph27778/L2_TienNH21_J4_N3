@@ -30,5 +30,8 @@ public interface GiayDistinctRepository extends JpaRepository<GiayDistinct, UUID
                     " join size on chitietgiay.idsize = size.id \n" +
                     " where GiayDistinct.idgiay= ?1 ",nativeQuery = true)
     List<GiayDistinct> soSize(UUID idGiay);
+    @Query(value = "select * from GiayDistinct where idGiay = ?1",nativeQuery = true)
+
+    GiayDistinct findGiayDistinctByIdGiay(UUID id);
 
 }

@@ -82,4 +82,9 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     public ChiTietGiay findChiTietGiayById(UUID id) {
         return chiTietGiayRepo.findChiTietGiayById(id);
     }
+
+    @Override
+    public List<Item> listHoaDonCho(UUID idHoaDon) {
+        return chiTietGiayRepo.listHoaDonCho(idHoaDon);
+    }
 }
