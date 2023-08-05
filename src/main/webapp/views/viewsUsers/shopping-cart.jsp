@@ -144,44 +144,42 @@
                     <table>
                         <thead>
                         <tr>
-<%--                            <th><input  onclick="selectAllRows()"  class="check" type="checkbox"  style="margin-right: 20px"></th>--%>
-                            <th>Prodct</th>
+                            <th><input  onclick="selectAllRows()"  class="check" type="checkbox"  style="margin-right: 20px"></th>
+                            <th>Product</th>
                             <th>Quantity</th>
                             <th>Total</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
+                        <c:forEach items="${listCTGH}" var="c" >
+                            <tr id="productId" value="${c.chiTietGiay.id}">
+                                <form action="/deleteToCartButton/${c.chiTietGiay.id}" method="post" >
+                                    <td><input name="${c.id}" type="checkbox"></td>
+                                    <td class="product__cart__item">
+                                        <div class="product__cart__item__pic">
+                                            <a href="/shop-details/+ ${c.chiTietGiay.id} }"> <img style="width:90px; height:90px;" src="/img/imgsProducts/${c.chiTietGiay.hinhAnh.urlImg0}"></a>
+                                        </div>
+                                        <div class="product__cart__item__text">
+                                            <a href="/shop-details/${c.chiTietGiay.id}">
+                                                <h6>${c.chiTietGiay.giay.ten}</h6>
+                                            </a>
+                                            <h5>${c.chiTietGiay.giaBan}</h5>
+                                        </div>
+                                    </td>
+                                    <td class="quantity__item">
+                                        <div class="quantity">
+                                            <div class="pro-qty-2">
+                                                <input  type="text" value="${c.soLuong}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">$ $</td>
+                                    <td class="cart__close"><button id="deleteToCartButton" style="border-radius: 20%;" ><i class="fa fa-close"></i></button></td>
 
-<%--                        <th:block th:each="detailSC : ${listDSC}">--%>
-<%--                            <tr id="productId" th:value="${detailSC.product.id}">--%>
-<%--                                <form th:action="@{'/deleteToCartButton/' + ${detailSC.product.id}}" method="post" >--%>
-<%--                                    <td><input th:name="${detailSC.id}" type="checkbox"></td>--%>
-<%--                                    <td class="product__cart__item">--%>
-<%--                                        <div class="product__cart__item__pic">--%>
-<%--                                            <a th:href="@{'/shop-details/' + ${detailSC.product.id} }"> <img style="width:90px; height:90px;" th:src="@{'/img/product/' + ${detailSC.product.images_Product.image_Product_1} + '.jpg'}"></a>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="product__cart__item__text">--%>
-<%--                                            <a th:href="@{'/shop-details/' + ${detailSC.product.id} }">--%>
-<%--                                                <h6 th:text="${detailSC.product.name_product}"></h6>--%>
-<%--                                            </a>--%>
-<%--                                            <h5 th:text="${detailSC.product.price_product}"></h5>--%>
-<%--                                        </div>--%>
-<%--                                    </td>--%>
-<%--                                    <td class="quantity__item">--%>
-<%--                                        <div class="quantity">--%>
-<%--                                            <div class="pro-qty-2">--%>
-<%--                                                <input  type="text" th:value="${detailSC.quantity}">--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </td>--%>
-<%--                                    <td class="cart__price">$ $</td>--%>
-<%--                                    <td class="cart__close"><button id="deleteToCartButton" style="border-radius: 20%;" ><i class="fa fa-close"></i></button></td>--%>
-
-<%--                                </form>--%>
-<%--                            </tr>--%>
-<%--                        </th:block>--%>
-
+                                </form>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

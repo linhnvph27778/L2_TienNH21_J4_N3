@@ -2,6 +2,7 @@ package com.example.datn.controller;
 
 import com.example.datn.entity.Cart;
 import com.example.datn.entity.ChiTietGiay;
+import com.example.datn.entity.Giay;
 import com.example.datn.entity.GiayDistinct;
 import com.example.datn.entity.HoaDon;
 import com.example.datn.entity.HoaDonChiTiet;
@@ -12,6 +13,7 @@ import com.example.datn.entity.Size;
 import com.example.datn.repository.MauSacRepo;
 import com.example.datn.service.ChiTietGiayService;
 import com.example.datn.service.GiayDistinctService;
+import com.example.datn.service.GiayService;
 import com.example.datn.service.HangService;
 import com.example.datn.service.HoaDonChiTietService;
 import com.example.datn.service.HoaDonService;
@@ -65,6 +67,10 @@ public class CartController {
 
     @Autowired
     private HangService hangService;
+
+    @Autowired
+    private GiayService giayService;
+
 
     @GetMapping("/cart")
     public String taoHoaDon(Model model) {
@@ -261,7 +267,7 @@ public class CartController {
         List<Size> listSize = chiTietGiayService.findSizeByIDGiay(idGiay);
         model.addAttribute("listSize", listSize);
 
-        List<MauSac> listColor = chiTietGiayService.findMauSacByIDGiay(idGiay);
+        List<ChiTietGiay> listColor = chiTietGiayService.findByIdGiay(idGiay);
         model.addAttribute("listColor", listColor);
 
         return "viewsBanHang/banhang";
@@ -280,8 +286,10 @@ public class CartController {
         List<Size> listSize = chiTietGiayService.findSizeByIDGiay(idGiay);
         model.addAttribute("listSize", listSize);
 
-        List<MauSac> listColor = chiTietGiayService.findDistinctMauSacBySizeAndGiay(idGiay,idSize);
-        model.addAttribute("listColor", listColor);
+        Giay giay = giayService.findByID(idGiay);
+        Size size = sizeService.findByID(idSize);
+        List<ChiTietGiay> chiTietGiayList = chiTietGiayService.findChiTietGiayByGiayAndSize(giay,size);
+        model.addAttribute("listColor", chiTietGiayList);
 
         return "viewsBanHang/banhang";
     }

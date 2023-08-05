@@ -205,8 +205,8 @@
                                             <div class="product__details__option__color">
                                                 <span class="">Color :</span>
                                                 <c:forEach items="${listColor}" var="color">
-                                                    <button style="background-color: ${color.ten}; width: 40px; height: 30px;display: inline-block;"
-                                                            class="m-2"></button>
+                                                    <input type="radio" style="background-color: ${color.mauSac.ten}; width: 40px; height: 30px;display: inline-block; color: transparent;"
+                                                            class="m-2" value="${color.id}" name="idChiTietGiay" />
                                                 </c:forEach>
                                             </div>
                                             <div class="mt-3">

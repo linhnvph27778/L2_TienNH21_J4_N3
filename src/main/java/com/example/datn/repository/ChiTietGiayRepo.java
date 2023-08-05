@@ -20,8 +20,6 @@ public interface ChiTietGiayRepo extends JpaRepository<ChiTietGiay, UUID> {
 
     List<ChiTietGiay> findByGiayId(UUID idGiay);
 
-
-
     @Query("SELECT DISTINCT g.mauSac FROM ChiTietGiay g WHERE g.giay.id = ?1")
     List<MauSac> findDistinctMauSac(UUID idGiay);
 
@@ -40,6 +38,8 @@ public interface ChiTietGiayRepo extends JpaRepository<ChiTietGiay, UUID> {
     List<ChiTietGiay> findByGiayAndSize(Giay giay, Size size);
 
     ChiTietGiay findChiTietGiayById(UUID id);
+
+    List<ChiTietGiay> findChiTietGiayByGiayAndSize(Giay giay, Size size);
 
     //
     @Query(value = "select ChiTietGiay.Id,Giay.Ma,Giay.Ten ,HinhAnh.URLImg0,MauSac.ten,Size.SoSize,Hang.ten,HoaDonChiTiet.SoLuong,hoadonchitiet.DonGia\n" +

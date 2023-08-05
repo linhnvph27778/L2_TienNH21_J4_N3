@@ -22,15 +22,16 @@
         <form action="/chi-tiet-giay/search" method="get">
             <div class="mt-2">
                 <label>Tìm kiếm</label>
-                <input name="keyword" class="form-control" type="text" placeholder="Tên hoặc mã" aria-label="Tên hoặc mã">
+                <input name="keyword" class="form-control" type="text" placeholder="Tên hoặc mã"
+                       aria-label="Tên hoặc mã">
             </div>
             <div class="mt-3">
                 <label>Loại khách hàng</label>
-<%--                <select name="loaiKH" class="form-select">--%>
-<%--                    <c:forEach items="${listLKH}" var="kh">--%>
-<%--                        <option value="${kh.id}">${kh.ten}</option>--%>
-<%--                    </c:forEach>--%>
-<%--                </select>--%>
+                <%--                <select name="loaiKH" class="form-select">--%>
+                <%--                    <c:forEach items="${listLKH}" var="kh">--%>
+                <%--                        <option value="${kh.id}">${kh.ten}</option>--%>
+                <%--                    </c:forEach>--%>
+                <%--                </select>--%>
             </div>
             <div class="mt-3">
                 <button type="submit" class="btn btn-primary">Search</button>
@@ -40,10 +41,9 @@
     </div>
 
 
-    <table class="table table-bordered bordered-dark mt-3 text-center">
+    <table class="table table-bordered bordered-dark mt-3 text-center" id="myTable">
         <thead class="bg-info">
-        <tr>
-<%--            <td>Mã giày</td>--%>
+        <%--<tr>
             <td>Tên giày</td>
             <td>Năm Bảo hành</td>
             <td>NSX</td>
@@ -59,56 +59,78 @@
             <td>Màu</td>
             <td>Size</td>
             <td colspan="2">Action</td>
+        </tr>--%>
+        <tr>
+            <td>Hình ảnh</td>
+            <td>Tên giày</td>
+            <td>Giá Bán</td>
+            <td>Size</td>
+            <td>Số lượng tồn</td>
+            <td>Trạng thái</td>
+            <td colspan="2">Action</td>
         </tr>
         </thead>
         <tbdoy>
-            <c:forEach items="${list}" var="kh" >
+            <c:forEach items="${list}" var="kh">
                 <tr>
+                    <td><img width="95px" height="100px" src="/img/imgsProducts/${kh.hinhAnh.urlImg0}"></td>
                     <td>${kh.giay.ten}</td>
-                    <td>${kh.namBaoHanh}</td>
-                    <td>${kh.namSanXuat}</td>
-                    <td>${kh.trongLuong}</td>
-                    <td>${kh.giaNhap}</td>
+                        <%--<td>${kh.namBaoHanh}</td>
+                        <td>${kh.namSanXuat}</td>
+                        <td>${kh.trongLuong}</td>
+                        <td>${kh.giaNhap}</td>--%>
                     <td>${kh.giaBan}</td>
-                    <td>${kh.soLuongTon}</td>
-                    <td>${kh.trangThai}</td>
-                    <td>${kh.hinhAnh.urlImg0}</td>
-                    <td>${kh.chatLieuDeGiay.ten}</td>
-                    <td>${kh.chatLieuThanGiay.ten}</td>
-                    <td>${kh.hang.ten}</td>
-                    <td>${kh.mauSac.ten}</td>
                     <td>${kh.size.soSize}</td>
+                    <td>${kh.soLuongTon}</td>
                     <td>
-                        <a onclick="xacNhan(event)" href="/chi-tiet-giay/delete/${kh.id}" class="btn btn-danger">Xoa</a>
+                        <c:if test="${kh.trangThai == 0}">Không hoạt động</c:if>
+                        <c:if test="${kh.trangThai == 1}">Hoạt động</c:if></td>
+                        <%--<td>${kh.chatLieuDeGiay.ten}</td>
+                        <td>${kh.chatLieuThanGiay.ten}</td>
+                        <td>${kh.hang.ten}</td>
+                        <td>${kh.mauSac.ten}</td>
+                        <td>${kh.size.soSize}</td>--%>
+                    <td>
+                            <%--                        <a onclick="xacNhan(event)" href="/chi-tiet-giay/delete/${kh.id}" class="btn btn-danger">Xoa</a>--%>
                         <a href="/chi-tiet-giay/viewUpdate/${kh.id}" class="btn btn-primary">Update</a>
+                        <a href="/chi-tiet-giay/detail/${kh.id}" class="btn btn-warning">Detail</a>
                     </td>
                 </tr>
             </c:forEach>
         </tbdoy>
     </table>
-<%--    <div class="mt-3">--%>
-<%--        <nav aria-label="Page navigation example">--%>
-<%--            <ul class="pagination">--%>
-<%--                <c:forEach begin="0" end="${ list.totalPages -1}" varStatus="loop">--%>
-<%--                    <li class="page-item">--%>
-<%--                        <a class="page-link" href="/khach-hang/hien-thi?page=${loop.begin + loop.count - 1}">--%>
-<%--                                ${loop.begin + loop.count }--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-<%--                </c:forEach>--%>
-<%--            </ul>--%>
-<%--        </nav>--%>
-<%--    </div>--%>
+    <%--    <div class="mt-3">--%>
+    <%--        <nav aria-label="Page navigation example">--%>
+    <%--            <ul class="pagination">--%>
+    <%--                <c:forEach begin="0" end="${ list.totalPages -1}" varStatus="loop">--%>
+    <%--                    <li class="page-item">--%>
+    <%--                        <a class="page-link" href="/khach-hang/hien-thi?page=${loop.begin + loop.count - 1}">--%>
+    <%--                                ${loop.begin + loop.count }--%>
+    <%--                        </a>--%>
+    <%--                    </li>--%>
+    <%--                </c:forEach>--%>
+    <%--            </ul>--%>
+    <%--        </nav>--%>
+    <%--    </div>--%>
 </div>
 
 </body>
 
 <script>
-    function xacNhan(event){
-        var mes= confirm("Ban có chắc muốn xóa không");
-        if (!mes){
+    function xacNhan(event) {
+        var mes = confirm("Ban có chắc muốn xóa không");
+        if (!mes) {
             event.preventDefault();
         }
+    }
+
+    var table = document.getElementById("myTable");
+    var rowCount = table.rows.length;
+
+    for (var i = 0; i < rowCount; i++) {
+        var row = table.rows[i];
+        var cell = row.insertCell(0);
+        cell.innerHTML = 0 + i;
     }
 </script>
 </html>
