@@ -1,7 +1,9 @@
 package com.example.datn.controller;
 
+import com.example.datn.entity.ChiTietGiay;
 import com.example.datn.entity.Giay;
 import com.example.datn.entity.LoaiKhachHang;
+import com.example.datn.service.ChiTietGiayService;
 import com.example.datn.service.GiayService;
 import com.example.datn.viewModel.LoaiKhachHangViewModel;
 import jakarta.servlet.http.HttpSession;
@@ -17,11 +19,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/giay")
 public class GiayController {
     @Autowired
     private GiayService giayService;
+
+    @Autowired
+    private ChiTietGiayService chiTietGiayService;
 
     @Autowired
     private HttpSession session;
@@ -46,7 +54,7 @@ public class GiayController {
             return "viewsManage/giay/add";
         } else {
             giayService.add(giay);
-            session.setAttribute("message","Thêm thành công");
+            session.setAttribute("message", "Thêm thành công");
             return "redirect:/giay/hien-thi";
         }
     }
@@ -54,7 +62,7 @@ public class GiayController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Giay loaiKhachHang) {
         giayService.delete(loaiKhachHang);
-        session.setAttribute("message","Xóa thành công");
+        session.setAttribute("message", "Xóa thành công");
         return "redirect:/giay/hien-thi";
     }
 
@@ -71,9 +79,16 @@ public class GiayController {
             return "viewsManage/giay/add";
         } else {
             giayService.add(giay);
-            session.setAttribute("message","Cập nhật thành công");
+            session.setAttribute("message", "Cập nhật thành công");
             return "redirect:/giay/hien-thi";
         }
 
+    }
+
+    @GetMapping("/detail/{id}")
+    public String Detail(@PathVariable UUID id, Model model) {
+        List<ChiTietGiay> listCTGiay = chiTietGiayService.findByIdGiay(id);
+        model.addAttribute("listCTGiay", listCTGiay);
+        return "viewsManage/chitietgiay/index";
     }
 }

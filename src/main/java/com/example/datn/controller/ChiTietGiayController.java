@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -62,7 +63,7 @@ public class ChiTietGiayController {
 
     @GetMapping("/hien-thi")
     public String hienThi(Model model) {
-        model.addAttribute("list", chiTietGiayService.getAll());
+        model.addAttribute("listCTGiay", chiTietGiayService.getAll());
         return "viewsManage/chitietgiay/index";
     }
 
@@ -95,7 +96,7 @@ public class ChiTietGiayController {
         } else {
             chiTietGiayService.add(chiTietGiay);
             session.setAttribute("message", "Thêm thành công");
-            return "redirect:/chi-tiet-giay/hien-thi";
+            return "redirect:/giay/hien-thi";
         }
     }
 
@@ -147,6 +148,6 @@ public class ChiTietGiayController {
             ctGiayDb.setSize(chiTietGiay.getSize());
             chiTietGiayService.save(ctGiayDb);
         }
-        return "redirect:/chi-tiet-giay/hien-thi";
+        return "redirect:/giay/hien-thi";
     }
 }
