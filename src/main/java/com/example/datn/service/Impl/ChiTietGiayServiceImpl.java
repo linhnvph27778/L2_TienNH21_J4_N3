@@ -37,6 +37,11 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
     }
 
     @Override
+    public ChiTietGiay getByIdCtGiay(UUID id) {
+        return chiTietGiayRepo.findById(id).orElse(null);
+    }
+
+    @Override
     public Optional<ChiTietGiay> getOne(UUID id) {
         return chiTietGiayRepo.findById(id);
     }

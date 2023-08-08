@@ -17,6 +17,8 @@ public interface ChiTietGiayService {
 
     public void save(ChiTietGiay chiTietGiay);
 
+    public ChiTietGiay getByIdCtGiay(UUID id);
+
     Optional<ChiTietGiay> getOne(UUID id);
 
     Page<ChiTietGiay> phanTrang(int pageNo, int size);

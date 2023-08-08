@@ -69,8 +69,8 @@ public class UsersDetailProduct {
 
         session.setAttribute("productDetail",product);
 
-        listProducts = chiTietGiayService.listDistinctGiay(product.getGiay().getId());
-        model.addAttribute("listProducts", listProducts);
+//        listProducts = chiTietGiayService.listDistinctGiay(product.getGiay().getId());
+//        model.addAttribute("listProducts", listProducts);
 
         List<ChatLieuThanGiay> listCLTG = chiTietGiayService.findCLTGByIDGiay(product.getGiay().getId());
         model.addAttribute("listCLTG", listCLTG);
