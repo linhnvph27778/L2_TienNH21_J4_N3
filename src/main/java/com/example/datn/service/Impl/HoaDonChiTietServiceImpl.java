@@ -26,6 +26,11 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     }
 
     @Override
+    public void delete(HoaDonChiTiet hoaDonChiTiet) {
+        hoaDonChiTietRepository.delete(hoaDonChiTiet);
+    }
+
+    @Override
     public List<ChiTietGiay> listHoaDonCho(UUID idHoaDon) {
         return hoaDonChiTietRepository.listHoaDonCho(idHoaDon);
     }

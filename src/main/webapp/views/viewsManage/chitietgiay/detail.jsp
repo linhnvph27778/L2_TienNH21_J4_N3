@@ -52,7 +52,7 @@
                                                             class="img-responsive"></div>
                     <br>
                     <div align="center">
-                        <a href="/chi-tiet-giay/viewUpdate/${kh.id}" class="btn btn-warning">Update</a>
+                        <a href="/chi-tiet-giay/viewUpdate/${ctgiayDetail.id}" class="btn btn-warning">Update</a>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6">
