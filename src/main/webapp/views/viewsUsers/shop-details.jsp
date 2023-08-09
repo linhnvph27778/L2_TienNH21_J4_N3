@@ -32,7 +32,6 @@
     <div class="loader"></div>
 </div>
 
-
 <!-- Header Section Begin -->
 <header class="header">
     <div class="header__top">
@@ -104,7 +103,7 @@
 
                     <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
                         <img src="/img/icon/cart.png" alt="">
-                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductCart}"></span>
+                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductInCart}</span>
                     </a>
                 </div>
             </div>
@@ -116,7 +115,7 @@
 
 <!-- Shop Details Section Begin -->
 <section class="shop-details">
-    <form object="${product}" action="/addToCart/idProduct}"  method="post" >
+    <form object="${product}" action="/viewsUsers/shop-details/addToCart"  method="get" >
         <div class="product__details__pic">
             <div class="container">
                 <div class="row">
@@ -188,58 +187,61 @@
                             <h4>${product.giay.ten}</h4>
                             <% boolean minMaxPrice = (Boolean) request.getAttribute("minMaxPrice"); %>
                             <% if ( minMaxPrice) { %>
-                            <h3>${money} ${product.minPrice} ${space} ${money}${product.maxPrice}</h3>
+                            <h3 class="price-range">${money} ${product.minPrice} ${space} ${money}${product.maxPrice}</h3>
                             <% } %>
-                            <h3>${price_product}</h3>
+                            <h3 id="price_product"></h3>
                             <p>${product.giay.moTa}</p>
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
                                     <span>Variation :</span>
-                                    <c:forEach items="${listProducts}" var="x" >
-                                        <label style="font-weight: unset; font-size: small" > ${x.size.soSize} ${x.mauSac.ten} <input type="radio" ></label>
-                                    </c:forEach>
-
+                                    <br>
+                                    <span>----------------------------------</span>
+                                    <div class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
+                                        <c:forEach items="${listProducts}" var="x">
+                                            <label class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;">
+                                                    ${x.size.soSize} ${x.mauSac.ten} <input data-idProduct="${x.id}" type="radio" data-price="${x.giaBan}" data-remind="${x.soLuongTon}">
+                                            </label>
+                                        </c:forEach>
+                                    </div>
                                 </div>
                                 <br>
-                                <br>
-                                <div class="product__details__option__size" style=" display: flex;padding-left: 30% ">
-                                    <select style="margin-right: 100px" onchange="window.location.href = this.value;">
-                                        <option value="#">Sole Material</option>
-                                        <c:forEach items="${listCLDG}" var="dg" >
-                                            <option value="#">${dg.ten}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <span></span>
-                                    <select style="margin-left: 100px" onchange="window.location.href = this.value;">
-                                        <option>Body Material</option>
-                                        <c:forEach items="${listCLTG}" var="tg" >
-                                            <option value="#">${tg.ten}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
+                                <input name="idDProduct" id="idDetailProduct" value="" type="hidden">
+<%--                                <div class="product__details__option__size" style=" display: flex;padding-left: 30% ">--%>
+<%--                                    <select style="margin-right: 100px" onchange="window.location.href = this.value;">--%>
+<%--                                        <option value="#">Sole Material</option>--%>
+<%--                                        <c:forEach items="${listCLDG}" var="dg" >--%>
+<%--                                            <option value="#">${dg.ten}</option>--%>
+<%--                                        </c:forEach>--%>
+<%--                                    </select>--%>
+<%--                                    <span></span>--%>
+<%--                                    <select style="margin-left: 100px" onchange="window.location.href = this.value;">--%>
+<%--                                        <option>Body Material</option>--%>
+<%--                                        <c:forEach items="${listCLTG}" var="tg" >--%>
+<%--                                            <option value="#">${tg.ten}</option>--%>
+<%--                                        </c:forEach>--%>
+<%--                                    </select>--%>
+<%--                                </div>--%>
                             </div>
                             <div class="product__details__cart__option">
                                 <div class="quantity">
                                     <p style="display: inline-block; margin: 0;">Quantity :</p>
-                                    <div class="pro-qty" style="display: inline-block;">
-                                        <input data-max-quantity="${product.remindProducts}" id="quantityInput" type="text" value="1">
+                                    <div  style="display: inline-block; ">
+                                        <input name="quantityProduct" style="width: 80px;" type="number" class="form-control" placeholder="Enter quantity" aria-label="Quantity" min="1" value="1">
                                     </div>
                                     <% boolean remindProduct = (Boolean) request.getAttribute("remindProduct"); %>
                                     <% if (remindProduct) { %>
-                                    <p style="display: inline-block; margin: 0;">${product.remindProducts}</p>
+                                    <p class="sum-remind" style="display: inline-block; margin: 0;">${product.remindProducts}</p>
                                     <% } %>
-                                    <p style="display: inline-block; margin: 0;">${remindProducts}</p>
+                                    <p style="display: inline-block; margin: 0;"><span id="quantity_remind">${remindProducts}</span></p>
                                     <p style="display: inline-block; margin: 0;">Pieces available</p>
                                 </div>
                             </div>
-
                             <div class="product__details__cart__option">
                                 <button  class="primary-btn">buy now</button>
-                                <button id="addToCartButton" class="primary-btn" >add to cart</button>
+                                <button  style="color: white" id="addToCartButton" class="primary-btn" >add to cart</button>
                             </div>
-
                             <div class="product__details__btns__option">
-                                <a href="#"><i class="fa fa-heart"></i>add to wishlist</a>
+                                <a href=""><i class="fa fa-heart"></i>add to wishlist</a>
                             </div>
                             <div class="product__details__last__option">
                                 <h5><span>Guaranteed Safe Checkout</span></h5>
@@ -378,6 +380,7 @@
     </form>
 </section>
 <!-- Shop Details Section End -->
+
 <!-- Footer Section Begin -->
 <footer class="footer">
     <div class="container">
@@ -457,35 +460,66 @@
 <!-- Search End -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<%--<script>--%>
+<%--     alert("Please login to add the product to cart");--%>
+<%--</script>--%>
+
+
 <script>
-    $(document).ready(function() {
-        $("#addToCartButton").click(function(event) {
-            event.preventDefault();  // Ngăn chặn hành vi mặc định của button
+    const addToCartButton = document.getElementById('addToCartButton');
+    const idDetailProduct = document.getElementById('idDetailProduct');
 
-            var quantity = $("#quantityInput").val();  // Lấy giá trị số lượng từ trường input
+    addToCartButton.addEventListener('click', () => {
+        const productId = idDetailProduct.value;
 
-            // Gửi yêu cầu AJAX đến Controller
-            $.ajax({
-                url: "/addToCart",
-                type: "POST",
-                data: {
-                    quantity: quantity
-                },
-                success: function(response) {
-                    // Xử lý kết quả thành công (nếu cần)
-                    alert("Product added to cart successfully");
-                },
-                error: function(xhr, status, error) {
-                    // Xử lý lỗi (nếu có)
-                    alert("Please login to add the product to cart");
+        if (productId) {
+            // Thêm sản phẩm vào giỏ hàng
+            alert('Sản phẩm đã được thêm vào giỏ hàng.');
+        } else {
+            event.preventDefault();
+            alert('Chưa chọn sản phẩm.');
+        }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const labels = document.querySelectorAll(".label");
+        const priceElement = document.querySelector("#price_product");
+        const priceRange = document.querySelector(".price-range");
+        const sumRemind = document.querySelector(".sum-remind");
+        const quantityRemindElement = document.querySelector("#quantity_remind");
+        const idDetailProduct = document.querySelector("#idDetailProduct");
 
+        labels.forEach(label => {
+            label.addEventListener("click", function() {
+                const selectedInput = label.querySelector("input[type='radio']");
+                const price = selectedInput.getAttribute("data-price");
+                const remind = selectedInput.getAttribute("data-remind");
+                const idDP = selectedInput.getAttribute("data-idProduct");
+
+                priceElement.innerHTML = "$"+price;
+                quantityRemindElement.innerHTML = remind;
+                idDetailProduct.value = idDP;
+
+                // Kiểm tra và ẩn/hiển thị khoảng giá
+                const minMaxPrice = <%=(Boolean) request.getAttribute("minMaxPrice")%>;
+                if (minMaxPrice) {
+                    priceRange.style.display = "none"; // Ẩn khoảng giá
+                } else {
+                    priceRange.style.display = "block"; // Hiển thị khoảng giá
+                }
+
+                // Kiểm tra và ẩn/hiển thị sản phẩmt còn lại
+                const remindPrtoduct = <%=(Boolean) request.getAttribute("remindProduct")%>;
+                if (remindPrtoduct) {
+                    sumRemind.style.display = "none"; // Ẩn khoảng giá
+                } else {
+                    sumRemind.style.display = "block"; // Hiển thị khoảng giá
                 }
             });
         });
     });
 </script>
-
-
 <script>
     var quantityInput = document.getElementById("quantityInput");
     var maxQuantity = quantityInput.getAttribute("data-max-quantity");
@@ -501,7 +535,6 @@
         }
     });
 </script>
-
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.3.1.min.js"></script>

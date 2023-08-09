@@ -41,6 +41,8 @@ public interface ChiTietGiayRepo extends JpaRepository<ChiTietGiay, UUID> {
 
     List<ChiTietGiay> findChiTietGiayByGiayAndSize(Giay giay, Size size);
 
+    List<ChiTietGiay> findByGiayAndTrangThaiOrderBySizeDesc(Giay giay, int trangThai);
+
     //
     @Query(value = "select ChiTietGiay.Id,Giay.Ma,Giay.Ten ,HinhAnh.URLImg0,MauSac.ten,Size.SoSize,Hang.ten,HoaDonChiTiet.SoLuong,hoadonchitiet.DonGia\n" +
             "from ChiTietGiay join HoaDonChiTiet on ChiTietGiay.Id= HoaDonChiTiet.idChiTietGiay\n" +

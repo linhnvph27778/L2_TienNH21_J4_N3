@@ -46,12 +46,19 @@ public class UsersProductsController {
     @Autowired
     private GiayDistinctService giayDistinctService;
 
+    @Autowired
+    private ShoppingCartServices shoppingCartServices;
+
+    @Autowired
+    private  DetailShoppingCartService detailShoppingCartService;
+
     @GetMapping("/usersShop")
     private String getUsersProductForm(Model model,
                                        @RequestParam(name = "pageSize", defaultValue = "9") Integer pageSize,
                                        @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
 
-        checkUsersLogin(model);
+        KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
+        checkUsersLogin(model, khachHang);
 
         showDataUserShop(model);
 
@@ -74,7 +81,8 @@ public class UsersProductsController {
                                 @RequestParam(name = "pageSize", defaultValue = "9") Integer pageSize,
                                 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
 
-        checkUsersLogin(model);
+        KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
+        checkUsersLogin(model, khachHang);
 
         model.addAttribute("ChooseAnOption", "Low To High");
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
@@ -93,7 +101,9 @@ public class UsersProductsController {
                                 @RequestParam(name = "pageSize", defaultValue = "9") Integer pageSize,
                                 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
 
-        checkUsersLogin(model);
+        KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
+
+        checkUsersLogin(model, khachHang);
 
         model.addAttribute("ChooseAnOption", "High To Low");
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
@@ -114,13 +124,14 @@ public class UsersProductsController {
 
 
 
-    private void checkUsersLogin(Model model){
-        KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
+    private void checkUsersLogin(Model model, KhachHang khachHang){
 
         if (khachHang != null){
             model.addAttribute("fullnameLogin", khachHang.getHoTen());
             model.addAttribute("ifFullnameLogin", true);
             model.addAttribute("messageLoginOrSignin", false);
+            GioHang gh = shoppingCartServices.findByUser(khachHang);
+            model.addAttribute("sumProductInCart", detailShoppingCartService.findByGioHangActive(gh).size());
         }else{
             model.addAttribute("ifFullnameLogin", false);
             model.addAttribute("messageLoginOrSignin", true);
