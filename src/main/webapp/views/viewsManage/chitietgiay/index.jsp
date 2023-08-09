@@ -71,7 +71,7 @@
         </tr>
         </thead>
         <tbdoy>
-            <c:forEach items="${list}" var="kh">
+            <c:forEach items="${listCTGiay}" var="kh">
                 <tr>
                     <td><img width="95px" height="100px" src="/img/imgsProducts/${kh.hinhAnh.urlImg0}"></td>
                     <td>${kh.giay.ten}</td>

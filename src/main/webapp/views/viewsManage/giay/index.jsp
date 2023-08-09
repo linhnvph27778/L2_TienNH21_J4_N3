@@ -48,8 +48,9 @@
                     <td>${nv.ten}</td>
                     <td>${nv.trangThai}</td>
                     <td>
-                        <a onclick="xacNhan(event)" href="/giay/delete/${nv.id}" class="btn btn-danger">Xoa</a>
+<%--                        <a onclick="xacNhan(event)" href="/giay/delete/${nv.id}" class="btn btn-danger">Xoa</a>--%>
                         <a href="/giay/viewUpdate/${nv.id}" class="btn btn-primary">Update</a>
+                        <a href="/giay/detail/${nv.id}" class="btn btn-success">Detail</a>
                     </td>
                 </tr>
             </c:forEach>
