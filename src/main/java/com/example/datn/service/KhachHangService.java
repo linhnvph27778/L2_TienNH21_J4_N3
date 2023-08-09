@@ -27,4 +27,5 @@ public interface KhachHangService {
     void addNewKhachHang(KhachHang kh);
 
     //Page<KhachHang> search(String keyword, String loaiKH, int pageNo,int size);
+    List<KhachHang> findKhachHangByHoTenOrSDT(String keyword);
 }
