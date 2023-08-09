@@ -103,7 +103,7 @@
 
                     <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
                         <img src="/img/icon/cart.png" alt="">
-                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductCart}</span>
+                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductInCart}</span>
                     </a>
                 </div>
             </div>

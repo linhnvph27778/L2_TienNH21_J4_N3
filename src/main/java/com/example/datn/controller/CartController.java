@@ -179,9 +179,9 @@ public class CartController {
         }
 
         // cập nhật số lượng tồn trong chi tiết giày
-        ChiTietGiay ctg = chiTietGiayService.findChiTietGiayById(idChiTietGiay);
-        ctg.setSoLuongTon(chiTietGiay.get().getSoLuongTon()-soLuong);
-        chiTietGiayService.add(ctg);
+//        ChiTietGiay ctg = chiTietGiayService.findChiTietGiayById(idChiTietGiay);
+//        ctg.setSoLuongTon(chiTietGiay.get().getSoLuongTon()-soLuong);
+//        chiTietGiayService.add(ctg);
 
         httpSession.setAttribute("tongTien", tongTien);
         return "redirect:/mua-hang/cart/view";
