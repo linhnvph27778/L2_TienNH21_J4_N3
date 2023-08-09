@@ -87,4 +87,24 @@ public class ChiTietGiayServiceImpl implements ChiTietGiayService {
         return chiTietGiayRepo.findByGiayAndSize(giay, size);
 
     }
+
+    @Override
+    public ChiTietGiay findChiTietGiayById(UUID id) {
+        return chiTietGiayRepo.findChiTietGiayById(id);
+    }
+
+    @Override
+    public List<ChiTietGiay> listCTGiayAndActice(Giay giay) {
+        return chiTietGiayRepo.findByGiayAndTrangThaiOrderBySizeDesc(giay, 1);
+    }
+
+    @Override
+    public List<Item> listHoaDonCho(UUID idHoaDon) {
+        return chiTietGiayRepo.listHoaDonCho(idHoaDon);
+    }
+
+    @Override
+    public List<ChiTietGiay> findChiTietGiayByGiayAndSize(Giay giay, Size size) {
+        return chiTietGiayRepo.findChiTietGiayByGiayAndSize(giay,size);
+    }
 }

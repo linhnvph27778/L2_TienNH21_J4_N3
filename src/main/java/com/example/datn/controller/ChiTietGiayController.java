@@ -109,8 +109,8 @@ public class ChiTietGiayController {
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable UUID id, Model model) {
-        ChiTietGiay ctGiay = chiTietGiayService.getByIdCtGiay(id);
-        model.addAttribute("ctgiayDetail", ctGiay);
+//        ChiTietGiay ctGiay = chiTietGiayService.getByIdCtGiay(id);
+//        model.addAttribute("ctgiayDetail", ctGiay);
         return "viewsManage/chitietgiay/detail";
     }
 

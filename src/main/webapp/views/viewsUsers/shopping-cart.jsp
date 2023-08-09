@@ -105,7 +105,7 @@
 
                     <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
                         <img src="/img/icon/cart.png" alt="">
-                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductCart}</span>
+                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductInCart}</span>
                     </a>
                 </div>
             </div>
@@ -146,9 +146,9 @@
                         <tr>
                             <th><input  onclick="selectAllRows()"  class="check" type="checkbox"  style="margin-right: 20px"></th>
                             <th>Product</th>
+                            <th>Variations</th>
                             <th>Quantity</th>
                             <th>Total</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -158,24 +158,32 @@
                                     <td><input name="${c.id}" type="checkbox"></td>
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
-                                            <a href="/shop-details/+ ${c.chiTietGiay.id} }"> <img style="width:90px; height:90px;" src="/img/imgsProducts/${c.chiTietGiay.hinhAnh.urlImg0}"></a>
+                                            <a href="/viewsUsers/shop-details/${c.chiTietGiay.giay.id}"> <img style="width:90px; height:90px;" src="/img/imgsProducts/${c.chiTietGiay.hinhAnh.urlImg0}"></a>
                                         </div>
                                         <div class="product__cart__item__text">
-                                            <a href="/shop-details/${c.chiTietGiay.id}">
+                                            <a href="/viewsUsers/shop-details/${c.chiTietGiay.giay.id}">
                                                 <h6>${c.chiTietGiay.giay.ten}</h6>
                                             </a>
-                                            <h5>${c.chiTietGiay.giaBan}</h5>
+                                            <h5 class="cart__price">${c.chiTietGiay.giaBan}</h5>
+                                        </div>
+
+                                    </td>
+                                    <td class="cart__price">
+                                        <div  style="position: absolute;padding-top: -30px">
+                                            <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
+                                            <div id="hiddenDiv" style="display: none; height: 100px; width: 200px; background-color: aquamarine;">
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="quantity__item">
                                         <div class="quantity">
                                             <div class="pro-qty-2">
-                                                <input  type="text" value="${c.soLuong}">
+                                                <input  type="text"  id="quantityInput_${product.id}" value="${c.soLuong}">
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="cart__price">$ $</td>
-                                    <td class="cart__close"><button id="deleteToCartButton" style="border-radius: 20%;" ><i class="fa fa-close"></i></button></td>
+                                    <td class="cart__price" id="totalAmount">$ ${c.chiTietGiay.giaBan * c.soLuong}</td>
+                                    <td class="cart__close"><a href="/viewsUsers/shop-details/deleteProduct/${c.chiTietGiay.id}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
 
                                 </form>
                             </tr>
@@ -306,6 +314,30 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+
+
+<script>
+    const showButton = document.getElementById('showButton');
+    const hiddenDiv = document.getElementById('hiddenDiv');
+
+    document.addEventListener('click', function(event) {
+        if (!showButton.contains(event.target) && !hiddenDiv.contains(event.target)) {
+            hiddenDiv.style.display = 'none';
+        }
+    });
+
+    showButton.addEventListener('click', function() {
+        hiddenDiv.style.display = 'block';
+        event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document
+    });
+
+    hiddenDiv.addEventListener('click', function(event) {
+        event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document
+    });
+
+</script>
+
 <script>
     function selectAllRows() {
         var checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
@@ -342,7 +374,6 @@
         });
     });
 </script>
-
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.3.1.min.js"></script>

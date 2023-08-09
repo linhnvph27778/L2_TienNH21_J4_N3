@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +35,7 @@ public class KhachHang {
     private String ma;
 
     @Column(name = "HoTen")
+    @NotBlank(message = "Không được bỏ trống")
     private String hoTen;
 
     @Column(name = "NgaySinh")
@@ -43,6 +46,8 @@ public class KhachHang {
     private String email;
 
     @Column(name = "Sdt")
+    @Pattern(regexp = "0[0-9]{9}",message = "SDT không đúng định dạng")
+    @NotBlank(message = "Khong được bỏ trống")
     private String sdt;
 
     @Column(name = "TrangThai")

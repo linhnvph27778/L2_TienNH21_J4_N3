@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -37,6 +38,12 @@ public class GioHangChiTiet {
 
     @Column(name = "TrangThai")
     private int trangThai;
+
+    @Column(name = "thoiGianThem")
+    private Date thoiGianThem;
+
+    @Column(name = "thoiGianXoa")
+    private Date thoiGianXoa;
 
     @ManyToOne
     @JoinColumn(name = "idGioHang")

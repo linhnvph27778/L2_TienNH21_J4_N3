@@ -30,5 +30,33 @@ public interface GiayDistinctRepository extends JpaRepository<GiayDistinct, UUID
                     " join size on chitietgiay.idsize = size.id \n" +
                     " where GiayDistinct.idgiay= ?1 ",nativeQuery = true)
     List<GiayDistinct> soSize(UUID idGiay);
+    @Query(value = "select * from GiayDistinct where idGiay = ?1",nativeQuery = true)
+    GiayDistinct findGiayDistinctByIdGiay(UUID id);
 
+    @Query(value = "select GiayDistinct.id,GiayDistinct.MinPrice,GiayDistinct.maxprice, \n" +
+            "GiayDistinct.nameBrand,GiayDistinct.remindProducts,GiayDistinct.idGiay,GiayDistinct.idHinhAnh \n" +
+            "from GiayDistinct join Giay \n" +
+            "on GiayDistinct.IdGiay = Giay.Id \n" +
+            "join ChiTietGiay on Giay.Id = ChiTietGiay.IdGiay \n" +
+            "join MauSac on ChiTietGiay.IdMauSac = MauSac.id  \n" +
+            "where MauSac.id = ?1", nativeQuery = true)
+    List<GiayDistinct> listMauSac(UUID idMauSac);
+
+    @Query(value = "select GiayDistinct.id,GiayDistinct.MinPrice,GiayDistinct.maxprice, \n" +
+            "GiayDistinct.nameBrand,GiayDistinct.remindProducts,GiayDistinct.idGiay,GiayDistinct.idHinhAnh \n" +
+            "from GiayDistinct join Giay \n" +
+            "on GiayDistinct.IdGiay = Giay.Id \n" +
+            "join ChiTietGiay on Giay.Id = ChiTietGiay.IdGiay \n" +
+            "join Size on ChiTietGiay.IdSize = Size.id  \n" +
+            "where Size.id = ?1", nativeQuery = true)
+    List<GiayDistinct> listSize(UUID idSize);
+
+    @Query(value = "select GiayDistinct.id,GiayDistinct.MinPrice,GiayDistinct.maxprice, \n" +
+            "GiayDistinct.nameBrand,GiayDistinct.remindProducts,GiayDistinct.idGiay,GiayDistinct.idHinhAnh \n" +
+            "from GiayDistinct join Giay \n" +
+            "on GiayDistinct.IdGiay = Giay.Id \n" +
+            "join ChiTietGiay on Giay.Id = ChiTietGiay.IdGiay \n" +
+            "join Hang on ChiTietGiay.IdHang = Hang.id  \n" +
+            "where Hang.id = ?1", nativeQuery = true)
+    List<GiayDistinct> listBrand(UUID idBrand);
 }

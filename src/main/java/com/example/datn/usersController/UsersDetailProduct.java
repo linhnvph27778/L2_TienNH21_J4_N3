@@ -4,15 +4,15 @@ package com.example.datn.usersController;
 import com.example.datn.entity.*;
 import com.example.datn.repository.GiayDistinctRepository;
 import com.example.datn.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,19 +25,14 @@ public class UsersDetailProduct {
     private List<MauSac> listColors = new ArrayList<>();
     private List<ChiTietGiay> listProducts = new ArrayList<>();
     private List<GiayDistinct> listGiayDistince = new ArrayList<>();
+    private Date date = new Date();
 
 
     @Autowired
     private HttpSession session;
 
     @Autowired
-    private HangService hangService;
-
-    @Autowired
-    private ColorService colorService;
-
-    @Autowired
-    private SizeService sizeService;
+    private HttpServletRequest req;
 
     @Autowired
     private ChiTietGiayService chiTietGiayService;
@@ -46,31 +41,42 @@ public class UsersDetailProduct {
     private GiayDistinctService giayDistinctService;
 
     @Autowired
+    private DetailShoppingCartService detailShoppingCartService;
+
+    @Autowired
     private GiayService giayService;
+
+    @Autowired
+    private ShoppingCartServices shoppingCartServices;
+
 
     @GetMapping("/shop-details/{id}")
     private String getDetailProduct(Model model,
                                     @PathVariable(name ="id") UUID idProduct){
 
-        checkUsersLogin(model);
 
-        model.addAttribute("minMaxPrice", true);
-        model.addAttribute("remindProduct", true);
+        KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
+
+        checkUsersLogin(model, khachHang);
 
         session.removeAttribute("productDetail");
 
-        GiayDistinct product = giayDistinctService.findByID(idProduct);
+        Giay giay = giayService.findByID(idProduct);
+
+        GiayDistinct product = giayDistinctService.findGiayDistinctByIdGiay(idProduct);
 
         model.addAttribute("product", product);
 
-        model.addAttribute("money", "$");
-
-        model.addAttribute("space", "-");
-
         session.setAttribute("productDetail",product);
+
 
 //        listProducts = chiTietGiayService.listDistinctGiay(product.getGiay().getId());
 //        model.addAttribute("listProducts", listProducts);
+
+        listProducts = chiTietGiayService.listCTGiayAndActice(product.getGiay());
+
+        model.addAttribute("listProducts", listProducts);
+
 
         List<ChatLieuThanGiay> listCLTG = chiTietGiayService.findCLTGByIDGiay(product.getGiay().getId());
         model.addAttribute("listCLTG", listCLTG);
@@ -82,59 +88,85 @@ public class UsersDetailProduct {
 
     }
 
-    @GetMapping("/shop-details/{idGiay}/{idtk1}")
-    private String getProductSize(Model model,
-                                  @PathVariable(name="idGiay") UUID idGiay,
-                                  @PathVariable(name="idtk1") UUID idTK1){
 
-        checkUsersLogin(model);
+    @GetMapping("/shop-details/addToCart")
+    public String addToCart(@RequestParam("idDProduct") String idDetailProduct,
+                            @RequestParam("quantityProduct") int number,Model model) {
 
-        List<Size> listSize = new ArrayList<>();
-        List<ChatLieuDeGiay> chatLieuDeGiayList = new ArrayList<>();
-        List<ChatLieuThanGiay> chatLieuThanGiayList = new ArrayList<>();
+        KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
 
-        model.addAttribute("minMaxPrice", false);
-        model.addAttribute("remindProduct", false);
+        checkUsersLogin(model, khachHang);
 
-        GiayDistinct giayDistinct = (GiayDistinct) session.getAttribute("productDetail");
+        if (khachHang == null){
+            return "/viewsUsers/authencation/usersLogin";
+        }
 
-        model.addAttribute("product", giayDistinct);
+        ChiTietGiay chiTietGiay = chiTietGiayService.findChiTietGiayById(UUID.fromString(idDetailProduct));
 
-        Size size = sizeService.findByID(idTK1);
+        KhachHang kh = (KhachHang) session.getAttribute("UserLogged");
 
-        Giay giay = giayService.findByID(idGiay);
+        GioHang gh = (GioHang) session.getAttribute("userShoppingCartLogin");
 
-        listProducts = chiTietGiayService.findByIDGiayAndIDSize(giay, size);
+        GioHangChiTiet ghct = detailShoppingCartService.findByIDCTG(chiTietGiay);
 
+        if (ghct == null){
+            GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
 
+            gioHangChiTiet.setChiTietGiay(chiTietGiay);
+            gioHangChiTiet.setGioHang(gh);
+            gioHangChiTiet.setTrangThai(1);
+            gioHangChiTiet.setSoLuong(number);
+            gioHangChiTiet.setThoiGianThem(date);
 
-        if (size != null && listProducts.size()==1){
-            listSize.add(size);
-            model.addAttribute("listSize", listSize);
-            for (ChiTietGiay c: listProducts) {
-                chatLieuDeGiayList.add(c.getChatLieuDeGiay());
-                chatLieuThanGiayList.add(c.getChatLieuThanGiay());
-                model.addAttribute("price_product",c.getGiaBan());
-                model.addAttribute("remindProducts",c.getSoLuongTon());
-            }
-            model.addAttribute("listCLDG", chatLieuDeGiayList);
-            model.addAttribute("listCLTG", chatLieuThanGiayList);
-            List<MauSac> listColor = chiTietGiayService.findDistinctMauSacBySizeAndGiay(idGiay, idTK1);
-            model.addAttribute("listColor", listColor);
+            detailShoppingCartService.addProduct(gioHangChiTiet);
 
+            GiayDistinct product = (GiayDistinct) session.getAttribute("productDetail");
+
+            model.addAttribute("product", product);
+
+            session.setAttribute("productDetail",product);
+
+            listProducts = chiTietGiayService.listCTGiayAndActice(product.getGiay());
+
+            model.addAttribute("listProducts", listProducts);
+
+            model.addAttribute("sumProductInCart", detailShoppingCartService.findByGioHangActive(gh).size());
             return "viewsUsers/shop-details";
         }
+
+        int quantityOld = ghct.getSoLuong();
+
+        ghct.setSoLuong( quantityOld + number);
+
+        detailShoppingCartService.addProduct(ghct);
+
+        GiayDistinct product = (GiayDistinct) session.getAttribute("productDetail");
+
+        model.addAttribute("product", product);
+
+        session.setAttribute("productDetail",product);
+
+        listProducts = chiTietGiayService.listCTGiayAndActice(product.getGiay());
+        model.addAttribute("listProducts", listProducts);
+
+        model.addAttribute("sumProductInCart", detailShoppingCartService.findByGioHangActive(gh).size());
 
         return "viewsUsers/shop-details";
     }
 
-    private void checkUsersLogin(Model model){
-        KhachHang khachHang =(KhachHang)  session.getAttribute("UserLogged");
+    private void checkUsersLogin(Model model, KhachHang khachHang){
+        model.addAttribute("minMaxPrice", true);
+        model.addAttribute("remindProduct", true);
+        model.addAttribute("money", "$");
+        model.addAttribute("space", "-");
 
         if (khachHang != null){
             model.addAttribute("fullnameLogin", khachHang.getHoTen());
             model.addAttribute("ifFullnameLogin", true);
             model.addAttribute("messageLoginOrSignin", false);
+            GioHang gh = shoppingCartServices.findByUser(khachHang);
+            model.addAttribute("sumProductInCart", detailShoppingCartService.findByGioHangActive(gh).size());
+
         }else{
             model.addAttribute("ifFullnameLogin", false);
             model.addAttribute("messageLoginOrSignin", true);

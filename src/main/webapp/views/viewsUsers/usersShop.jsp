@@ -103,7 +103,7 @@
 
                     <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
                         <img src="/img/icon/cart.png" alt="">
-                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductCart}"></span>
+                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductInCart}</span>
                     </a>
                 </div>
             </div>
@@ -284,12 +284,11 @@
                                     <ul class="product__hover">
                                         <li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
                                         <li><a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                                        <li><a href="/viewsUsers/shop-details/${product.distinct}"><img src="/img/icon/search.png" alt=""></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
                                     <h6>${product.giay.ten}</h6>
-                                    <a href="#" class="add-cart">+ Add To Cart</a>
+                                    <a href="/viewsUsers/shop-details/${product.giay.id}" class="add-cart">+ Add To Cart</a>
                                     <h5>${product.minPrice}</h5>
                                     <h6 style="text-align: right">${product.remindProducts} sold</h6>
                                 </div>
