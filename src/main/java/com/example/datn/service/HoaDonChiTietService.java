@@ -14,6 +14,8 @@ public interface HoaDonChiTietService {
 
     void add(HoaDonChiTiet hoaDonChiTiet);
 
+    void delete(HoaDonChiTiet hoaDonChiTiet);
+
     //
     List<ChiTietGiay> listHoaDonCho(UUID idHoaDon);
 

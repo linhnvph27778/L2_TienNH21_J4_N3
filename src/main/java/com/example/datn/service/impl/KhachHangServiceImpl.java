@@ -63,6 +63,11 @@ public class KhachHangServiceImpl implements KhachHangService {
         khachHangRepository.save(kh);
     }
 
+    @Override
+    public List<KhachHang> findKhachHangByHoTenOrSDT(String keyword) {
+        return khachHangRepository.findKhachHangBySdtOrHoTen(keyword);
+    }
+
 
 //    @Override
 //    public Page<KhachHang> search(String keyword, String loaiKH, int pageNo, int size) {

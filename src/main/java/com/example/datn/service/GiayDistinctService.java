@@ -24,4 +24,10 @@ public interface GiayDistinctService {
     List<GiayDistinct> soSize(UUID idGiay);
 
     GiayDistinct findGiayDistinctByIdGiay(UUID uuid);
+
+    List<GiayDistinct> findGiayDistinctByMauSac(UUID idMauSac);
+
+    List<GiayDistinct> findGiayDistinctByBrand(UUID idBrand);
+
+    List<GiayDistinct> findGiayDistinctBySize(UUID idSize);
 }

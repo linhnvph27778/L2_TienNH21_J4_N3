@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 @Repository
 public interface KhachHangRepository extends JpaRepository<KhachHang , UUID> {
@@ -17,4 +18,6 @@ public interface KhachHangRepository extends JpaRepository<KhachHang , UUID> {
     KhachHang findByEmailAndPassAndTrangThai(String email, String pass, Integer trangThai);
 
     KhachHang findByEmail(String email);
+    @Query(value = "select * from khachhang where sdt like %?1%  or hoTen like  %?1%  ",nativeQuery = true)
+    List<KhachHang> findKhachHangBySdtOrHoTen(String keyword);
 }

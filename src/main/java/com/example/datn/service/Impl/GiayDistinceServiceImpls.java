@@ -52,4 +52,19 @@ public class GiayDistinceServiceImpls implements GiayDistinctService {
     public GiayDistinct findGiayDistinctByIdGiay(UUID uuid) {
         return giayDistinctRepository.findGiayDistinctByIdGiay(uuid);
     }
+
+    @Override
+    public List<GiayDistinct> findGiayDistinctByMauSac(UUID idMauSac) {
+        return giayDistinctRepository.listMauSac(idMauSac);
+    }
+
+    @Override
+    public List<GiayDistinct> findGiayDistinctByBrand(UUID idBrand) {
+        return giayDistinctRepository.listBrand(idBrand);
+    }
+
+    @Override
+    public List<GiayDistinct> findGiayDistinctBySize(UUID idSize) {
+        return giayDistinctRepository.listSize(idSize);
+    }
 }
