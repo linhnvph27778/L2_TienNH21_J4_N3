@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public interface DetailShoppingCartRepository extends JpaRepository<GioHangChiTiet, UUID> {
 
-    @Query("SELECT g FROM GioHangChiTiet g WHERE g.gioHang = ?1 AND g.trangThai = 1 ORDER BY g.thoiGianThem")
+    @Query("SELECT g FROM GioHangChiTiet g WHERE g.gioHang = ?1 AND g.trangThai = 1 ORDER BY g.thoiGianThem DESC")
     List<GioHangChiTiet> findGHCTOrderByTime(GioHang gioHang);
 
     GioHangChiTiet findByChiTietGiayAndTrangThai(ChiTietGiay ctg, int trangThai);
